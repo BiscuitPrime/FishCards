@@ -46,6 +46,11 @@ public class DeckController : MonoBehaviour
     public CardController[] DrawCards(int number)
     {
         CardController[] cards = new CardController[number];
+        if (_deckCards.Count < 1)
+        {
+            Debug.LogError("NO CARDS LEFT TO DRAW");
+            return null;
+        }
         for(int i = 0; i < number; i++)
         {
             cards[i] = _deckCards.Pop();

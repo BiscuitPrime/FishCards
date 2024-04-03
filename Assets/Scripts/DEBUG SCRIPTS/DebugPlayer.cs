@@ -11,6 +11,7 @@ public class DebugPlayer : MonoBehaviour
 
     [SerializeField] private bool CreateDeck;
     [SerializeField] private bool CreateHand;
+    [SerializeField] private bool AddCardToHand;
 
     [SerializeField] private List<CardController> _availableCards;
 
@@ -30,6 +31,11 @@ public class DebugPlayer : MonoBehaviour
         {
             _handController.DrawCards();
             CreateHand = false;
+        }
+        if(AddCardToHand)
+        {
+            _handController.AddNewCard();
+            AddCardToHand = false;
         }
     }
 }

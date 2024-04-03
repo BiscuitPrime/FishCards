@@ -1,3 +1,4 @@
+using Fish.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,12 @@ public class HandController : MonoBehaviour
     [Header("Deck")]
     [SerializeField] private DeckController _deck;
 
+    [Header("Hand Elements")]
+    [SerializeField] private Transform _startPoint;
+    [SerializeField] private Transform _endPoint;
+    [SerializeField] private Transform _p1;
+    [SerializeField] private Transform _p2;
+
     [Header("Cards elements")]
     [SerializeField] private int _handCardNumbers;
     //[SerializeField] private List<GameObject> _handCards; //cards within the hand : can be null
@@ -28,7 +35,7 @@ public class HandController : MonoBehaviour
     }
 
     /// <summary>
-    /// Will attempt to draw cards from the deck
+    /// Will attempt to draw cards from the deck and add them to the hand.
     /// </summary>
     public void DrawCards()
     {
@@ -43,6 +50,7 @@ public class HandController : MonoBehaviour
             newCard.GetComponent<CardPrefabController>().SpawnNewCard(drawnCards[i], this);
             _handCardsDict.Add(drawnCards[i], newCard);
         }
+        UpdateCardsPosition();
     }
 
     /// <summary>
@@ -59,6 +67,12 @@ public class HandController : MonoBehaviour
         RemoveCardFromHand(card);
     }
 
+    public void AddNewCard()
+    {
+        _handCardNumbers++;
+        DrawCards();
+    }
+
     /// <summary>
     /// Function that will remove a card from a hand
     /// </summary>
@@ -72,6 +86,24 @@ public class HandController : MonoBehaviour
                 _handCardsDict.Remove(cardController);
                 return;
             }
+        }
+    }
+
+    /// <summary>
+    /// Function that will update the position of the cards in the hand.
+    /// </summary>
+    private void UpdateCardsPosition()
+    {
+        CardController[] keys = new CardController[_handCardsDict.Count];
+        int i = 0;
+        foreach(var key in _handCardsDict.Keys)
+        {
+            keys[i] = key;
+            i++;
+        }
+        for(int j=0; j<_handCardsDict.Count; j++)
+        {
+            _handCardsDict[keys[j]].transform.position = BezierCurveHandler.GetPointOnBezierCurve(_startPoint.position, _p1.position, _p2.position, _endPoint.position,(1f/(float)(_handCardsDict.Count-1))*(float)j);
         }
     }
 }

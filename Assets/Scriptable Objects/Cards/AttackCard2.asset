@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34fa11bb45aadf4cb23a64b5f497dd3, type: 3}
   m_Name: AttackCard2
   m_EditorClassIdentifier: 
+  <CardName>k__BackingField: ATTACK 2
+  <CardSprite>k__BackingField: {fileID: 0}
+  <CardBGSprite>k__BackingField: {fileID: 0}
+  <CardDescription>k__BackingField: 

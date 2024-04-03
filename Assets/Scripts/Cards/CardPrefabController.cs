@@ -45,6 +45,7 @@ public class CardPrefabController : MonoBehaviour
     {
         _card = card;
         _hand = hand;
+        DisplayCardData();
     }
 
     /// <summary>
