@@ -94,6 +94,10 @@ public class HandController : MonoBehaviour
                     _handCardsDict.Remove(cardController);
                     PlayController.Instance.AddCardToPlay(removedCard);
                 }
+                if (_handCardsDict.Count == 0)
+                {
+                    PlayController.Instance.TriggerEndOfPlay();
+                }
                 UpdateCardsPosition();
                 return;
             }
@@ -113,9 +117,16 @@ public class HandController : MonoBehaviour
             keys[i] = key;
             i++;
         }
-        for(int j=0; j<_handCardsDict.Count; j++)
+        if(keys.Length ==1) 
         {
-            _handCardsDict[keys[j]].transform.position = BezierCurveHandler.GetPointOnBezierCurve(_startPoint.position, _p1.position, _p2.position, _endPoint.position,(1f/(float)(_handCardsDict.Count-1))*(float)j);
+            _handCardsDict[keys[0]].transform.position = BezierCurveHandler.GetPointOnBezierCurve(_startPoint.position, _p1.position, _p2.position, _endPoint.position, 0);
+        }
+        else
+        {
+            for (int j = 0; j < _handCardsDict.Count; j++)
+            {
+                _handCardsDict[keys[j]].transform.position = BezierCurveHandler.GetPointOnBezierCurve(_startPoint.position, _p1.position, _p2.position, _endPoint.position, (1f / (float)(_handCardsDict.Count - 1)) * (float)j);
+            }
         }
     }
 }
