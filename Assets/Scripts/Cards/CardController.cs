@@ -17,9 +17,10 @@ public abstract class CardController : ScriptableObject
 
     #region CARD LOGIC
     /// <summary>
-    /// Function called by other game elements that will trigger the effect of the card WHEN it is activated (not when played OR drawn)
+    /// Function called by other game elements that will trigger the effect of the card WHEN it is activated (not when played OR drawn).
+    /// Since the Card Controller is a script obj, we pass in parameter the associated prefab to apply on it the various visual effects.
     /// </summary>
-    public abstract void ActivateCardEffect();
+    public abstract void ActivateCardEffect(GameObject cardPrefab);
 
     #endregion
 }

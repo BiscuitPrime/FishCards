@@ -13,6 +13,7 @@ using UnityEngine.UI;
 public class CardPrefabController : MonoBehaviour
 {
     #region VARIABLES
+    public CardController Card;
 
     [Header("Card Prefab Elements")]
     [SerializeField] private Image _cardBG;
@@ -20,7 +21,6 @@ public class CardPrefabController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _cardName;
     [SerializeField] private TextMeshProUGUI _cardDescription;
 
-    private CardController _card;
     private HandController _hand;
     private Collider2D _cardPrefabCollider;
     #endregion
@@ -43,7 +43,7 @@ public class CardPrefabController : MonoBehaviour
     /// </summary>
     public void SpawnNewCard(CardController card, HandController hand)
     {
-        _card = card;
+        Card = card;
         _hand = hand;
         DisplayCardData();
     }
@@ -54,7 +54,7 @@ public class CardPrefabController : MonoBehaviour
     /// </summary>
     public void OnEnable()
     {
-        if(_card != null)
+        if(Card != null)
         {
             DisplayCardData();
         }
@@ -65,10 +65,10 @@ public class CardPrefabController : MonoBehaviour
     /// </summary>
     private void DisplayCardData()
     {
-        _cardName.text = _card.CardName != "" ? _card.CardName : _cardName.text;
-        _cardDescription.text = _card.CardDescription != "" ? _card.CardDescription : _cardDescription.text;
-        _cardImage.sprite = _card.CardSprite != null ? _card.CardSprite : _cardImage.sprite;
-        _cardBG.sprite = _card.CardName != null ? _card.CardBGSprite : _cardBG.sprite;
+        _cardName.text = Card.CardName != "" ? Card.CardName : _cardName.text;
+        _cardDescription.text = Card.CardDescription != "" ? Card.CardDescription : _cardDescription.text;
+        _cardImage.sprite = Card.CardSprite != null ? Card.CardSprite : _cardImage.sprite;
+        _cardBG.sprite = Card.CardName != null ? Card.CardBGSprite : _cardBG.sprite;
         _cardPrefabCollider.enabled = true;
     }
 
@@ -86,7 +86,8 @@ public class CardPrefabController : MonoBehaviour
     /// </summary>
     private void OnMouseDown()
     {
-        Debug.Log("Card "+_card.CardName +"has been selected : player wants to play it");
-        _hand.PlayCard(this._card);
+        Debug.Log("Card "+Card.CardName +" has been selected : player wants to play it");
+        _hand.PlayCard(this.Card);
+        DeactivateCardCollider();
     }
 }

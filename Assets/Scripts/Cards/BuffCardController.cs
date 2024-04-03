@@ -9,7 +9,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BuffCard", menuName = "Scriptable Objects/Cards/Buff Card")]
 public class BuffCardController : CardController
 {
-    public override void ActivateCardEffect()
+    public override void ActivateCardEffect(GameObject card)
     {
         throw new System.NotImplementedException();
     }

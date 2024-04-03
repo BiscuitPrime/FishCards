@@ -83,7 +83,18 @@ public class HandController : MonoBehaviour
         {
             if(cardController == card)
             {
-                _handCardsDict.Remove(cardController);
+                if(cardController is WildCardController) //wild cards are triggered IMMEDIATELY upon being selected, and do not enter the Play logic
+                {
+                    cardController.ActivateCardEffect(_handCardsDict[cardController]);
+                    _handCardsDict.Remove(cardController);
+                }
+                else
+                {
+                    GameObject removedCard = _handCardsDict[cardController];
+                    _handCardsDict.Remove(cardController);
+                    PlayController.Instance.AddCardToPlay(removedCard);
+                }
+                UpdateCardsPosition();
                 return;
             }
         }
@@ -91,6 +102,7 @@ public class HandController : MonoBehaviour
 
     /// <summary>
     /// Function that will update the position of the cards in the hand.
+    /// New cards are added at the right of previously added card, with an update of all the cards positions.
     /// </summary>
     private void UpdateCardsPosition()
     {

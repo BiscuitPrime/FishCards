@@ -12,6 +12,7 @@ public class DebugPlayer : MonoBehaviour
     [SerializeField] private bool CreateDeck;
     [SerializeField] private bool CreateHand;
     [SerializeField] private bool AddCardToHand;
+    [SerializeField] private bool TriggerEndOfPlay;
 
     [SerializeField] private List<CardController> _availableCards;
 
@@ -36,6 +37,11 @@ public class DebugPlayer : MonoBehaviour
         {
             _handController.AddNewCard();
             AddCardToHand = false;
+        }
+        if(TriggerEndOfPlay)
+        {
+            PlayController.Instance.TriggerEndOfPlay();
+            TriggerEndOfPlay = false;
         }
     }
 }

@@ -8,8 +8,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="AttackCard",menuName ="Scriptable Objects/Cards/Attack Card")]
 public class AttackCardController : CardController
 {
-    public override void ActivateCardEffect()
+    public override void ActivateCardEffect(GameObject card)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Activating effect of card "+CardName);
+        Destroy(card);
     }
 }

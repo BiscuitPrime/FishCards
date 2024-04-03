@@ -8,7 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "WildCard", menuName = "Scriptable Objects/Cards/Wild Card")]
 public class WildCardController : CardController
 {
-    public override void ActivateCardEffect()
+    public override void ActivateCardEffect(GameObject card)
     {
         throw new System.NotImplementedException();
     }
