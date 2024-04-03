@@ -10,17 +10,21 @@ using UnityEngine;
 [RequireComponent(typeof(DeckController))]
 public class HandController : MonoBehaviour
 {
+    #region VARIABLES
     [Header("Deck")]
     [SerializeField] private DeckController _deck;
 
     [Header("Cards elements")]
     [SerializeField] private int _handCardNumbers;
-    private List<CardController> _handCards; //cards within the hand : can be null
+    //[SerializeField] private List<GameObject> _handCards; //cards within the hand : can be null
+    private Dictionary<CardController, GameObject> _handCardsDict;
+    #endregion
 
     private void Awake()
     {
         _deck = GetComponent<DeckController>();
-        _handCards = new List<CardController>();
+        //_handCards = new List<GameObject>();
+        _handCardsDict = new Dictionary<CardController, GameObject>();
     }
 
     /// <summary>
@@ -28,12 +32,16 @@ public class HandController : MonoBehaviour
     /// </summary>
     public void DrawCards()
     {
-        int cardsToDraw = _handCardNumbers - _handCards.Count;
-        CardController[] drawnCards = _deck.DrawCards(_handCardNumbers);
+        int cardsToDraw = _handCardNumbers - _handCardsDict.Count;
+        CardController[] drawnCards = _deck.DrawCards(cardsToDraw);
+        //TODO : CHANGE THIS TO A POOL SYSTEM RATHER THAN AN INSTANTIATE
         for(int i=0; i < drawnCards.Length; i++)
         {
             Debug.Log("Adding card : " + drawnCards[i].name + " to hand");
-            _handCards.Add(drawnCards[i]);
+            GameObject cardPrefab = Resources.Load("Card") as GameObject;
+            GameObject newCard = Instantiate(cardPrefab);
+            newCard.GetComponent<CardPrefabController>().SpawnNewCard(drawnCards[i], this);
+            _handCardsDict.Add(drawnCards[i], newCard);
         }
     }
 
@@ -43,7 +51,7 @@ public class HandController : MonoBehaviour
     /// <param name="card"></param>
     public void PlayCard(CardController card)
     {
-        if (!_handCards.Contains(card))
+        if (!_handCardsDict.ContainsKey(card))
         {
             Debug.LogError("Card " + card.name + " not present in the hand");
             return;
@@ -51,13 +59,17 @@ public class HandController : MonoBehaviour
         RemoveCardFromHand(card);
     }
 
+    /// <summary>
+    /// Function that will remove a card from a hand
+    /// </summary>
+    /// <param name="card"></param>
     private void RemoveCardFromHand(CardController card)
     {
-        foreach(CardController cardController in _handCards)
+        foreach(CardController cardController in _handCardsDict.Keys)
         {
             if(cardController == card)
             {
-                _handCards.Remove(card);
+                _handCardsDict.Remove(cardController);
                 return;
             }
         }

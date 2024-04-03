@@ -13,14 +13,22 @@ using UnityEngine.UI;
 public class CardPrefabController : MonoBehaviour
 {
     #region VARIABLES
-    public CardController Card;
 
     [Header("Card Prefab Elements")]
     [SerializeField] private Image _cardBG;
     [SerializeField] private Image _cardImage;
     [SerializeField] private TextMeshProUGUI _cardName;
     [SerializeField] private TextMeshProUGUI _cardDescription;
+
+    private CardController _card;
+    private HandController _hand;
+    private Collider2D _cardPrefabCollider;
     #endregion
+
+    private void Awake()
+    {
+        _cardPrefabCollider = GetComponent<Collider2D>();
+    }
 
     private void OnValidate()
     {
@@ -30,11 +38,54 @@ public class CardPrefabController : MonoBehaviour
         Assert.IsNotNull(_cardImage);
     }
 
+    /// <summary>
+    /// Function called when the card is spawned in the game.
+    /// </summary>
+    public void SpawnNewCard(CardController card, HandController hand)
+    {
+        _card = card;
+        _hand = hand;
+    }
+
+    /// <summary>
+    /// When the prefab is activated, we display the correct data.
+    /// Since there will always be a limited number of cards in play, we should do a pool.
+    /// </summary>
     public void OnEnable()
     {
-        _cardName.text = Card.CardName!="" ? Card.CardName : _cardName.text;
-        _cardDescription.text = Card.CardDescription!="" ? Card.CardDescription : _cardDescription.text;
-        _cardImage.sprite = Card.CardSprite != null ? Card.CardSprite : _cardImage.sprite;
-        _cardBG.sprite = Card.CardName != null ? Card.CardBGSprite : _cardBG.sprite;
+        if(_card != null)
+        {
+            DisplayCardData();
+        }
+    }
+
+    /// <summary>
+    /// Function that will display card data
+    /// </summary>
+    private void DisplayCardData()
+    {
+        _cardName.text = _card.CardName != "" ? _card.CardName : _cardName.text;
+        _cardDescription.text = _card.CardDescription != "" ? _card.CardDescription : _cardDescription.text;
+        _cardImage.sprite = _card.CardSprite != null ? _card.CardSprite : _cardImage.sprite;
+        _cardBG.sprite = _card.CardName != null ? _card.CardBGSprite : _cardBG.sprite;
+        _cardPrefabCollider.enabled = true;
+    }
+
+    /// <summary>
+    /// Function called by external scripts that will deactivate the card's collider, usually after being played.
+    /// </summary>
+    public void DeactivateCardCollider()
+    {
+        _cardPrefabCollider.enabled = false;
+    }
+
+    /// <summary>
+    /// When the card is clicked, it will tell the HandController.
+    /// ONLY THE HANDCONTROLLER MOVES/DEACTIVATE THE CARD PREFAB. CARDPREFABCONTROLLER HAS NO SAY IN THIS.
+    /// </summary>
+    private void OnMouseDown()
+    {
+        Debug.Log("Card "+_card.CardName +"has been selected : player wants to play it");
+        _hand.PlayCard(this._card);
     }
 }
