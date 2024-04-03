@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.UI;
+
+/// <summary>
+/// This script will handle the PREFAB of the card. Indeed, we will not create all the different card prefabs (because that would make too many of them and subsequent modifications would be too much).
+/// As such, the only data the game will store will be the CardController Scriptable objects, while the prefabs will be handled by this script.
+/// In effect, this script will only act as a glorified container.
+/// </summary>
+public class CardPrefabController : MonoBehaviour
+{
+    #region VARIABLES
+    public CardController Card;
+
+    [Header("Card Prefab Elements")]
+    [SerializeField] private Image _cardBG;
+    [SerializeField] private Image _cardImage;
+    [SerializeField] private TextMeshProUGUI _cardName;
+    [SerializeField] private TextMeshProUGUI _cardDescription;
+    #endregion
+
+    private void OnValidate()
+    {
+        Assert.IsNotNull(_cardName);
+        Assert.IsNotNull(_cardDescription);
+        Assert.IsNotNull(_cardBG);
+        Assert.IsNotNull(_cardImage);
+    }
+
+    public void OnEnable()
+    {
+        _cardName.text = Card.CardName!="" ? Card.CardName : _cardName.text;
+        _cardDescription.text = Card.CardDescription!="" ? Card.CardDescription : _cardDescription.text;
+        _cardImage.sprite = Card.CardSprite != null ? Card.CardSprite : _cardImage.sprite;
+        _cardBG.sprite = Card.CardName != null ? Card.CardBGSprite : _cardBG.sprite;
+    }
+}
