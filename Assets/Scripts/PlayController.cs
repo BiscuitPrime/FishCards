@@ -1,3 +1,4 @@
+using Fish.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,8 +21,14 @@ public class PlayController : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private Queue<GameObject> _cardsInPlay;
+    [Header("Position Elements")]
+    [SerializeField] private Transform _startPoint;
+    [SerializeField] private Transform _endPoint;
+    [SerializeField] private Transform _p1;
+    [SerializeField] private Transform _p2;
 
+    private Queue<GameObject> _cardsInPlay;
+    
     private void Start()
     {
         _cardsInPlay = new Queue<GameObject>();
@@ -48,6 +55,30 @@ public class PlayController : MonoBehaviour
         if(card.gameObject.GetComponent<CardPrefabController>() != null) //wild cards are not added to the queue, since they were activated BEFORE entering the play. HandController, by this point, should NOT have given them to PlayController
         {
             _cardsInPlay.Enqueue(card);
+        }
+        UpdateCardsPosition();
+    }
+
+    /// <summary>
+    /// Function that will update the positions of the cards following a Bezier Curve.
+    /// </summary>
+    private void UpdateCardsPosition()
+    {
+        int i = 0;
+        if (_cardsInPlay.Count <= 1)
+        {
+            foreach (var card in _cardsInPlay)
+            {
+                card.transform.position = BezierCurveHandler.GetPointOnBezierCurve(_startPoint.position, _p1.position, _p2.position, _endPoint.position, 0);
+            }
+        }
+        else
+        {
+            foreach (var card in _cardsInPlay)
+            {
+                card.transform.position = BezierCurveHandler.GetPointOnBezierCurve(_startPoint.position, _p1.position, _p2.position, _endPoint.position, (1f / (float)(_cardsInPlay.Count - 1)) * (float)i);
+                i++;
+            }
         }
     }
 }

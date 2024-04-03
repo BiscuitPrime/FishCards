@@ -49,9 +49,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _deck: {fileID: 7826476078442071064}
   _startPoint: {fileID: 8485381044189850696}
-  _endPoint: {fileID: 8294988765570451928}
-  _p1: {fileID: 3425087655950008783}
-  _p2: {fileID: 483574539286352077}
+  _endPoint: {fileID: 483574539286352077}
+  _p1: {fileID: 8294988765570451928}
+  _p2: {fileID: 3425087655950008783}
   _handCardNumbers: 4
 --- !u!114 &7826476078442071064
 MonoBehaviour:
@@ -79,6 +79,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CreateDeck: 0
   CreateHand: 0
+  AddCardToHand: 0
+  TriggerEndOfPlay: 0
   _availableCards:
   - {fileID: 0}
   - {fileID: 0}
