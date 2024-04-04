@@ -29,6 +29,9 @@ public class PlayController : MonoBehaviour
 
     private Queue<GameObject> _cardsInPlay;
     private bool _playIsTriggered;
+
+    private GameObject _player;
+    private GameObject _opponent;
     
     private void Start()
     {
@@ -42,6 +45,23 @@ public class PlayController : MonoBehaviour
     {
         _playIsTriggered = false;
     }
+
+    #region PLAYER AND OPPONENT RELATED FUNCTIONS
+    /// <summary>
+    /// Function triggered by external scripts handling the encounter/turn system, that will assign the roles of the player (the one playing the cards) and the opponent (the other one)
+    /// </summary>
+    /// <param name="player">GameObject of the one playing the cards right now</param>
+    /// <param name="opponent">GameObject of their opponent</param>
+    public void AssignPlayerAndOpponent(GameObject player, GameObject opponent)
+    {
+        Debug.Log("New play parameters : player is now "+player.gameObject.name+ " and opponent is now "+opponent.gameObject.name);
+        _player = player;
+        _opponent = opponent;
+    }
+
+    public GameObject GetPlayer() { return _player; }
+    public GameObject GetOpponent() { return _opponent; }
+    #endregion
 
     /// <summary>
     /// Function that will trigger the end of play, triggering all the cards' active effect in ORDER THEY WERE PUT DOWN IN THE PLAY
