@@ -29,6 +29,8 @@ public class PlayController : MonoBehaviour
 
     private Queue<GameObject> _cardsInPlay;
     private bool _playIsTriggered;
+    private HandController _activeHandController; //hand controller that is currently playing
+    private DeckController _activeDeckController;
 
     private GameObject _player;
     private GameObject _opponent;
@@ -74,6 +76,7 @@ public class PlayController : MonoBehaviour
         {
             GameObject curCard = _cardsInPlay.Dequeue();
             curCard.GetComponent<CardPrefabController>().Card.ActivateCardEffect(curCard);
+            _activeDeckController.AddCardToBottomOfDeck(curCard.GetComponent<CardPrefabController>().Card);
         }
     }
 
@@ -81,8 +84,10 @@ public class PlayController : MonoBehaviour
     /// Function that will add a card to the play. Wild cards will not be added, as they should be activated by that point.
     /// </summary>
     /// <param name="card">Card to add to the play</param>
-    public void AddCardToPlay(GameObject card)
+    public void AddCardToPlay(GameObject card, HandController handController)
     {
+        _activeHandController = handController;
+        _activeDeckController = _activeHandController.GetDeckController();
         if(card.gameObject.GetComponent<CardPrefabController>() != null) //wild cards are not added to the queue, since they were activated BEFORE entering the play. HandController, by this point, should NOT have given them to PlayController
         {
             _cardsInPlay.Enqueue(card);

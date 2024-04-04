@@ -28,6 +28,33 @@ public class DeckController : MonoBehaviour
         {
             _deckCards.Push(card);
         }
+        PrintCurrentDeck();
+    }
+
+    /// <summary>
+    /// Adds a new card to the TOP of the deck (will be taken out first).
+    /// </summary>
+    /// <param name="card">Inputted new card</param>
+    public void AddCardToDeck(CardController card)
+    {
+        _deckCards.Push(card);
+    }
+
+    /// <summary>
+    /// Adds a new card to the BOTTOM of the deck (will be taken last)
+    /// </summary>
+    /// <param name="card">Inputted new card</param>
+    public void AddCardToBottomOfDeck(CardController card)
+    {
+        List<CardController> newDeck =  new List<CardController>();
+        newDeck.Add(card);
+        CardController[] tmp = _deckCards.ToArray();
+        for(int i=1;i<tmp.Length+1; i++)
+        {
+            newDeck.Add(tmp[tmp.Length - i]);
+        }
+        _deckCards.Clear();
+        ConstructDeck(newDeck);
     }
 
     /// <summary>
@@ -48,7 +75,7 @@ public class DeckController : MonoBehaviour
         CardController[] cards = new CardController[number];
         if (_deckCards.Count < 1)
         {
-            Debug.LogError("NO CARDS LEFT TO DRAW");
+            Debug.LogError("[DECK CONTROLLER] :NO CARDS LEFT TO DRAW");
             return null;
         }
         for(int i = 0; i < number; i++)
@@ -58,11 +85,15 @@ public class DeckController : MonoBehaviour
         return cards;
     }
 
+    /// <summary>
+    /// Prints the content of the deck, in order
+    /// </summary>
     public void PrintCurrentDeck()
     {
         foreach(var card in _deckCards)
         {
-            Debug.Log("[DeckController] : Card in deck : " + card.CardName);
+            Debug.Log("[DECK CONTROLLER] : Card in deck : " + card.CardName);
         }
+        Debug.Log("[DECK CONTROLLER] : Card on top of the deck : " + _deckCards.Peek().CardName);
     }
 }

@@ -34,6 +34,11 @@ public class HandController : MonoBehaviour
         _handCardsDict = new Dictionary<CardController, GameObject>();
     }
 
+    public DeckController GetDeckController()
+    {
+        return _deck;
+    }
+
     #region ADDING NEW CARDS FUNCTIONS
     /// <summary>
     /// Will attempt to draw cards from the deck and add them to the hand.
@@ -125,7 +130,7 @@ public class HandController : MonoBehaviour
                 {
                     GameObject removedCard = _handCardsDict[cardController];
                     _handCardsDict.Remove(cardController);
-                    PlayController.Instance.AddCardToPlay(removedCard);
+                    PlayController.Instance.AddCardToPlay(removedCard, this);
                 }
                 if (_handCardsDict.Count == 0)
                 {
