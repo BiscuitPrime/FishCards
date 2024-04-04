@@ -78,6 +78,10 @@ public class ActorValuesController : MonoBehaviour
             {
                 AttackLandingCalculations(atk, pier);
             }
+            else
+            {
+                Debug.Log("[ActorValuesController] : Attack failed to land");
+            }
         }
         else if (track>=((_agi/2)>=1? (_agi / 2) : 1)) //20% to land
         {
@@ -85,9 +89,14 @@ public class ActorValuesController : MonoBehaviour
             {
                 AttackLandingCalculations(atk, pier);
             }
+            else
+            {
+                Debug.Log("[ActorValuesController] : Attack failed to land");
+            }
         }
         else
         {
+            Debug.Log("[ActorValuesController] : Attack failed to land");
             return;
         }
     }
@@ -101,6 +110,7 @@ public class ActorValuesController : MonoBehaviour
     /// <param name="pier">PIER value of the attack card</param>
     protected void AttackLandingCalculations(int atk, int pier)
     {
+        Debug.Log("[ActorValuesController] : Attack landed - calculating with defenses");
         if (pier >= _def)
         {
             _hp = _hp - atk;

@@ -16,3 +16,6 @@ MonoBehaviour:
   <CardSprite>k__BackingField: {fileID: 0}
   <CardBGSprite>k__BackingField: {fileID: 0}
   <CardDescription>k__BackingField: 
+  <ATK>k__BackingField: 2
+  <PIER>k__BackingField: 50
+  <TRACK>k__BackingField: 10

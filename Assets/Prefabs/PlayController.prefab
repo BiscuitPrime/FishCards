@@ -634,8 +634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa8ee8c493d9d04b8ce8e6ce363a03f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxNumPoints: 0
-  _startPoint: {fileID: 0}
-  _endPoint: {fileID: 0}
-  p1: {fileID: 0}
-  p2: {fileID: 0}
+  _maxNumPoints: 100
+  _startPoint: {fileID: 7092296984587268067}
+  _endPoint: {fileID: 3144768045748007505}
+  p1: {fileID: 8475594563280231867}
+  p2: {fileID: 2424084314318028766}
