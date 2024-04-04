@@ -11,7 +11,9 @@ public class DebugPlayer : MonoBehaviour
 
     [SerializeField] private bool CreateDeck;
     [SerializeField] private bool CreateHand;
-    [SerializeField] private bool AddCardToHand;
+    [SerializeField] private bool FillHandWithCards;
+    [SerializeField] private int NumOfCards;
+    [SerializeField] private bool AddNumberOfCardsToHand;
     [SerializeField] private bool PrintDeck;
 
     [SerializeField] private List<CardController> _availableCards;
@@ -33,15 +35,20 @@ public class DebugPlayer : MonoBehaviour
             _handController.DrawCards();
             CreateHand = false;
         }
-        if(AddCardToHand)
+        if(FillHandWithCards)
         {
-            _handController.AddNewCard();
-            AddCardToHand = false;
+            _handController.AddNewCards();
+            FillHandWithCards = false;
         }
         if(PrintDeck)
         {
             PrintDeck = false;
             _deckController.PrintCurrentDeck();
+        }
+        if(AddNumberOfCardsToHand) 
+        { 
+            AddNumberOfCardsToHand = false;
+            _handController.AddNewCards(NumOfCards);
         }
     }
 }

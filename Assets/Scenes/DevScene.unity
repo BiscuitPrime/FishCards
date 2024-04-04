@@ -332,6 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SetUpPlay: 0
+  TriggerEndOfPlay: 0
 --- !u!1001 &927774902104889495
 PrefabInstance:
   m_ObjectHideFlags: 0

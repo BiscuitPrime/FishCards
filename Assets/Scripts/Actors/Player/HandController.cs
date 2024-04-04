@@ -22,7 +22,7 @@ public class HandController : MonoBehaviour
     [SerializeField] private Transform _p2;
 
     [Header("Cards elements")]
-    [SerializeField] private int _handCardNumbers;
+    [SerializeField] private int _baseNumberOfCardsInHand;
     //[SerializeField] private List<GameObject> _handCards; //cards within the hand : can be null
     private Dictionary<CardController, GameObject> _handCardsDict;
     #endregion
@@ -34,13 +34,14 @@ public class HandController : MonoBehaviour
         _handCardsDict = new Dictionary<CardController, GameObject>();
     }
 
+    #region ADDING NEW CARDS FUNCTIONS
     /// <summary>
     /// Will attempt to draw cards from the deck and add them to the hand.
     /// </summary>
     public void DrawCards()
     {
-        int cardsToDraw = _handCardNumbers - _handCardsDict.Count;
-        Debug.Log("[HandController] : Attempting to draw " + cardsToDraw + " cards due to HandCardNumbers : "+_handCardNumbers+" and Dict size : "+_handCardsDict.Count);
+        int cardsToDraw = _baseNumberOfCardsInHand - _handCardsDict.Count;
+        Debug.Log("[HandController] : Attempting to draw " + cardsToDraw + " cards due to HandCardNumbers : "+_baseNumberOfCardsInHand+" and Dict size : "+_handCardsDict.Count);
         CardController[] drawnCards = _deck.DrawCards(cardsToDraw);
         //TODO : CHANGE THIS TO A POOL SYSTEM RATHER THAN AN INSTANTIATE
         for(int i=0; i < drawnCards.Length; i++)
@@ -55,6 +56,43 @@ public class HandController : MonoBehaviour
     }
 
     /// <summary>
+    /// Will attempt to draw cards from the deck and add them to the hand.
+    /// </summary>
+    public void DrawCards(int numberOfCards)
+    {
+        Debug.Log("[HandController] : Attempting to draw " + numberOfCards + " cards due to function requirements");
+        CardController[] drawnCards = _deck.DrawCards(numberOfCards);
+        //TODO : CHANGE THIS TO A POOL SYSTEM RATHER THAN AN INSTANTIATE
+        for (int i = 0; i < drawnCards.Length; i++)
+        {
+            Debug.Log("Adding card : " + drawnCards[i].name + " to hand");
+            GameObject cardPrefab = Resources.Load("Card") as GameObject;
+            GameObject newCard = Instantiate(cardPrefab);
+            newCard.GetComponent<CardPrefabController>().SpawnNewCard(drawnCards[i], this);
+            _handCardsDict.Add(drawnCards[i], newCard);
+        }
+        UpdateCardsPosition();
+    }
+
+    /// <summary>
+    /// Function that will add a new card to the hand, regardless if the player drew cards or not.
+    /// </summary>
+    public void AddNewCards()
+    {
+        DrawCards();
+    }
+
+    /// <summary>
+    /// Function that will add new cards to the hand, with inputted number of cards.
+    /// </summary>
+    /// <param name="numberOfCards">Number of cards to add to the hand.</param>
+    public void AddNewCards(int numberOfCards)
+    {
+        DrawCards(numberOfCards);
+    }
+    #endregion
+
+    /// <summary>
     /// Function that will play the inputted card from within the hand. Will throw an error if the card is not within the hand.
     /// </summary>
     /// <param name="card"></param>
@@ -66,11 +104,6 @@ public class HandController : MonoBehaviour
             return;
         }
         RemoveCardFromHand(card);
-    }
-
-    public void AddNewCard()
-    {
-        DrawCards();
     }
 
     /// <summary>
