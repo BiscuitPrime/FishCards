@@ -6,6 +6,7 @@ using UnityEngine;
 public class DebugPlayController : MonoBehaviour
 {
     [SerializeField] public bool SetUpPlay;
+    [SerializeField] private bool TriggerEndOfPlay;
 
     private void Update()
     {
@@ -14,6 +15,11 @@ public class DebugPlayController : MonoBehaviour
             PlayController.Instance.ResetPlay();
             PlayController.Instance.AssignPlayerAndOpponent(GameObject.FindGameObjectWithTag("Player"),GameObject.FindGameObjectWithTag("Opponent"));
             SetUpPlay = false;
+        }
+        if (TriggerEndOfPlay)
+        {
+            PlayController.Instance.TriggerEndOfPlay();
+            TriggerEndOfPlay = false;
         }
     }
 }

@@ -57,4 +57,12 @@ public class DeckController : MonoBehaviour
         }
         return cards;
     }
+
+    public void PrintCurrentDeck()
+    {
+        foreach(var card in _deckCards)
+        {
+            Debug.Log("[DeckController] : Card in deck : " + card.CardName);
+        }
+    }
 }

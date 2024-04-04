@@ -40,6 +40,7 @@ public class HandController : MonoBehaviour
     public void DrawCards()
     {
         int cardsToDraw = _handCardNumbers - _handCardsDict.Count;
+        Debug.Log("[HandController] : Attempting to draw " + cardsToDraw + " cards due to HandCardNumbers : "+_handCardNumbers+" and Dict size : "+_handCardsDict.Count);
         CardController[] drawnCards = _deck.DrawCards(cardsToDraw);
         //TODO : CHANGE THIS TO A POOL SYSTEM RATHER THAN AN INSTANTIATE
         for(int i=0; i < drawnCards.Length; i++)
@@ -69,7 +70,6 @@ public class HandController : MonoBehaviour
 
     public void AddNewCard()
     {
-        _handCardNumbers++;
         DrawCards();
     }
 
