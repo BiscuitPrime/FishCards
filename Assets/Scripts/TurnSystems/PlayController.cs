@@ -68,15 +68,20 @@ public class PlayController : MonoBehaviour
     /// <summary>
     /// Function that will trigger the end of play, triggering all the cards' active effect in ORDER THEY WERE PUT DOWN IN THE PLAY
     /// </summary>
-    public void TriggerEndOfPlay()
+    public IEnumerator TriggerEndOfPlay()
     {
-        if( _playIsTriggered ) return; //if the play has already been triggered, we avoid triggering it again immediately - this is necessary to avoid issues when a wild card that triggers the end of play is ALSO the last card played (that would lead to two calls to this function)
-        _playIsTriggered=true;
-        while(_cardsInPlay.Count > 0)
+        if (_playIsTriggered) { yield return null; } //if the play has already been triggered, we avoid triggering it again immediately - this is necessary to avoid issues when a wild card that triggers the end of play is ALSO the last card played (that would lead to two calls to this function)
+        else
         {
-            GameObject curCard = _cardsInPlay.Dequeue();
-            curCard.GetComponent<CardPrefabController>().Card.ActivateCardEffect(curCard);
-            _activeDeckController.AddCardToBottomOfDeck(curCard.GetComponent<CardPrefabController>().Card);
+            _playIsTriggered=true;
+            while(_cardsInPlay.Count > 0)
+            {
+                GameObject curCard = _cardsInPlay.Dequeue();
+                curCard.GetComponent<CardPrefabController>().Card.ActivateCardEffect(curCard);
+                _activeDeckController.AddCardToBottomOfDeck(curCard.GetComponent<CardPrefabController>().Card);
+                yield return new WaitForSeconds(1f);
+            }
+            TurnEventsHandler.Instance.PlayEvent.Invoke(new PlayEventArg() { Holder = _player.transform.tag == "Player" ? PLAY_HOLDER_TYPE.PLAYER : PLAY_HOLDER_TYPE.OPPONENT, State = PLAY_EVENT_STATE.PLAY_END });
         }
     }
 

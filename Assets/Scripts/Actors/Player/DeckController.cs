@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
@@ -11,11 +13,37 @@ using UnityEngine;
 /// </summary>
 public class DeckController : MonoBehaviour
 {
-    private Stack<CardController> _deckCards; //the cards within the deck   
+    private Stack<CardController> _deckCards; //the cards within the deck
+    private static System.Random rng = new System.Random();
 
     private void Awake()
     {
         _deckCards = new Stack<CardController>();
+    }
+
+    private void Start()
+    {
+        TurnEventsHandler.Instance.EncounterEvent.AddListener(OnEncounterEvent);
+    }
+
+    private void OnDestroy()
+    {
+        TurnEventsHandler.Instance.EncounterEvent.RemoveListener(OnEncounterEvent);
+    }
+
+    /// <summary>
+    /// Function called when the encounter event is received.
+    /// In case of encounter START, we shuffle the deck. 
+    /// We assume, by that point, that the deck has been constructed.
+    /// </summary>
+    /// <param name="arg"></param>
+    /// <exception cref="NotImplementedException"></exception>
+    private void OnEncounterEvent(EncounterEventArg arg)
+    {
+        if(arg.State==ENCOUNTER_EVENT_STATE.ENCOUNTER_START)
+        {
+            ShuffleDeck();
+        }
     }
 
     /// <summary>
@@ -31,6 +59,7 @@ public class DeckController : MonoBehaviour
         PrintCurrentDeck();
     }
 
+    #region HANDLING CARDS
     /// <summary>
     /// Adds a new card to the TOP of the deck (will be taken out first).
     /// </summary>
@@ -58,14 +87,6 @@ public class DeckController : MonoBehaviour
     }
 
     /// <summary>
-    /// Will randomize the cards order
-    /// </summary>
-    public void ShuffleDeck()
-    {
-
-    }
-
-    /// <summary>
     /// Function that will draw out the required number of cards, in order, with 0 being the first one drawn, and number-1 the last
     /// </summary>
     /// <param name="number">Number of cards drawn</param>
@@ -84,6 +105,27 @@ public class DeckController : MonoBehaviour
         }
         return cards;
     }
+    #endregion
+
+    /// <summary>
+    /// Will randomize the cards order.
+    /// </summary>
+    public void ShuffleDeck()
+    {
+        Debug.Log("[DECK CONTROLLER] : Shuffling cards of the deck");
+        List<CardController> tmp = new List<CardController>();
+        foreach(var card in _deckCards)
+        {
+            tmp.Add(card);
+        }
+        _deckCards.Clear();
+        List<CardController> shuffledcards = tmp.OrderBy(_ => rng.Next()).ToList();
+        foreach(var card in shuffledcards)
+        {
+            _deckCards.Push(card);
+        }
+}
+
 
     /// <summary>
     /// Prints the content of the deck, in order

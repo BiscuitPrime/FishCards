@@ -93,6 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5933469941231521741}
+  - component: {fileID: 4482874986952094891}
   - component: {fileID: 1024079703033139403}
   m_Layer: 0
   m_Name: Opponent
@@ -117,6 +118,18 @@ Transform:
   - {fileID: 4459432700669162773}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4482874986952094891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4821394495632015413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4081b522fea4b147b25448401fac129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1024079703033139403
 MonoBehaviour:
   m_ObjectHideFlags: 0

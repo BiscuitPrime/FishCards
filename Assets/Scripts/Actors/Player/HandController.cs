@@ -1,4 +1,5 @@
 using Fish.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,9 +35,39 @@ public class HandController : MonoBehaviour
         _handCardsDict = new Dictionary<CardController, GameObject>();
     }
 
+    private void Start()
+    {
+        TurnEventsHandler.Instance.EncounterEvent.AddListener(OnEncounterEvent);
+    }
+
+    private void OnDestroy()
+    {
+        TurnEventsHandler.Instance.EncounterEvent.RemoveListener(OnEncounterEvent);
+    }
+
     public DeckController GetDeckController()
     {
         return _deck;
+    }
+
+    /// <summary>
+    /// Function called when the encounter event is called. 
+    /// When this event signals the end of an encounter, the hand will give back all their currently held cards to the deck.
+    /// </summary>
+    /// <param name="arg">Event args</param>
+    /// <exception cref="NotImplementedException"></exception>
+    private void OnEncounterEvent(EncounterEventArg arg)
+    {
+        if (arg.State == ENCOUNTER_EVENT_STATE.ENCOUNTER_END)
+        {
+            foreach(var card in _handCardsDict.Keys)
+            {
+                _deck.AddCardToBottomOfDeck(card);
+                GameObject removedCard = _handCardsDict[card];
+                _handCardsDict.Remove(card);
+                Destroy(removedCard);
+            }
+        }
     }
 
     #region ADDING NEW CARDS FUNCTIONS
@@ -134,7 +165,7 @@ public class HandController : MonoBehaviour
                 }
                 if (_handCardsDict.Count == 0)
                 {
-                    PlayController.Instance.TriggerEndOfPlay();
+                    StartCoroutine(PlayController.Instance.TriggerEndOfPlay());
                 }
                 UpdateCardsPosition();
                 return;

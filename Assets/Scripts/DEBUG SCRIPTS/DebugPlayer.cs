@@ -10,6 +10,7 @@ public class DebugPlayer : MonoBehaviour
     private DeckController _deckController;
 
     [SerializeField] private bool CreateDeck;
+    [SerializeField] private bool ShuffleDeck;
     [SerializeField] private bool CreateHand;
     [SerializeField] private bool FillHandWithCards;
     [SerializeField] private int NumOfCards;
@@ -29,6 +30,11 @@ public class DebugPlayer : MonoBehaviour
         {
             _deckController.ConstructDeck(_availableCards);
             CreateDeck = false;
+        }
+        if(ShuffleDeck)
+        {
+            ShuffleDeck = false;
+            _deckController.ShuffleDeck();
         }
         if(CreateHand)
         {
