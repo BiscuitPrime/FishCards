@@ -44,20 +44,13 @@ public class GameManager : MonoBehaviour
         Assert.IsNotNull(_opponentController);
 
         TurnEventsHandler.Instance.PlayEvent.AddListener(OnPlayEventReceived);
+        TurnEventsHandler.Instance.TurnEvent.AddListener(OnTurnEventReceived);
     }
 
     private void OnDestroy()
     {
-        TurnEventsHandler.Instance.PlayEvent.RemoveListener(OnPlayEventReceived);
-    }
-
-    public void OnPlayEventReceived(PlayEventArg arg)
-    {
-        Debug.Log("[GAME MANAGER] : Play Event received with values : Holder : "+arg.Holder.ToString()+" and State : "+arg.State.ToString());
-        if(arg.State==PLAY_EVENT_STATE.PLAY_END)
-        {
-
-        }
+        TurnEventsHandler.Instance.PlayEvent?.RemoveListener(OnPlayEventReceived);
+        TurnEventsHandler.Instance.TurnEvent?.RemoveListener(OnTurnEventReceived);
     }
 
     /// <summary>
@@ -66,16 +59,49 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        TriggerStartTurn();
+        TriggerStartEncounter();
     }
 
 
     /// <summary>
-    /// Called when the event 
+    /// Called when the event TurnEvent is received.
+    /// END : should have been sent EITHER by this script OR by the death of an actor.
     /// </summary>
-    public void OnTurnEndConditionReceived()
+    public void OnTurnEventReceived(TURN_EVENT_STATE state)
     {
+        if(state == TURN_EVENT_STATE.TURN_END)
+        {
+            Debug.Log("[GAME MANAGER] : TURN HAS ENDED");
+            _curActivePlayer = null;
+            //trigger the display of the pick a card => it will be this component, upon its resolution, that triggers the new turn to start.
+        }
+        else //if the turn is starting, we trigger its start
+        {
+            Debug.Log("[GAME MANAGER] : TURN BEGINS");
+            TriggerStartTurn();
+        }
+    }
 
+    /// <summary>
+    /// Function triggered upon receiving the Play event.
+    /// END : will trigger the end of the turn IF it was the opponent's play
+    /// </summary>
+    /// <param name="arg"></param>
+    public void OnPlayEventReceived(PlayEventArg arg)
+    {
+        Debug.Log("[GAME MANAGER] : Play Event received with values : Holder : "+arg.Holder.ToString()+" and State : "+arg.State.ToString());
+        if(arg.State==PLAY_EVENT_STATE.PLAY_END)
+        {
+            if(arg.Holder==PLAY_HOLDER_TYPE.OPPONENT && _curActivePlayer==_opponentController) //if the play that ended was the opponent's, then the turn is over. We also test if the opponent is the last active, as IF there as been a death, the event has already been received and updated the curactive
+            {
+                TurnEventsHandler.Instance.TurnEvent.Invoke(TURN_EVENT_STATE.TURN_END);
+            }
+            else
+            {
+                _curActivePlayer = _opponentController;
+                TriggerStartPlay();
+            }
+        }
     }
 
     /// <summary>
@@ -85,7 +111,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void TriggerStartEncounter()
     {
-
+        TurnEventsHandler.Instance.TurnEvent.Invoke(TURN_EVENT_STATE.TURN_START);
     }
 
     /// <summary>
@@ -93,17 +119,17 @@ public class GameManager : MonoBehaviour
     /// Each turn is composed of two plays : the player's play, then the opponent's play.
     /// If during said plays there is no trigger to end the turn, then we begin a new turn (this function)
     /// </summary>
-    private void TriggerStartTurn()
+    public void TriggerStartTurn()
     {
         _curActivePlayer = _playerController;
-        Debug.Log("[GAME MANAGER] : Starting turn.");
-        //_curActivePlayer.gameObject.GetComponent<DeckController>().ConstructDeck();
+        TriggerStartPlay();
     }
 
 
     private void TriggerStartPlay()
     {
-
+        PlayController.Instance.ResetPlay();
+        PlayController.Instance.AssignPlayerAndOpponent(_curActivePlayer.gameObject,_curActivePlayer==_opponentController?_playerController.gameObject:_opponentController.gameObject);
     }
 
     /// <summary>

@@ -37,12 +37,14 @@ public class HandController : MonoBehaviour
 
     private void Start()
     {
-        TurnEventsHandler.Instance.EncounterEvent.AddListener(OnEncounterEvent);
+        TurnEventsHandler.Instance.EncounterEvent.AddListener(OnEncounterEventReceived);
+        TurnEventsHandler.Instance.TurnEvent.AddListener(OnTurnEventReceived);
     }
 
     private void OnDestroy()
     {
-        TurnEventsHandler.Instance.EncounterEvent.RemoveListener(OnEncounterEvent);
+        TurnEventsHandler.Instance.EncounterEvent?.RemoveListener(OnEncounterEventReceived);
+        TurnEventsHandler.Instance.TurnEvent?.RemoveListener(OnTurnEventReceived);
     }
 
     public DeckController GetDeckController()
@@ -51,15 +53,16 @@ public class HandController : MonoBehaviour
     }
 
     /// <summary>
-    /// Function called when the encounter event is called. 
-    /// When this event signals the end of an encounter, the hand will give back all their currently held cards to the deck.
+    /// Function called when the encounter event is received. 
+    /// When this event signals the END of an encounter, the hand will give back all their currently held cards to the deck.
     /// </summary>
     /// <param name="arg">Event args</param>
     /// <exception cref="NotImplementedException"></exception>
-    private void OnEncounterEvent(EncounterEventArg arg)
+    private void OnEncounterEventReceived(EncounterEventArg arg)
     {
         if (arg.State == ENCOUNTER_EVENT_STATE.ENCOUNTER_END)
         {
+            Debug.Log("[HAND CONTROLLER] : Encounter End Event received : pushing all the hand to the deck.");
             foreach(var card in _handCardsDict.Keys)
             {
                 _deck.AddCardToBottomOfDeck(card);
@@ -67,6 +70,19 @@ public class HandController : MonoBehaviour
                 _handCardsDict.Remove(card);
                 Destroy(removedCard);
             }
+        }
+    }
+
+    /// <summary>
+    /// Function called when the turn event is received.
+    /// TURN START : we draw cards. 
+    /// </summary>
+    /// <param name="arg0"></param>
+    private void OnTurnEventReceived(TURN_EVENT_STATE arg0)
+    {
+        if (arg0 == TURN_EVENT_STATE.TURN_START)
+        {
+            DrawCards();
         }
     }
 
@@ -94,6 +110,7 @@ public class HandController : MonoBehaviour
     /// <summary>
     /// Will attempt to draw cards from the deck and add them to the hand.
     /// </summary>
+    /// <param name="numberOfCards">Number of cards to add to the hand.</param>
     public void DrawCards(int numberOfCards)
     {
         Debug.Log("[HandController] : Attempting to draw " + numberOfCards + " cards due to function requirements");
@@ -108,23 +125,6 @@ public class HandController : MonoBehaviour
             _handCardsDict.Add(drawnCards[i], newCard);
         }
         UpdateCardsPosition();
-    }
-
-    /// <summary>
-    /// Function that will add a new card to the hand, regardless if the player drew cards or not.
-    /// </summary>
-    public void AddNewCards()
-    {
-        DrawCards();
-    }
-
-    /// <summary>
-    /// Function that will add new cards to the hand, with inputted number of cards.
-    /// </summary>
-    /// <param name="numberOfCards">Number of cards to add to the hand.</param>
-    public void AddNewCards(int numberOfCards)
-    {
-        DrawCards(numberOfCards);
     }
     #endregion
 

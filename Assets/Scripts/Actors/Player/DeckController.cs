@@ -28,7 +28,7 @@ public class DeckController : MonoBehaviour
 
     private void OnDestroy()
     {
-        TurnEventsHandler.Instance.EncounterEvent.RemoveListener(OnEncounterEvent);
+        TurnEventsHandler.Instance.EncounterEvent?.RemoveListener(OnEncounterEvent);
     }
 
     /// <summary>

@@ -29,6 +29,29 @@ public class ActorValuesController : MonoBehaviour
         _agi = _valuesInitData.AGI;
     }
 
+    private void Start()
+    {
+        TurnEventsHandler.Instance.EncounterEvent.AddListener(OnEncounterEventReceived);
+    }
+    private void OnDestroy()
+    {
+        TurnEventsHandler.Instance.EncounterEvent?.RemoveListener(OnEncounterEventReceived);
+    }
+
+    /// <summary>
+    /// Function called when the event Encounter has been received.
+    /// START : At the start of the encounter, the player regens their entire def.
+    /// </summary>
+    /// <param name="arg0">Arg of the event</param>
+    private void OnEncounterEventReceived(EncounterEventArg arg0)
+    {
+        if(arg0.State==ENCOUNTER_EVENT_STATE.ENCOUNTER_START)
+        {
+            _def = _valuesInitData.DEF;
+        }
+    }
+
+
     #region VALUES INCREASE/DECREASE FUNCTIONS
     public void RegenDefenseValue()
     {

@@ -43,7 +43,7 @@ public class DebugPlayer : MonoBehaviour
         }
         if(FillHandWithCards)
         {
-            _handController.AddNewCards();
+            _handController.DrawCards();
             FillHandWithCards = false;
         }
         if(PrintDeck)
@@ -54,7 +54,7 @@ public class DebugPlayer : MonoBehaviour
         if(AddNumberOfCardsToHand) 
         { 
             AddNumberOfCardsToHand = false;
-            _handController.AddNewCards(NumOfCards);
+            _handController.DrawCards(NumOfCards);
         }
     }
 }
