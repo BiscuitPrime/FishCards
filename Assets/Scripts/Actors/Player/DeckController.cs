@@ -132,6 +132,7 @@ public class DeckController : MonoBehaviour
     /// </summary>
     public void PrintCurrentDeck()
     {
+        Debug.Log("[DECK CONTROLLER] : PRINTING DECK --------------------------------------------------");
         foreach(var card in _deckCards)
         {
             Debug.Log("[DECK CONTROLLER] : Card in deck : " + card.CardName);

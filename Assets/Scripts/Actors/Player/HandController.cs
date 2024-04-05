@@ -67,9 +67,9 @@ public class HandController : MonoBehaviour
             {
                 _deck.AddCardToBottomOfDeck(card);
                 GameObject removedCard = _handCardsDict[card];
-                _handCardsDict.Remove(card);
                 Destroy(removedCard);
             }
+            _handCardsDict.Clear();
         }
     }
 
@@ -98,7 +98,7 @@ public class HandController : MonoBehaviour
         //TODO : CHANGE THIS TO A POOL SYSTEM RATHER THAN AN INSTANTIATE
         for(int i=0; i < drawnCards.Length; i++)
         {
-            Debug.Log("Adding card : " + drawnCards[i].name + " to hand");
+            Debug.Log("[HandController] : Adding card : " + drawnCards[i].name + " to hand");
             GameObject cardPrefab = Resources.Load("Card") as GameObject;
             GameObject newCard = Instantiate(cardPrefab);
             newCard.GetComponent<CardPrefabController>().SpawnNewCard(drawnCards[i], this);

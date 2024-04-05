@@ -6,6 +6,7 @@ public class DebugGameManager : MonoBehaviour
 {
     [SerializeField] private bool StartGame;
     [SerializeField] private bool TriggerNewTurn;
+    [SerializeField] private bool TriggerEndEncounter;
 
     private void Update()
     {
@@ -18,6 +19,11 @@ public class DebugGameManager : MonoBehaviour
         {
             TriggerNewTurn = false;
             TurnEventsHandler.Instance.TurnEvent.Invoke(TURN_EVENT_STATE.TURN_START);
+        }
+        if(TriggerEndEncounter)
+        {
+            TriggerEndEncounter = false;
+            TurnEventsHandler.Instance.EncounterEvent.Invoke(new EncounterEventArg() { State=ENCOUNTER_EVENT_STATE.ENCOUNTER_END });
         }
     }
 }

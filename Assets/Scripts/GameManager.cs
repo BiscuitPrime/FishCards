@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [Header("Player")]
     private GameObject _playerPrefab;
     private ActorController _playerController;
+    [SerializeField] private PlayerAvailableCardsData _playerCardData;
 
     [Header("Opponent")]
     private GameObject _opponentPrefab;
@@ -33,6 +34,11 @@ public class GameManager : MonoBehaviour
     [Header("Play Variables")]
     private ActorController _curActivePlayer;
     #endregion
+
+    private void OnValidate()
+    {
+        Assert.IsNotNull(_playerCardData);
+    }
 
     private void Start()
     {
@@ -45,12 +51,14 @@ public class GameManager : MonoBehaviour
 
         TurnEventsHandler.Instance.PlayEvent.AddListener(OnPlayEventReceived);
         TurnEventsHandler.Instance.TurnEvent.AddListener(OnTurnEventReceived);
+        TurnEventsHandler.Instance.EncounterEvent.AddListener(OnEncounterEventReceived);
     }
 
     private void OnDestroy()
     {
         TurnEventsHandler.Instance.PlayEvent?.RemoveListener(OnPlayEventReceived);
         TurnEventsHandler.Instance.TurnEvent?.RemoveListener(OnTurnEventReceived);
+        TurnEventsHandler.Instance.EncounterEvent?.RemoveListener(OnEncounterEventReceived);
     }
 
     /// <summary>
@@ -59,9 +67,23 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        TriggerStartEncounter();
+        TurnEventsHandler.Instance.EncounterEvent.Invoke(new EncounterEventArg() { State = ENCOUNTER_EVENT_STATE.ENCOUNTER_START });
     }
 
+    #region EVENT FUNCTIONS
+    public void OnEncounterEventReceived(EncounterEventArg arg)
+    {
+        if(arg.State==ENCOUNTER_EVENT_STATE.ENCOUNTER_START)
+        {
+            TriggerStartEncounter();
+            
+        }
+        else
+        {
+            UIController.Instance.EnablePickACardMenu();
+            UIController.Instance.AttributePrizeCards(SelectPickCards(3));
+        }
+    }
 
     /// <summary>
     /// Called when the event TurnEvent is received.
@@ -73,7 +95,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("[GAME MANAGER] : TURN HAS ENDED");
             _curActivePlayer = null;
-            //trigger the display of the pick a card => it will be this component, upon its resolution, that triggers the new turn to start.
+            TurnEventsHandler.Instance.TurnEvent.Invoke(TURN_EVENT_STATE.TURN_START);
         }
         else //if the turn is starting, we trigger its start
         {
@@ -103,7 +125,9 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region TRIGGER FUNCTIONS
     /// <summary>
     /// Function that will trigger the start of an encounter.
     /// An encounter against an opponent is defined by a series of turns until one of the actors die.
@@ -111,7 +135,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void TriggerStartEncounter()
     {
+        //At the start of the encounter, the game manager will request the construction of the deck using the cards available to the player.
         TurnEventsHandler.Instance.TurnEvent.Invoke(TURN_EVENT_STATE.TURN_START);
+        UIController.Instance.EnableInGameUI();
     }
 
     /// <summary>
@@ -125,18 +151,26 @@ public class GameManager : MonoBehaviour
         TriggerStartPlay();
     }
 
-
+    /// <summary>
+    /// Function triggered either by the start of the turn OR another play, will start the play with the new actor.
+    /// </summary>
     private void TriggerStartPlay()
     {
         PlayController.Instance.ResetPlay();
         PlayController.Instance.AssignPlayerAndOpponent(_curActivePlayer.gameObject,_curActivePlayer==_opponentController?_playerController.gameObject:_opponentController.gameObject);
     }
+    #endregion
 
-    /// <summary>
-    /// Function called at the beginning of a turn, sends an event to all actors to draw their cards.
-    /// </summary>
-    private void TriggerActorsDraw()
+    #region CARD FUNCTIONS
+    private CardController[] SelectPickCards(int num)
     {
-        
+        CardController[] cards = new CardController[num];
+        for(int i = 0; i < num; i++)
+        {
+            cards[i] = _playerCardData.Cards[Random.Range(0, _playerCardData.Cards.Count)];
+            Debug.Log("[GAME MANAGER] : PRIZE CARD SELECTED : " + cards[i].CardName);
+        }
+        return cards;
     }
+    #endregion
 }

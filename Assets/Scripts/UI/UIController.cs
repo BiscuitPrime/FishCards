@@ -41,6 +41,9 @@ public class UIController : MonoBehaviour
 
     [Header("Pick A Card Menu Elements")]
     [SerializeField] private GameObject _pickACardMenu;
+    [SerializeField] private DisplayCardController _displayCard1;
+    [SerializeField] private DisplayCardController _displayCard2;
+    [SerializeField] private DisplayCardController _displayCard3;
 
     [Header("End Menu Elements")]
     [SerializeField] private GameObject _endMenu;
@@ -198,7 +201,23 @@ public class UIController : MonoBehaviour
     #endregion
 
     #region PICK A CARD FUNCTIONS
-
+    /// <summary>
+    /// Function that will grant the 
+    /// </summary>
+    /// <param name="card"></param>
+    public void AttributePrizeCards(CardController[] card)
+    {
+        //TODO : FOR NOW, we assume that the prize will ALWAYS be 3 randomly selected cards. In a future update (lol), maybe redo that part with more modularity in mind, similar to the spawn/load card assets done in HandController
+        if (card.Length != 3)
+        {
+            Debug.LogError("[UI CONTROLLER] : More or less than 3 cards were given to the pick a card menu. RED ALERT.");
+            return;
+        }
+        Debug.Log("Attributing prize cards : " + card[0]+" & " + card[1]+" & " + card[2]);
+        _displayCard1.AttributeCardData(card[0]);
+        _displayCard2.AttributeCardData(card[1]);
+        _displayCard3.AttributeCardData(card[2]);
+    }
     #endregion
 
     #region END MENU FUNCTIONS
