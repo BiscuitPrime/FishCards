@@ -49,8 +49,9 @@ public class OpponentSelectorController : MonoBehaviour
     {
         OpponentData opponentData;
         System.Random rand = new System.Random();
-        if (rating> GameValues.MAX_DIFFICULTY_RATING) //if the rating is above the max rating, we always pick the data within the max rating pool
+        if (rating>= GameValues.MAX_DIFFICULTY_RATING) //if the rating is above the max rating, we always pick the data within the max rating pool
         {
+            Debug.Log("Searching oppo with rating : " + rating + " | size " + _opponentsRatingDict[GameValues.MAX_DIFFICULTY_RATING].Count);
             opponentData = _opponentsRatingDict[GameValues.MAX_DIFFICULTY_RATING].ElementAt(rand.Next(0, _opponentsRatingDict[GameValues.MAX_DIFFICULTY_RATING].Count));
         }
         else

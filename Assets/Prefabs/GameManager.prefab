@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 973bbb85f1993c845912f449a594de61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerInitCardData: {fileID: 11400000, guid: a551dffbb682b814b9535ea7a5f98fbe, type: 2}
   _playerAvailableCardData: {fileID: 11400000, guid: a551dffbb682b814b9535ea7a5f98fbe, type: 2}
   _encounterCount: 0
 --- !u!114 &8311732080095827242

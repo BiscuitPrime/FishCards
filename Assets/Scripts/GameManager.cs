@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [Header("Player")]
     private GameObject _playerPrefab;
     private ActorController _playerController;
+    [SerializeField] private CardsListData _playerInitCardData;
     [SerializeField] private CardsListData _playerAvailableCardData;
 
     [Header("Opponent")]
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
     private ActorController _opponentController;
 
     [Header("Play Variables")]
-    private ActorController _curActivePlayer;
+    [SerializeField] private ActorController _curActivePlayer;
 
     [Header("Game Elements")]
     [SerializeField] private int _encounterCount=0;
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
     private void OnValidate()
     {
         Assert.IsNotNull(_playerAvailableCardData);
+        Assert.IsNotNull(_playerInitCardData);
     }
 
     private void Start()
@@ -153,8 +155,10 @@ public class GameManager : MonoBehaviour
         //assign the opponent to the opponent prefab :
         _opponentPrefab.GetComponent<OpponentAIController>().SetOpponentData(selectedOpponent);
         // construct the decks :
-
+        _opponentController.GetDeckController().ConstructDeck(selectedOpponent.InitCardDeck.Cards);
+        _playerController.GetDeckController().ConstructDeck(_playerInitCardData.Cards);
         // THEN (and only THEN) :
+        _curActivePlayer = _playerController;
         TurnEventsHandler.Instance.TurnEvent.Invoke(TURN_EVENT_STATE.TURN_START);
         UIController.Instance.EnableInGameUI();
     }
@@ -176,7 +180,7 @@ public class GameManager : MonoBehaviour
     private void TriggerStartPlay()
     {
         PlayController.Instance.ResetPlay();
-        PlayController.Instance.AssignPlayerAndOpponent(_curActivePlayer.gameObject,_curActivePlayer==_opponentController?_playerController.gameObject:_opponentController.gameObject);
+        PlayController.Instance.AssignPlayerAndOpponent(_curActivePlayer.gameObject,_curActivePlayer==_opponentController?_playerPrefab:_opponentPrefab);
         TurnEventsHandler.Instance.PlayEvent.Invoke(new PlayEventArg() { Holder = _curActivePlayer==_opponentController ? PLAY_HOLDER_TYPE.OPPONENT:PLAY_HOLDER_TYPE.PLAYER, State = PLAY_EVENT_STATE.PLAY_BEGIN});
     }
     #endregion
