@@ -123,6 +123,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &243716386 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4821394495632015413, guid: bdbff7fb2c77d6e4cb52ba4120ab03f5, type: 3}
+  m_PrefabInstance: {fileID: 8616477771640207105}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &243716390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243716386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb732fed714bde42acefc45fa17c051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CreateDeck: 0
+  ShuffleDeck: 0
+  CreateHand: 0
+  FillHandWithCards: 0
+  NumOfCards: 0
+  AddNumberOfCardsToHand: 0
+  PrintDeck: 0
+  _availableCards:
+  - {fileID: 11400000, guid: 50899d31cea42b04d80365bbb9e65e8e, type: 2}
+  - {fileID: 11400000, guid: a4d7c73b31a828b42bdfe660549f9553, type: 2}
+  - {fileID: 11400000, guid: b667036a4453bd54f8bfeca57dbf192f, type: 2}
+  - {fileID: 11400000, guid: fecbe65f2c453dd489bea1235c7a6de4, type: 2}
+  - {fileID: 11400000, guid: 02ca5010e8fc1414ebc9ad3f8dfd0fab, type: 2}
 --- !u!1 &467655972
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,7 +716,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4821394495632015413, guid: bdbff7fb2c77d6e4cb52ba4120ab03f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 243716390}
   m_SourcePrefab: {fileID: 100100000, guid: bdbff7fb2c77d6e4cb52ba4120ab03f5, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -59,6 +59,10 @@ public class PlayController : MonoBehaviour
         Debug.Log("[PLAY CONTROLLER] : New play parameters : player is now "+player.gameObject.name+ " and opponent is now "+opponent.gameObject.name);
         _player = player;
         _opponent = opponent;
+        _activeHandController = _player.GetComponent<HandController>();
+        _activeDeckController = _activeHandController.GetDeckController();
+        _activeHandController.ActivateCardsColliders();
+        _opponent.GetComponent<HandController>().DeactivateCardsColliders();
     }
 
     public GameObject GetPlayer() { return _player; }
@@ -92,8 +96,8 @@ public class PlayController : MonoBehaviour
     /// <param name="card">Card to add to the play</param>
     public void AddCardToPlay(GameObject card, HandController handController)
     {
-        _activeHandController = handController;
-        _activeDeckController = _activeHandController.GetDeckController();
+        //_activeHandController = handController;
+        //_activeDeckController = _activeHandController.GetDeckController();
         if(card.gameObject.GetComponent<CardPrefabController>() != null) //wild cards are not added to the queue, since they were activated BEFORE entering the play. HandController, by this point, should NOT have given them to PlayController
         {
             _cardsInPlay.Enqueue(card);

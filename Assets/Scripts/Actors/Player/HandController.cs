@@ -42,14 +42,14 @@ public class HandController : MonoBehaviour
     {
         TurnEventsHandler.Instance.EncounterEvent.AddListener(OnEncounterEventReceived);
         TurnEventsHandler.Instance.TurnEvent.AddListener(OnTurnEventReceived);
-        TurnEventsHandler.Instance.PlayEvent.AddListener(OnPlayEventReceived);
+        //TurnEventsHandler.Instance.PlayEvent.AddListener(OnPlayEventReceived);
     }
 
     private void OnDestroy()
     {
         TurnEventsHandler.Instance.EncounterEvent?.RemoveListener(OnEncounterEventReceived);
         TurnEventsHandler.Instance.TurnEvent?.RemoveListener(OnTurnEventReceived);
-        TurnEventsHandler.Instance.PlayEvent?.RemoveListener(OnPlayEventReceived);
+        //TurnEventsHandler.Instance.PlayEvent?.RemoveListener(OnPlayEventReceived);
     }
 
     public DeckController GetDeckController()
@@ -92,28 +92,25 @@ public class HandController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Function called when the play event is received.
-    /// PLAY START : IF this._holder != arg.Holder, then its the play of the other actor. As such, we deactivate all the cards' colliders in the hand
-    /// </summary>
-    /// <param name="arg"></param>
-    private void OnPlayEventReceived(PlayEventArg arg)
-    {
-        if (arg.State == PLAY_EVENT_STATE.PLAY_BEGIN)
-        {
-            if(_holder != arg.Holder)
-            {
-                DeactivateCardsColliders();
-            }
-            else
-            {
-                foreach (var card in _handCardsDict.Keys)
-                {
-                    _handCardsDict[card].GetComponent<CardPrefabController>().ActivateCardCollider();
-                }
-            }
-        }
-    }
+    ///// <summary>
+    ///// Function called when the play event is received.
+    ///// PLAY START : IF this._holder != arg.Holder, then its the play of the other actor. As such, we deactivate all the cards' colliders in the hand
+    ///// </summary>
+    ///// <param name="arg"></param>
+    //private void OnPlayEventReceived(PlayEventArg arg)
+    //{
+    //    if (arg.State == PLAY_EVENT_STATE.PLAY_BEGIN)
+    //    {
+    //        if(_holder != arg.Holder)
+    //        {
+    //            DeactivateCardsColliders();
+    //        }
+    //        else
+    //        {
+    //            ActivateCardsColliders();
+    //        }
+    //    }
+    //}
     #endregion
 
     #region ADDING NEW CARDS FUNCTIONS
@@ -230,13 +227,25 @@ public class HandController : MonoBehaviour
     }
 
     /// <summary>
-    /// Function that will deactivate the cards colliders
+    /// Function that will deactivate the collider of the cards present in the hand
     /// </summary>
     public void DeactivateCardsColliders()
     {
+        Debug.Log("[HAND CONTROLLER] : Deactivating cards for : "+gameObject.name);
         foreach (var card in _handCardsDict.Keys)
         {
             _handCardsDict[card].GetComponent<CardPrefabController>().DeactivateCardCollider();
+        }
+    }
+    /// <summary>
+    /// Function that will deactivate the collider of the cards present in the hand
+    /// </summary>
+    public void ActivateCardsColliders()
+    {
+        Debug.Log("[HAND CONTROLLER] : Activating cards for : " + gameObject.name);
+        foreach (var card in _handCardsDict.Keys)
+        {
+            _handCardsDict[card].GetComponent<CardPrefabController>().ActivateCardCollider();
         }
     }
 }
