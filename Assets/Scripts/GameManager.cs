@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     [Header("Player")]
     private GameObject _playerPrefab;
     private ActorController _playerController;
-    [SerializeField] private PlayerAvailableCardsData _playerCardData;
+    [SerializeField] private PlayerAvailableCardsData _playerAvailableCardData;
 
     [Header("Opponent")]
     private GameObject _opponentPrefab;
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     private void OnValidate()
     {
-        Assert.IsNotNull(_playerCardData);
+        Assert.IsNotNull(_playerAvailableCardData);
     }
 
     private void Start()
@@ -161,16 +161,28 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region CARD FUNCTIONS
+    #region PICK A CARD FUNCTIONS
+    /// <summary>
+    /// Function that will select an inputted number of cards amongst a list. The selected cards will be each unique from one another.
+    /// As such, we can never request more cards than are currently present in the PlayerCardData element
+    /// </summary>
+    /// <param name="num">Number of cards picked</param>
+    /// <returns>Selected cards</returns>
     private CardController[] SelectPickCards(int num)
     {
-        CardController[] cards = new CardController[num];
-        for(int i = 0; i < num; i++)
+        List<CardController> cards = new List<CardController>();
+        cards.Add(_playerAvailableCardData.Cards[Random.Range(0, _playerAvailableCardData.Cards.Count)]);
+        for (int i = 1; i < num; i++)
         {
-            cards[i] = _playerCardData.Cards[Random.Range(0, _playerCardData.Cards.Count)];
+            var selectedCard = _playerAvailableCardData.Cards[Random.Range(0, _playerAvailableCardData.Cards.Count)];
+            while (cards.Contains(selectedCard))
+            {
+                selectedCard = _playerAvailableCardData.Cards[Random.Range(0, _playerAvailableCardData.Cards.Count)];
+            }
+            cards.Add(selectedCard);
             Debug.Log("[GAME MANAGER] : PRIZE CARD SELECTED : " + cards[i].CardName);
         }
-        return cards;
+        return cards.ToArray();
     }
     #endregion
 }

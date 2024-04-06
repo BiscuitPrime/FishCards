@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 973bbb85f1993c845912f449a594de61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerCardData: {fileID: 11400000, guid: a551dffbb682b814b9535ea7a5f98fbe, type: 2}
+  _playerAvailableCardData: {fileID: 11400000, guid: a551dffbb682b814b9535ea7a5f98fbe, type: 2}
 --- !u!114 &4327151355882111107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,3 +73,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartGame: 0
   TriggerNewTurn: 0
+  TriggerEndEncounter: 0
