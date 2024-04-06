@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Play Variables")]
     private ActorController _curActivePlayer;
+
+    private bool _playerIsReady=false;
+    private bool _opponentIsReady=false;
     #endregion
 
     private void OnValidate()
@@ -96,6 +99,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("[GAME MANAGER] : TURN HAS ENDED");
             _curActivePlayer = null;
             TurnEventsHandler.Instance.TurnEvent.Invoke(TURN_EVENT_STATE.TURN_START);
+            ResetReadiness();
         }
         else //if the turn is starting, we trigger its start
         {
@@ -148,7 +152,7 @@ public class GameManager : MonoBehaviour
     public void TriggerStartTurn()
     {
         _curActivePlayer = _playerController;
-        TriggerStartPlay();
+        //TriggerStartPlay();
     }
 
     /// <summary>
@@ -186,4 +190,21 @@ public class GameManager : MonoBehaviour
         return cards.ToArray();
     }
     #endregion
+
+    public void UpdateReadiness(PLAY_HOLDER_TYPE type)
+    {
+        if (type == PLAY_HOLDER_TYPE.OPPONENT) { _opponentIsReady = true; }
+        else { _playerIsReady = true; }
+
+        if(_playerIsReady && _opponentIsReady)
+        {
+            Debug.Log("[GAME MANAGER] : BOTH PLAYERS ARE READY -> Starting first play");
+            TriggerStartPlay();
+        }
+    }
+    private void ResetReadiness()
+    {
+        _opponentIsReady = false;
+        _playerIsReady = false;
+    }
 }

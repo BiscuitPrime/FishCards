@@ -431,6 +431,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5933469941231521741}
+  - component: {fileID: 6805543090872552824}
   - component: {fileID: 4482874986952094891}
   - component: {fileID: 1024079703033139403}
   - component: {fileID: 1060702865751661607}
@@ -459,6 +460,18 @@ Transform:
   - {fileID: 4459432700669162773}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6805543090872552824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4821394495632015413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c76f8d707163904b982fd47966691ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4482874986952094891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,13 +524,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c7151eedec97c64fb9bd09f65f9ce77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _holder: 1
+  _holderType: 1
   _deck: {fileID: 1060702865751661607}
   _startPoint: {fileID: 4244036524940008814}
   _endPoint: {fileID: 5246931244036428283}
   _p1: {fileID: 444203161633020655}
   _p2: {fileID: 8392613745093024416}
-  _baseNumberOfCardsInHand: 4
+  _baseNumberOfCardsInHand: 3
 --- !u!1 &6628893057355252336
 GameObject:
   m_ObjectHideFlags: 0

@@ -56,7 +56,7 @@ public class DeckController : MonoBehaviour
         {
             _deckCards.Push(card);
         }
-        PrintCurrentDeck();
+        //PrintCurrentDeck();
     }
 
     #region HANDLING CARDS

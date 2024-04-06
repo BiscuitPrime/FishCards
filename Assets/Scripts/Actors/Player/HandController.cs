@@ -2,6 +2,7 @@ using Fish.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -129,13 +130,14 @@ public class HandController : MonoBehaviour
         //TODO : CHANGE THIS TO A POOL SYSTEM RATHER THAN AN INSTANTIATE
         for(int i=0; i < drawnCards.Length; i++)
         {
-            Debug.Log("[HandController] : Adding card : " + drawnCards[i].name + " to hand");
+            Debug.Log("[HandController] : Adding card : " + drawnCards[i].name + " to "+_holderType.ToString()+" hand");
             GameObject cardPrefab = Resources.Load("Card") as GameObject;
             GameObject newCard = Instantiate(cardPrefab);
             newCard.GetComponent<CardPrefabController>().SpawnNewCard(drawnCards[i], this);
             _handCardsDict.Add(drawnCards[i], newCard);
         }
         UpdateCardsPosition();
+        GameManager.Instance.UpdateReadiness(_holderType); //ONLY when the cards have been fully drawn do we update the readiness of the player
     }
 
     /// <summary>
@@ -156,9 +158,11 @@ public class HandController : MonoBehaviour
             _handCardsDict.Add(drawnCards[i], newCard);
         }
         UpdateCardsPosition();
+        //GameManager.Instance.UpdateReadiness(_holderType);
     }
     #endregion
 
+    #region PLAYING CARDS FUNCTIONS
     /// <summary>
     /// Function that will play the inputted card from within the hand. Will throw an error if the card is not within the hand.
     /// </summary>
@@ -172,6 +176,17 @@ public class HandController : MonoBehaviour
         }
         RemoveCardFromHand(card);
     }
+
+    /// <summary>
+    /// Function that will play a random card from this hand (useful for the opponent actor especially)
+    /// </summary>
+    public void PlayRandomCard()
+    {
+        Debug.Log("[HAND CONTROLLER] : Playing random card");
+        System.Random rand = new System.Random();
+        RemoveCardFromHand(_handCardsDict.ElementAt(rand.Next(0, _handCardsDict.Count)).Key);
+    }
+    #endregion
 
     /// <summary>
     /// Function that will remove a card from a hand
@@ -239,6 +254,7 @@ public class HandController : MonoBehaviour
         foreach (var card in _handCardsDict.Keys)
         {
             _handCardsDict[card].GetComponent<CardPrefabController>().DeactivateCardCollider();
+            Debug.Log("Deactivating card " + card.CardName);
         }
     }
     /// <summary>
