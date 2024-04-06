@@ -7,6 +7,7 @@ using UnityEngine.Assertions;
 /// Script that will control the entire game, but especially the turn and encounter systems.
 /// </summary>
 [RequireComponent(typeof(TurnEventsHandler))]
+[RequireComponent(typeof(OpponentSelectorController))]
 public class GameManager : MonoBehaviour
 {
     #region SINGLETON DESIGN PATTERN
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour
     [Header("Player")]
     private GameObject _playerPrefab;
     private ActorController _playerController;
-    [SerializeField] private PlayerAvailableCardsData _playerAvailableCardData;
+    [SerializeField] private CardsListData _playerAvailableCardData;
 
     [Header("Opponent")]
     private GameObject _opponentPrefab;
@@ -33,6 +34,11 @@ public class GameManager : MonoBehaviour
 
     [Header("Play Variables")]
     private ActorController _curActivePlayer;
+
+    [Header("Game Elements")]
+    [SerializeField] private int _encounterCount=0;
+
+    private OpponentSelectorController _opponentSelectorController;
 
     private bool _playerIsReady=false;
     private bool _opponentIsReady=false;
@@ -45,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        _opponentSelectorController = GetComponent<OpponentSelectorController>();
         _playerPrefab = GameObject.FindGameObjectWithTag("Player");
         _playerController = _playerPrefab.GetComponent<ActorController>();
         _opponentPrefab = GameObject.FindGameObjectWithTag("Opponent");
@@ -79,10 +86,10 @@ public class GameManager : MonoBehaviour
         if(arg.State==ENCOUNTER_EVENT_STATE.ENCOUNTER_START)
         {
             TriggerStartEncounter();
-            
         }
         else
         {
+            _encounterCount++;
             UIController.Instance.EnablePickACardMenu();
             UIController.Instance.AttributePrizeCards(SelectPickCards(3));
         }
@@ -139,7 +146,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void TriggerStartEncounter()
     {
-        //At the start of the encounter, the game manager will request the construction of the deck using the cards available to the player.
+        //HERE we do :
+        // select the opponent based on rating
+        OpponentData selectedOpponent = _opponentSelectorController.ObtainOpponentData(_encounterCount+1);
+        Debug.Log("[GAME MANAGER] : Selected opponent : "+selectedOpponent.Name);
+        //assign the opponent to the opponent prefab :
+        _opponentPrefab.GetComponent<OpponentAIController>().SetOpponentData(selectedOpponent);
+        // construct the decks :
+
+        // THEN (and only THEN) :
         TurnEventsHandler.Instance.TurnEvent.Invoke(TURN_EVENT_STATE.TURN_START);
         UIController.Instance.EnableInGameUI();
     }

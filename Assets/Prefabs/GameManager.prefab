@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7418109201736830959}
   - component: {fileID: 4840423812476346271}
+  - component: {fileID: 8311732080095827242}
   - component: {fileID: 4327151355882111107}
   - component: {fileID: 4196194110188062984}
   m_Layer: 0
@@ -47,6 +48,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAvailableCardData: {fileID: 11400000, guid: a551dffbb682b814b9535ea7a5f98fbe, type: 2}
+  _encounterCount: 0
+--- !u!114 &8311732080095827242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5662688858709128512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350ef1e1a19e3ab4a8ba71484d1069e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _possibleOpponents:
+  - {fileID: 11400000, guid: 684818ecc37c9614581e8a5c75c9f751, type: 2}
+  - {fileID: 11400000, guid: 20195da86305b0d4f8ce85c5acc47359, type: 2}
+  - {fileID: 11400000, guid: 01cf2b8d1430740408c8380ce9a4c08d, type: 2}
+  - {fileID: 11400000, guid: 30fa05f18efd81f4790aad6b49c411e8, type: 2}
+  - {fileID: 11400000, guid: 2dc1ae901a43ab847a6d7b3d3691dfd0, type: 2}
 --- !u!114 &4327151355882111107
 MonoBehaviour:
   m_ObjectHideFlags: 0

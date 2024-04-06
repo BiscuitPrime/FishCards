@@ -10,6 +10,9 @@ using UnityEngine;
 [RequireComponent(typeof(HandController))]
 public class OpponentAIController : MonoBehaviour
 {
+    [Header("Opponent Prefab Elements")]
+
+    [SerializeField] private OpponentData _data;
     private HandController _handController;
 
     private void Awake()
@@ -27,6 +30,24 @@ public class OpponentAIController : MonoBehaviour
         TurnEventsHandler.Instance.PlayEvent?.RemoveListener(OnPlayEventReceived);
     }
 
+    #region DATA RELATED FUNCTIONS
+    public void SetOpponentData(OpponentData data)
+    {
+        _data = data;
+        AssignOpponentDataElements();
+    }
+    public OpponentData GetOpponentData() { return _data; }
+
+    /// <summary>
+    /// Function that will assign the data elements to the opponent's prefab AND creates its associated deck.
+    /// </summary>
+    private void AssignOpponentDataElements()
+    {
+        GetComponent<DeckController>().ConstructDeck(_data.InitCardDeck.Cards);
+        GetComponent<ActorValuesController>().SetData(_data.Values);
+    }
+    #endregion
+
     #region EVENT RECEIVER FUNCTIONS
     /// <summary>
     /// Function called when receiving the play event.
@@ -37,7 +58,7 @@ public class OpponentAIController : MonoBehaviour
     {
         if(arg.Holder==_handController.GetHolderType() && arg.State == PLAY_EVENT_STATE.PLAY_BEGIN)
         {
-            StartCoroutine(PlayRandomCards(3));
+            StartCoroutine(PlayRandomCards(_data.HandSize));
         }
     }
     #endregion

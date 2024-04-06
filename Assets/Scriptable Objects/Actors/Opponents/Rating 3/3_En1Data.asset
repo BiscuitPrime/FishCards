@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62e0f7a4eeb74464f9b47df30a95c532, type: 3}
+  m_Name: 3_En1Data
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Enemy 1
+  <Sprite>k__BackingField: {fileID: 0}
+  <OpponentSound>k__BackingField: {fileID: 0}
+  <InitCardDeck>k__BackingField: {fileID: 11400000, guid: 78f8f2d2547697148901ca1a9b56b5b8, type: 2}
+  <HandSize>k__BackingField: 3
+  <DifficultyRating>k__BackingField: 3
+  <Values>k__BackingField: {fileID: 11400000, guid: 5013b227cf505f84d9ba8ce67badea48, type: 2}

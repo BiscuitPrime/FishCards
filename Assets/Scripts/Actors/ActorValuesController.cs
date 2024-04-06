@@ -38,6 +38,19 @@ public class ActorValuesController : MonoBehaviour
         TurnEventsHandler.Instance.EncounterEvent?.RemoveListener(OnEncounterEventReceived);
     }
 
+    public void SetData(ActorValuesData data)
+    {
+        _valuesInitData = data;
+        AssignData();
+    }
+
+    private void AssignData()
+    {
+        _hp = _valuesInitData.HP;
+        _def = _valuesInitData.DEF;
+        _agi = _valuesInitData.AGI;
+    }
+
     /// <summary>
     /// Function called when the event Encounter has been received.
     /// START : At the start of the encounter, the player regens their entire def.
@@ -45,7 +58,7 @@ public class ActorValuesController : MonoBehaviour
     /// <param name="arg0">Arg of the event</param>
     private void OnEncounterEventReceived(EncounterEventArg arg0)
     {
-        if(arg0.State==ENCOUNTER_EVENT_STATE.ENCOUNTER_START)
+        if(arg0.State==ENCOUNTER_EVENT_STATE.ENCOUNTER_START && _valuesInitData!=null)
         {
             _def = _valuesInitData.DEF;
         }
