@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c7151eedec97c64fb9bd09f65f9ce77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _holder: 0
   _deck: {fileID: 7826476078442071064}
   _startPoint: {fileID: 8485381044189850696}
   _endPoint: {fileID: 483574539286352077}
@@ -108,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CreateDeck: 0
+  ShuffleDeck: 0
   CreateHand: 0
   FillHandWithCards: 0
   NumOfCards: 0

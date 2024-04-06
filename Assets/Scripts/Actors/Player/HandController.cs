@@ -13,6 +13,9 @@ using UnityEngine;
 public class HandController : MonoBehaviour
 {
     #region VARIABLES
+    [Header("Holder Elements")]
+    [SerializeField] private PLAY_HOLDER_TYPE _holder=PLAY_HOLDER_TYPE.OPPONENT;
+
     [Header("Deck")]
     [SerializeField] private DeckController _deck;
 
@@ -39,12 +42,14 @@ public class HandController : MonoBehaviour
     {
         TurnEventsHandler.Instance.EncounterEvent.AddListener(OnEncounterEventReceived);
         TurnEventsHandler.Instance.TurnEvent.AddListener(OnTurnEventReceived);
+        TurnEventsHandler.Instance.PlayEvent.AddListener(OnPlayEventReceived);
     }
 
     private void OnDestroy()
     {
         TurnEventsHandler.Instance.EncounterEvent?.RemoveListener(OnEncounterEventReceived);
         TurnEventsHandler.Instance.TurnEvent?.RemoveListener(OnTurnEventReceived);
+        TurnEventsHandler.Instance.PlayEvent?.RemoveListener(OnPlayEventReceived);
     }
 
     public DeckController GetDeckController()
@@ -52,6 +57,7 @@ public class HandController : MonoBehaviour
         return _deck;
     }
 
+    #region EVENT RECEIVER FUNCTIONS
     /// <summary>
     /// Function called when the encounter event is received. 
     /// When this event signals the END of an encounter, the hand will give back all their currently held cards to the deck.
@@ -85,6 +91,30 @@ public class HandController : MonoBehaviour
             DrawCards();
         }
     }
+
+    /// <summary>
+    /// Function called when the play event is received.
+    /// PLAY START : IF this._holder != arg.Holder, then its the play of the other actor. As such, we deactivate all the cards' colliders in the hand
+    /// </summary>
+    /// <param name="arg"></param>
+    private void OnPlayEventReceived(PlayEventArg arg)
+    {
+        if (arg.State == PLAY_EVENT_STATE.PLAY_BEGIN)
+        {
+            if(_holder != arg.Holder)
+            {
+                DeactivateCardsColliders();
+            }
+            else
+            {
+                foreach (var card in _handCardsDict.Keys)
+                {
+                    _handCardsDict[card].GetComponent<CardPrefabController>().ActivateCardCollider();
+                }
+            }
+        }
+    }
+    #endregion
 
     #region ADDING NEW CARDS FUNCTIONS
     /// <summary>
@@ -196,6 +226,17 @@ public class HandController : MonoBehaviour
             {
                 _handCardsDict[keys[j]].transform.position = BezierCurveHandler.GetPointOnBezierCurve(_startPoint.position, _p1.position, _p2.position, _endPoint.position, (1f / (float)(_handCardsDict.Count - 1)) * (float)j);
             }
+        }
+    }
+
+    /// <summary>
+    /// Function that will deactivate the cards colliders
+    /// </summary>
+    public void DeactivateCardsColliders()
+    {
+        foreach (var card in _handCardsDict.Keys)
+        {
+            _handCardsDict[card].GetComponent<CardPrefabController>().DeactivateCardCollider();
         }
     }
 }

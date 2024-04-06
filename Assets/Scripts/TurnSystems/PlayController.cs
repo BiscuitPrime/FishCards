@@ -73,6 +73,7 @@ public class PlayController : MonoBehaviour
         if (_playIsTriggered) { yield return null; } //if the play has already been triggered, we avoid triggering it again immediately - this is necessary to avoid issues when a wild card that triggers the end of play is ALSO the last card played (that would lead to two calls to this function)
         else
         {
+            _activeHandController.DeactivateCardsColliders();
             _playIsTriggered=true;
             while(_cardsInPlay.Count > 0)
             {

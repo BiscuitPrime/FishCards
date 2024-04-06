@@ -72,12 +72,21 @@ public class CardPrefabController : MonoBehaviour
         _cardPrefabCollider.enabled = true;
     }
 
+    #region COLLIDER FUNCTIONS
     /// <summary>
     /// Function called by external scripts that will deactivate the card's collider, usually after being played.
     /// </summary>
     public void DeactivateCardCollider()
     {
         _cardPrefabCollider.enabled = false;
+    }
+
+    /// <summary>
+    /// Function called by external scripts that will activate the card's collider, usually after being played.
+    /// </summary>
+    public void ActivateCardCollider()
+    {
+        _cardPrefabCollider.enabled = true;
     }
 
     /// <summary>
@@ -90,4 +99,5 @@ public class CardPrefabController : MonoBehaviour
         _hand.PlayCard(this.Card);
         DeactivateCardCollider();
     }
+    #endregion
 }
