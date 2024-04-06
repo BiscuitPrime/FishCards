@@ -28,12 +28,12 @@ public class PlayController : MonoBehaviour
     [SerializeField] private Transform _p2;
 
     private Queue<GameObject> _cardsInPlay;
-    private bool _playIsTriggered;
+    [SerializeField] private bool _playIsTriggered;
     private HandController _activeHandController; //hand controller that is currently playing
     private DeckController _activeDeckController;
 
-    private GameObject _player;
-    private GameObject _opponent;
+    [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _opponent;
     
     private void Start()
     {
@@ -50,7 +50,8 @@ public class PlayController : MonoBehaviour
 
     #region PLAYER AND OPPONENT RELATED FUNCTIONS
     /// <summary>
-    /// Function triggered by external scripts handling the encounter/turn system, that will assign the roles of the player (the one playing the cards) and the opponent (the other one)
+    /// Function triggered by external scripts handling the encounter/turn system, that will assign the roles of the player (the one playing the cards) and the opponent (the other one).
+    /// It will also activate/deactivate colliders of the cards to allow players to select them.
     /// </summary>
     /// <param name="player">GameObject of the one playing the cards right now</param>
     /// <param name="opponent">GameObject of their opponent</param>
@@ -61,7 +62,11 @@ public class PlayController : MonoBehaviour
         _opponent = opponent;
         _activeHandController = _player.GetComponent<HandController>();
         _activeDeckController = _activeHandController.GetDeckController();
-        _activeHandController.ActivateCardsColliders();
+
+        if (_activeHandController.GetHolderType() == PLAY_HOLDER_TYPE.PLAYER) //ONLY IF THE HOLDER IS A PLAYER DO WE ACTIVATE THE CARDS' COLLIDERS (since the opponent, for now, is only a bot)
+        {
+            _activeHandController.ActivateCardsColliders();
+        }
         _opponent.GetComponent<HandController>().DeactivateCardsColliders();
     }
 

@@ -14,7 +14,7 @@ public class HandController : MonoBehaviour
 {
     #region VARIABLES
     [Header("Holder Elements")]
-    [SerializeField] private PLAY_HOLDER_TYPE _holder=PLAY_HOLDER_TYPE.OPPONENT;
+    [SerializeField] private PLAY_HOLDER_TYPE _holderType=PLAY_HOLDER_TYPE.OPPONENT;
 
     [Header("Deck")]
     [SerializeField] private DeckController _deck;
@@ -55,6 +55,10 @@ public class HandController : MonoBehaviour
     public DeckController GetDeckController()
     {
         return _deck;
+    }
+    public PLAY_HOLDER_TYPE GetHolderType()
+    {
+        return _holderType;
     }
 
     #region EVENT RECEIVER FUNCTIONS
