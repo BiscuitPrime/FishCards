@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     private bool _playerIsReady=false;
     private bool _opponentIsReady=false;
+    private bool _encounterIsActive = false;
     #endregion
 
     private void OnValidate()
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
         TurnEventsHandler.Instance.PlayEvent.AddListener(OnPlayEventReceived);
         TurnEventsHandler.Instance.TurnEvent.AddListener(OnTurnEventReceived);
         TurnEventsHandler.Instance.EncounterEvent.AddListener(OnEncounterEventReceived);
+        TurnEventsHandler.Instance.DeathEvent.AddListener(OnDeathEventReceived);
     }
 
     private void OnDestroy()
@@ -71,6 +73,7 @@ public class GameManager : MonoBehaviour
         TurnEventsHandler.Instance.PlayEvent?.RemoveListener(OnPlayEventReceived);
         TurnEventsHandler.Instance.TurnEvent?.RemoveListener(OnTurnEventReceived);
         TurnEventsHandler.Instance.EncounterEvent?.RemoveListener(OnEncounterEventReceived);
+        TurnEventsHandler.Instance.DeathEvent?.RemoveListener(OnDeathEventReceived);
     }
 
     /// <summary>
@@ -83,17 +86,25 @@ public class GameManager : MonoBehaviour
     }
 
     #region EVENT FUNCTIONS
+    /// <summary>
+    /// Called when an encounter event is received.
+    /// START : starts the encounter
+    /// END : increase encounter count and launchs the pick a card menu system
+    /// </summary>
+    /// <param name="arg"></param>
     public void OnEncounterEventReceived(EncounterEventArg arg)
     {
         if(arg.State==ENCOUNTER_EVENT_STATE.ENCOUNTER_START)
         {
+            _encounterIsActive = true;
             TriggerStartEncounter();
         }
         else
         {
+            _encounterIsActive = false;
             _encounterCount++;
             UIController.Instance.EnablePickACardMenu();
-            UIController.Instance.AttributePrizeCards(SelectPickCards(3));
+            UIController.Instance.AttributePrizeCards(SelectPickCards(GameValues.PICK_A_CARD_OPTIONS));
         }
     }
 
@@ -103,7 +114,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void OnTurnEventReceived(TURN_EVENT_STATE state)
     {
-        if(state == TURN_EVENT_STATE.TURN_END)
+        if (!_encounterIsActive) { return; } //if the encounter has already concluded, we do not go any further.
+        if (state == TURN_EVENT_STATE.TURN_END)
         {
             Debug.Log("[GAME MANAGER] : TURN HAS ENDED");
             _curActivePlayer = null;
@@ -124,10 +136,11 @@ public class GameManager : MonoBehaviour
     /// <param name="arg"></param>
     public void OnPlayEventReceived(PlayEventArg arg)
     {
+        if (!_encounterIsActive) { return; } //if the encounter has already concluded, we do not go any further.
         Debug.Log("[GAME MANAGER] : Play Event received with values : Holder : "+arg.Holder.ToString()+" and State : "+arg.State.ToString());
-        if(arg.State==PLAY_EVENT_STATE.PLAY_END)
+        if (arg.State==PLAY_EVENT_STATE.PLAY_END)
         {
-            if(arg.Holder==PLAY_HOLDER_TYPE.OPPONENT && _curActivePlayer==_opponentController) //if the play that ended was the opponent's, then the turn is over. We also test if the opponent is the last active, as IF there as been a death, the event has already been received and updated the curactive
+            if(arg.Holder==HOLDER_TYPE.OPPONENT && _curActivePlayer==_opponentController) //if the play that ended was the opponent's, then the turn is over. We also test if the opponent is the last active, as IF there as been a death, the event has already been received and updated the curactive
             {
                 TurnEventsHandler.Instance.TurnEvent.Invoke(TURN_EVENT_STATE.TURN_END);
             }
@@ -136,6 +149,27 @@ public class GameManager : MonoBehaviour
                 _curActivePlayer = _opponentController;
                 TriggerStartPlay();
             }
+        }
+    }
+
+    /// <summary>
+    /// Called when either the player or opponent have died, launching the death event.
+    /// PLAYER : the game ends, we display the end menu.
+    /// OPPONENT : the encounter ends.
+    /// </summary>
+    /// <param name="type"></param>
+    public void OnDeathEventReceived(HOLDER_TYPE type)
+    {
+        if (type == HOLDER_TYPE.PLAYER)
+        {
+            //Ends the game
+            _encounterIsActive = false;
+            UIController.Instance.EnableEndMenu();
+        }
+        else
+        {
+            //Ends the encounter
+            TurnEventsHandler.Instance.EncounterEvent.Invoke(new EncounterEventArg() { State = ENCOUNTER_EVENT_STATE.ENCOUNTER_END });
         }
     }
     #endregion
@@ -181,7 +215,7 @@ public class GameManager : MonoBehaviour
     {
         PlayController.Instance.ResetPlay();
         PlayController.Instance.AssignPlayerAndOpponent(_curActivePlayer.gameObject,_curActivePlayer==_opponentController?_playerPrefab:_opponentPrefab);
-        TurnEventsHandler.Instance.PlayEvent.Invoke(new PlayEventArg() { Holder = _curActivePlayer==_opponentController ? PLAY_HOLDER_TYPE.OPPONENT:PLAY_HOLDER_TYPE.PLAYER, State = PLAY_EVENT_STATE.PLAY_BEGIN});
+        TurnEventsHandler.Instance.PlayEvent.Invoke(new PlayEventArg() { Holder = _curActivePlayer==_opponentController ? HOLDER_TYPE.OPPONENT:HOLDER_TYPE.PLAYER, State = PLAY_EVENT_STATE.PLAY_BEGIN});
     }
     #endregion
 
@@ -210,9 +244,9 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public void UpdateReadiness(PLAY_HOLDER_TYPE type)
+    public void UpdateReadiness(HOLDER_TYPE type)
     {
-        if (type == PLAY_HOLDER_TYPE.OPPONENT) { _opponentIsReady = true; }
+        if (type == HOLDER_TYPE.OPPONENT) { _opponentIsReady = true; }
         else { _playerIsReady = true; }
 
         if(_playerIsReady && _opponentIsReady)

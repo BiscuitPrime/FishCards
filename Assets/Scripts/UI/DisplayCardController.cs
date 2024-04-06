@@ -39,6 +39,9 @@ public class DisplayCardController : MonoBehaviour
         _cardBG.sprite = _card.CardName != null ? _card.CardBGSprite : _cardBG.sprite;
     }
 
+    /// <summary>
+    /// Function triggered by the card's button that will launch the start encounter event.
+    /// </summary>
     public void OnCardClicked()
     {
         Debug.Log("[DISPLAY CARD CONTROLLER] : Player picked card : " + _card.CardName);

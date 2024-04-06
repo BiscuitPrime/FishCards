@@ -63,7 +63,7 @@ public class PlayController : MonoBehaviour
         _activeHandController = _player.GetComponent<HandController>();
         _activeDeckController = _activeHandController.GetDeckController();
 
-        if (_activeHandController.GetHolderType() == PLAY_HOLDER_TYPE.PLAYER) //ONLY IF THE HOLDER IS A PLAYER DO WE ACTIVATE THE CARDS' COLLIDERS (since the opponent, for now, is only a bot)
+        if (_activeHandController.GetHolderType() == HOLDER_TYPE.PLAYER) //ONLY IF THE HOLDER IS A PLAYER DO WE ACTIVATE THE CARDS' COLLIDERS (since the opponent, for now, is only a bot)
         {
             _activeHandController.ActivateCardsColliders();
         }
@@ -91,7 +91,7 @@ public class PlayController : MonoBehaviour
                 _activeDeckController.AddCardToBottomOfDeck(curCard.GetComponent<CardPrefabController>().Card);
                 yield return new WaitForSeconds(1f);
             }
-            TurnEventsHandler.Instance.PlayEvent.Invoke(new PlayEventArg() { Holder = _player.transform.tag == "Player" ? PLAY_HOLDER_TYPE.PLAYER : PLAY_HOLDER_TYPE.OPPONENT, State = PLAY_EVENT_STATE.PLAY_END });
+            TurnEventsHandler.Instance.PlayEvent.Invoke(new PlayEventArg() { Holder = _player.transform.tag == "Player" ? HOLDER_TYPE.PLAYER : HOLDER_TYPE.OPPONENT, State = PLAY_EVENT_STATE.PLAY_END });
         }
     }
 

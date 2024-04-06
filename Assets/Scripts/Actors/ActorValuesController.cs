@@ -24,9 +24,10 @@ public class ActorValuesController : MonoBehaviour
 
     protected void Awake()
     {
-        _hp = _valuesInitData.HP;
-        _def = _valuesInitData.DEF;
-        _agi = _valuesInitData.AGI;
+        if (_valuesInitData != null)
+        {
+            AssignData();
+        }
     }
 
     private void Start()
@@ -38,6 +39,7 @@ public class ActorValuesController : MonoBehaviour
         TurnEventsHandler.Instance.EncounterEvent?.RemoveListener(OnEncounterEventReceived);
     }
 
+    #region DATA RELATED FUNCTIONS
     public void SetData(ActorValuesData data)
     {
         _valuesInitData = data;
@@ -50,6 +52,7 @@ public class ActorValuesController : MonoBehaviour
         _def = _valuesInitData.DEF;
         _agi = _valuesInitData.AGI;
     }
+    #endregion
 
     /// <summary>
     /// Function called when the event Encounter has been received.
@@ -96,6 +99,7 @@ public class ActorValuesController : MonoBehaviour
     }
     #endregion
 
+    #region DAMAGE FUNCTIONS
     /// <summary>
     /// Function that will handle the attack and its analysis (whether it lands, the damage dealt etc...)
     /// </summary>
@@ -175,5 +179,14 @@ public class ActorValuesController : MonoBehaviour
     protected virtual void Death()
     {
         Debug.Log("Actor " + gameObject.name + " is dead !");
+        if (gameObject.GetComponent<ActorController>().GetHandController().GetHolderType() == HOLDER_TYPE.PLAYER)
+        {
+            TurnEventsHandler.Instance.DeathEvent.Invoke(HOLDER_TYPE.PLAYER);
+        }
+        else
+        {
+            TurnEventsHandler.Instance.DeathEvent.Invoke(HOLDER_TYPE.OPPONENT);
+        }
     }
+    #endregion
 }

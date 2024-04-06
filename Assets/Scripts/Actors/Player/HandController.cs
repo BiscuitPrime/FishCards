@@ -15,7 +15,7 @@ public class HandController : MonoBehaviour
 {
     #region VARIABLES
     [Header("Holder Elements")]
-    [SerializeField] private PLAY_HOLDER_TYPE _holderType=PLAY_HOLDER_TYPE.OPPONENT;
+    [SerializeField] private HOLDER_TYPE _holderType=HOLDER_TYPE.OPPONENT;
 
     [Header("Deck")]
     [SerializeField] private DeckController _deck;
@@ -57,7 +57,7 @@ public class HandController : MonoBehaviour
     {
         return _deck;
     }
-    public PLAY_HOLDER_TYPE GetHolderType()
+    public HOLDER_TYPE GetHolderType()
     {
         return _holderType;
     }
@@ -125,12 +125,12 @@ public class HandController : MonoBehaviour
     public void DrawCards()
     {
         int cardsToDraw = _baseNumberOfCardsInHand - _handCardsDict.Count;
-        Debug.Log("[HandController] : Attempting to draw " + cardsToDraw + " cards due to HandCardNumbers : "+_baseNumberOfCardsInHand+" and Dict size : "+_handCardsDict.Count);
+        Debug.Log("[HandController] : Attempting to draw " + cardsToDraw + " cards due to HandCardNumbers : "+_baseNumberOfCardsInHand+" and Dict size : "+_handCardsDict.Count+" for : "+ _holderType.ToString());
         CardController[] drawnCards = _deck.DrawCards(cardsToDraw);
         //TODO : CHANGE THIS TO A POOL SYSTEM RATHER THAN AN INSTANTIATE
         for(int i=0; i < drawnCards.Length; i++)
         {
-            Debug.Log("[HandController] : Adding card : " + drawnCards[i].name + " to "+_holderType.ToString()+" hand");
+            //Debug.Log("[HandController] : Adding card : " + drawnCards[i].name + " to "+_holderType.ToString()+" hand");
             GameObject cardPrefab = Resources.Load("Card") as GameObject;
             GameObject newCard = Instantiate(cardPrefab);
             newCard.GetComponent<CardPrefabController>().SpawnNewCard(drawnCards[i], this);
@@ -151,7 +151,7 @@ public class HandController : MonoBehaviour
         //TODO : CHANGE THIS TO A POOL SYSTEM RATHER THAN AN INSTANTIATE
         for (int i = 0; i < drawnCards.Length; i++)
         {
-            Debug.Log("Adding card : " + drawnCards[i].name + " to hand");
+            //Debug.Log("Adding card : " + drawnCards[i].name + " to hand");
             GameObject cardPrefab = Resources.Load("Card") as GameObject;
             GameObject newCard = Instantiate(cardPrefab);
             newCard.GetComponent<CardPrefabController>().SpawnNewCard(drawnCards[i], this);
@@ -182,7 +182,7 @@ public class HandController : MonoBehaviour
     /// </summary>
     public void PlayRandomCard()
     {
-        Debug.Log("[HAND CONTROLLER] : Playing random card");
+        //Debug.Log("[HAND CONTROLLER] : Playing random card");
         System.Random rand = new System.Random();
         RemoveCardFromHand(_handCardsDict.ElementAt(rand.Next(0, _handCardsDict.Count)).Key);
     }
@@ -250,11 +250,10 @@ public class HandController : MonoBehaviour
     /// </summary>
     public void DeactivateCardsColliders()
     {
-        Debug.Log("[HAND CONTROLLER] : Deactivating cards for : "+gameObject.name);
+        //Debug.Log("[HAND CONTROLLER] : Deactivating cards for : "+gameObject.name);
         foreach (var card in _handCardsDict.Keys)
         {
             _handCardsDict[card].GetComponent<CardPrefabController>().DeactivateCardCollider();
-            Debug.Log("Deactivating card " + card.CardName);
         }
     }
     /// <summary>
@@ -262,7 +261,7 @@ public class HandController : MonoBehaviour
     /// </summary>
     public void ActivateCardsColliders()
     {
-        Debug.Log("[HAND CONTROLLER] : Activating cards for : " + gameObject.name);
+        //Debug.Log("[HAND CONTROLLER] : Activating cards for : " + gameObject.name);
         foreach (var card in _handCardsDict.Keys)
         {
             _handCardsDict[card].GetComponent<CardPrefabController>().ActivateCardCollider();

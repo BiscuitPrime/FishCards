@@ -16,7 +16,7 @@ public enum PLAY_EVENT_STATE
     PLAY_END
 }
 
-public enum PLAY_HOLDER_TYPE
+public enum HOLDER_TYPE
 {
     PLAYER,
     OPPONENT
@@ -30,7 +30,7 @@ public enum ENCOUNTER_EVENT_STATE
 
 public struct PlayEventArg
 {
-    public PLAY_HOLDER_TYPE Holder;
+    public HOLDER_TYPE Holder;
     public PLAY_EVENT_STATE State;
 }
 
@@ -49,7 +49,7 @@ public class PlayEvent : UnityEvent<PlayEventArg>
 
 }
 
-public class DeathEvent : UnityEvent<PLAY_HOLDER_TYPE>
+public class DeathEvent : UnityEvent<HOLDER_TYPE>
 {
 
 }
