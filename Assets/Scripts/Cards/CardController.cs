@@ -11,7 +11,7 @@ public abstract class CardController : ScriptableObject
     [field: Header("Card Visual Elements")]
     [field: SerializeField, TextArea(1, 10)] public string CardName { get; private set; }
     [field: SerializeField] public Sprite CardSprite { get; private set; }
-    [field:SerializeField] public Sprite CardBGSprite { get; private set; }
+    [field:SerializeField] public Sprite CardSymbol { get; private set; }
     [field:SerializeField, TextArea(3, 10)] public string CardDescription { get; private set; }
     #endregion
 

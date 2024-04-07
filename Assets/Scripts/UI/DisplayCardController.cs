@@ -12,7 +12,7 @@ public class DisplayCardController : MonoBehaviour
     #region VARIABLES
     private CardController _card;
     [Header("Card Elements")]
-    [SerializeField] private Image _cardBG;
+    [SerializeField] private Image _cardSymbol;
     [SerializeField] private Image _cardImage;
     [SerializeField] private TextMeshProUGUI _cardName;
     [SerializeField] private TextMeshProUGUI _cardDescription;
@@ -36,7 +36,7 @@ public class DisplayCardController : MonoBehaviour
         _cardName.text = _card.CardName != "" ? _card.CardName : _cardName.text;
         _cardDescription.text = _card.CardDescription != "" ? _card.CardDescription : _cardDescription.text;
         _cardImage.sprite = _card.CardSprite != null ? _card.CardSprite : _cardImage.sprite;
-        _cardBG.sprite = _card.CardName != null ? _card.CardBGSprite : _cardBG.sprite;
+        _cardSymbol.sprite = _card.CardName != null ? _card.CardSymbol : _cardSymbol.sprite;
     }
 
     /// <summary>

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CardName>k__BackingField: ATTACK 3
   <CardSprite>k__BackingField: {fileID: 0}
-  <CardBGSprite>k__BackingField: {fileID: 0}
+  <CardSymbol>k__BackingField: {fileID: 21300000, guid: a8e59840c31ed4841b006f6c8b1116ff, type: 3}
   <CardDescription>k__BackingField: 
   <ATK>k__BackingField: 2
   <PIER>k__BackingField: 50

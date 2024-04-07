@@ -16,7 +16,7 @@ public class CardPrefabController : MonoBehaviour
     public CardController Card;
 
     [Header("Card Prefab Elements")]
-    [SerializeField] private Image _cardBG;
+    [SerializeField] private Image _cardSymbol;
     [SerializeField] private Image _cardImage;
     [SerializeField] private TextMeshProUGUI _cardName;
     [SerializeField] private TextMeshProUGUI _cardDescription;
@@ -34,7 +34,7 @@ public class CardPrefabController : MonoBehaviour
     {
         Assert.IsNotNull(_cardName);
         Assert.IsNotNull(_cardDescription);
-        Assert.IsNotNull(_cardBG);
+        Assert.IsNotNull(_cardSymbol);
         Assert.IsNotNull(_cardImage);
     }
 
@@ -68,7 +68,7 @@ public class CardPrefabController : MonoBehaviour
         _cardName.text = Card.CardName != "" ? Card.CardName : _cardName.text;
         _cardDescription.text = Card.CardDescription != "" ? Card.CardDescription : _cardDescription.text;
         _cardImage.sprite = Card.CardSprite != null ? Card.CardSprite : _cardImage.sprite;
-        _cardBG.sprite = Card.CardName != null ? Card.CardBGSprite : _cardBG.sprite;
+        _cardSymbol.sprite = Card.CardName != null ? Card.CardSymbol : _cardSymbol.sprite;
         _cardPrefabCollider.enabled = true;
     }
 
