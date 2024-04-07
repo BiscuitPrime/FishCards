@@ -271,7 +271,6 @@ public class ActorValuesController : MonoBehaviour
                     }
                 }
                 _hp = _hp - remainingATK;
-                def = 0;
                 _def = 0;
             }
         }
