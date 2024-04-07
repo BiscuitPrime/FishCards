@@ -19,4 +19,9 @@ public class ActorBuffObject : BuffObject
         this.AGI = agi;
         this.TurnCounter = turnCounter;
     }
+    public void TakeDamage(int hp, int def)
+    {
+        HP -= hp;
+        DEF -= def;
+    }
 }

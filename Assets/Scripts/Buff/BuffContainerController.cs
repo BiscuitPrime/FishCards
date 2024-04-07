@@ -114,5 +114,15 @@ public class BuffContainer : MonoBehaviour
         _buffs.Clear();
         _buffs.AddRange(tmp);
     }
+
+    /// <summary>
+    /// Function that will replace the buff list with another buff list
+    /// </summary>
+    /// <param name="buffs">List of buffs</param>
+    public void SetBuffsList(List<BuffObject> buffs)
+    {
+        _buffs.Clear();
+        _buffs.AddRange(buffs);
+    }
     #endregion
 }

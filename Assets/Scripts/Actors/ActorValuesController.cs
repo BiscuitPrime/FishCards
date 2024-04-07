@@ -17,6 +17,8 @@ public class ActorValuesController : MonoBehaviour
     [SerializeField] protected int _def;
     [SerializeField] protected int _agi;
 
+    private BuffContainer _buffContainer;
+
     protected void OnValidate()
     {
         Assert.IsNotNull(_valuesInitData);
@@ -67,7 +69,6 @@ public class ActorValuesController : MonoBehaviour
         }
     }
 
-
     #region VALUES INCREASE/DECREASE FUNCTIONS
     public void RegenDefenseValue()
     {
@@ -108,11 +109,25 @@ public class ActorValuesController : MonoBehaviour
     /// <param name="track">TRACK value of the card</param>
     public void AttemptToTakeDamage(int atk, int pier, int track)
     {
-        if (track>=2*_agi) //100% chance to land
+        //we begin by totaling the buff values on agility that the actor has so that the agi/track calculations can be done :
+        _buffContainer = GetComponent<BuffContainer>();
+        int agi = _agi;
+        if (_buffContainer != null)
+        {
+            var buffs = _buffContainer.ObtainListOfBuffs();
+            foreach( var buff in buffs)
+            {
+                var tmp = buff as ActorBuffObject;
+                if(tmp == null) { continue; }
+                agi += tmp.AGI;
+            }
+        }
+
+        if (track>=2*agi) //100% chance to land
         {
             AttackLandingCalculations(atk, pier);
         }
-        else if (track>=_agi) //70% chance to land
+        else if (track>=agi) //70% chance to land
         {
             if (Random.Range(1, 100) >= 30)
             {
@@ -123,7 +138,7 @@ public class ActorValuesController : MonoBehaviour
                 Debug.Log("[ActorValuesController] : Attack failed to land");
             }
         }
-        else if (track>=((_agi/2)>=1? (_agi / 2) : 1)) //20% to land
+        else if (track>=((agi/2)>=1? (agi / 2) : 1)) //20% to land
         {
             if (Random.Range(1, 100) >= 80)
             {
@@ -144,29 +159,141 @@ public class ActorValuesController : MonoBehaviour
 
 
     /// <summary>
-    /// Function that will calculate the effect of a landing attack (the attack has already landed per agility calculations
+    /// Function that will calculate the effect of a landing attack (the attack has already landed per agility calculations)
     /// </summary>
     /// <param name="atk">ATK value of the attack card</param>
     /// <param name="pier">PIER value of the attack card</param>
     protected void AttackLandingCalculations(int atk, int pier)
     {
         Debug.Log("[ActorValuesController] : Attack landed - calculating with defenses");
-        if (pier >= _def)
+
+        //first, we start by summing up def with the buffs
+        int def = _def;
+        List<BuffObject> buffs;
+        if (_buffContainer != null)
         {
+            buffs = _buffContainer.ObtainListOfBuffs();
+            foreach (var buff in buffs)
+            {
+                var tmp = buff as ActorBuffObject;
+                if (tmp == null) { continue; }
+                def += tmp.DEF;
+            }
+        }
+
+        if (pier >= def) //DEF is too low : atk is fully taken by the player's HP
+        {
+            Debug.Log("[ACTOR VALUES CONTROLLER] : DEF is fully breached");
+            //we calculate the remaining hp while first depleting the buffs (since they act like mini-hp bars outside of the hp bar itself).
+            if (_buffContainer != null)
+            {
+                buffs = _buffContainer.ObtainListOfBuffs();
+                foreach (var buff in buffs)
+                {
+                    var tmp = buff as ActorBuffObject;
+                    if (tmp == null) { continue; }
+                    if (atk <= tmp.HP)
+                    {
+                        tmp.TakeDamage(atk,0);
+                        //ENTIRE ATTACK HAS BEEN EATEN UP BY THE BUFF => atk is over
+                        atk = 0;
+                        break;
+                    }
+                    else
+                    {
+                        atk-=tmp.HP;
+                        tmp.TakeDamage(tmp.HP,0);
+                        //The buff is completely reduced, and the atk goes on to either the next buff OR the player's HP
+                    }
+                }
+            }
+            //At this point, the atk has went through all the buffs, so IF any atk remains, it goes to the HP bar :
             _hp = _hp - atk;
         }
         else
         {
-            if(_def - atk >= 0)
+            if(def - atk >= 0)
             {
+                Debug.Log("[ACTOR VALUES CONTROLLER] : DEF is partially depleted");
+                //we calculate the remaining def while first depleting the buffs (since they act like mini-def bars outside of the def bar itself).
+                if (_buffContainer != null)
+                {
+                    buffs = _buffContainer.ObtainListOfBuffs();
+                    foreach (var buff in buffs)
+                    {
+                        var tmp = buff as ActorBuffObject;
+                        if (tmp == null) { continue; }
+                        if (atk <= tmp.DEF)
+                        {
+                            Debug.Log("[ACTOR VALUES CONTROLLER] : ATK entirely eaten up by a defensive buff");
+                            tmp.TakeDamage(0, atk);
+                            //ENTIRE ATTACK HAS BEEN EATEN UP BY THE BUFF => atk is over
+                            atk = 0;
+                            break;
+                        }
+                        else
+                        {
+                            Debug.Log("[ACTOR VALUES CONTROLLER] : buff failed to stop entirely the attack");
+                            atk -= tmp.DEF;
+                            //The buff is completely reduced, and the atk goes on to either the next buff OR the player's HP
+                            tmp.TakeDamage(0, tmp.DEF);
+                        }
+                    }
+                }
+                //At this point, the atk has went through all the buffs' def, so IF any atk remains, it goes to the DEF bar :
                 _def = _def - atk;
             }
             else
             {
+                Debug.Log("[ACTOR VALUES CONTROLLER] : DEF is fully depleted");
+                int remainingATK = atk - def;
+                //we calculate the remaining hp while first depleting the buffs (since they act like mini-hp bars outside of the hp bar itself).
+                if (_buffContainer != null)
+                {
+                    buffs = _buffContainer.ObtainListOfBuffs();
+                    foreach (var buff in buffs)
+                    {
+                        var tmp = buff as ActorBuffObject;
+                        if (tmp == null) { continue; }
+                        if (remainingATK <= tmp.HP)
+                        {
+                            tmp.TakeDamage(remainingATK, 0);
+                            remainingATK = 0;
+                            //ENTIRE ATTACK HAS BEEN EATEN UP BY THE BUFF => atk is over
+                            break;
+                        }
+                        else
+                        {
+                            remainingATK -= tmp.HP;
+                            tmp.TakeDamage(tmp.HP, 0);
+                            //The buff is completely reduced, and the atk goes on to either the next buff OR the player's HP
+                        }
+                    }
+                }
+                _hp = _hp - remainingATK;
+                def = 0;
                 _def = 0;
-                _hp = _hp - (atk - _def);
             }
         }
+
+        //After the attack has been fully calculated, we remove the emptied buffs :
+        if (_buffContainer != null)
+        {
+            buffs = _buffContainer.ObtainListOfBuffs();
+            List<BuffObject> remainingBuffs = new List<BuffObject>();
+            foreach (var buff in buffs)
+            {
+                var tmp = buff as ActorBuffObject;
+                if (tmp == null) { continue; }
+                if(tmp.HP!=0 || tmp.DEF != 0)
+                {
+                    remainingBuffs.Add(tmp);
+                }
+            }
+            _buffContainer.SetBuffsList(remainingBuffs);
+        }
+        Debug.Log("[ACTOR VALUES CONTROLLER] : Damage calculations are complete with current actor values : HP= "+_hp+", DEF= "+_def+", AGI = "+_agi);
+
         if (_hp <= 0)
         {
             Death();
