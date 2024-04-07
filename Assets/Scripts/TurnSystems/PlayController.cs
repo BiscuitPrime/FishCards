@@ -91,6 +91,7 @@ public class PlayController : MonoBehaviour
                 Debug.Log("[PLAY CONTROLLER] : Next attack card found : " + cardsTmp[i].GetComponent<CardPrefabController>().Card.CardName);
                 return cardsTmp[i];
             }
+            i++;
         }
         Debug.Log("[PLAY CONTROLLER] : No attack card found next");
         return null;
