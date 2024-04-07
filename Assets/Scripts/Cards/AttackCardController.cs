@@ -28,8 +28,25 @@ public class AttackCardController : CardController
             Debug.LogError("[AttackCardController] : Attack failed : opponent does not possess appropriate ActorValuesController component");
             return;
         }
-
-        target.GetComponent<ActorValuesController>().AttemptToTakeDamage(ATK,PIER,TRACK);
+        //we obtain all the values from the current buff container, that we will add up :
+        int atk = ATK;
+        int pier = PIER;
+        int track = TRACK;
+        var buffContainer = card.GetComponent<BuffContainer>();
+        if(buffContainer != null)
+        {
+            List<BuffObject> buffs = buffContainer.ObtainListOfBuffs();
+            foreach(BuffObject buff in buffs )
+            {
+                var b = buff as AttackCardBuffObject;
+                if(b == null) { continue; }
+                atk += b.ATK;
+                pier += b.PIER;
+                track += b.TRACK;
+            }
+        }
+        Debug.Log("[ATTACK CARD CONTROLLER] : Attacking with values : ATK : " + atk + " PIER : " + pier + " TRACK : " + track);
+        target.GetComponent<ActorValuesController>().AttemptToTakeDamage(atk,pier,track);
         Destroy(card);
     }
 }
