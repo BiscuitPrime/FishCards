@@ -11,6 +11,6 @@ using UnityEngine;
 public abstract class BuffObject : ScriptableObject
 {
     [field:Header("Buff Values")]
-    [field:SerializeField] public int TurnCounter { get; private set; }
+    [field:SerializeField] public int TurnCounter { get; protected set; }
     public void UpdateTurnCounter() { TurnCounter--; }
 }

@@ -119,8 +119,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("[GAME MANAGER] : TURN HAS ENDED");
             _curActivePlayer = null;
-            TurnEventsHandler.Instance.TurnEvent.Invoke(TURN_EVENT_STATE.TURN_START);
             ResetReadiness();
+            TurnEventsHandler.Instance.TurnEvent.Invoke(TURN_EVENT_STATE.TURN_START);
         }
         else //if the turn is starting, we trigger its start
         {
@@ -204,6 +204,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void TriggerStartTurn()
     {
+        Debug.Log("[GAME MANAGER] : STARTING TURN");
         _curActivePlayer = _playerController;
         //TriggerStartPlay();
     }

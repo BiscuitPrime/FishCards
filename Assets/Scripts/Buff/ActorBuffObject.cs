@@ -11,11 +11,12 @@ public class ActorBuffObject : BuffObject
     [field: SerializeField] public int HP { get; private set; }
     [field: SerializeField] public int DEF { get; private set; }
     [field: SerializeField] public int AGI { get; private set; }
-    public void DefineValues(string name, int hp, int def, int agi)
+    public void DefineValues(string name, int hp, int def, int agi, int turnCounter=1)
     {
         this.name = name;
         this.HP = hp;
         this.DEF = def;
         this.AGI = agi;
+        this.TurnCounter = turnCounter;
     }
 }

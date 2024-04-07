@@ -22,12 +22,15 @@ public class BuffContainer : MonoBehaviour
     private void Start()
     {
         TurnEventsHandler.Instance.TurnEvent.AddListener(OnTurnEventReceived);
+        TurnEventsHandler.Instance.EncounterEvent.AddListener(OnEncounterEventReceived);
     }
 
+   
 
     private void OnDestroy()
     {
         TurnEventsHandler.Instance.TurnEvent?.RemoveListener(OnTurnEventReceived);
+        TurnEventsHandler.Instance.EncounterEvent?.RemoveListener(OnEncounterEventReceived);
     }
 
     #region EXTERNAL HANDLING OF BUFFS FUNCTIONS
@@ -71,6 +74,15 @@ public class BuffContainer : MonoBehaviour
             UpdateBuffsTurnCounter();
             UpdateBuffsList();
         }
+    }
+
+    /// <summary>
+    /// When an encounter finishes or starts, all buffs are cleared
+    /// </summary>
+    /// <param name="arg0"></param>
+    private void OnEncounterEventReceived(EncounterEventArg arg0)
+    {
+        RemoveAllBuffs();
     }
     #endregion
 

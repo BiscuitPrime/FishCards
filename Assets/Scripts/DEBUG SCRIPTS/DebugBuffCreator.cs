@@ -5,7 +5,8 @@ using UnityEngine;
 public class DebugBuffCreator : MonoBehaviour
 {
     [SerializeField] private GameObject _buffTarget;
-    [SerializeField] private ActorBuffObject _buff;
+    [SerializeField] private string _buffName;
+    [SerializeField] private int _hp = 100,_def = 100,_agi = 100,_turnCounter = 1;
 
     [SerializeField] private bool CreateBuff;
 
@@ -14,10 +15,7 @@ public class DebugBuffCreator : MonoBehaviour
         if (CreateBuff)
         {
             CreateBuff = false;
-            var container = _buffTarget.AddComponent<BuffContainer>();
-            ActorBuffObject buff = ScriptableObject.CreateInstance<ActorBuffObject>();
-            buff.DefineValues("Buff", _buff.HP, _buff.DEF, _buff.AGI);
-            container.AddBuff(buff);
+            BuffFactory.BuffActor(_buffTarget, _buffName, _hp,_def,_agi,_turnCounter);
         }
     }
 }
