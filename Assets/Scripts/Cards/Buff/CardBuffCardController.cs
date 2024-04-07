@@ -15,7 +15,17 @@ public class CardBuffCardController : BuffCardController
 
     public override void ActivateCardEffect(GameObject cardPrefab)
     {
-
+        Debug.Log("[CardBuffCardController] : Activating effect of card " + CardName);
+        GameObject targetedCard = PlayController.Instance.ObtainNextAttackCardInPlay();
+        if (targetedCard == null)
+        {
+            Debug.Log("[CardBuffCardController] : No card found, buff touches no cards");
+        }
+        else
+        {
+            Debug.Log("[CardBuffCardController] : Buffing card : "+targetedCard.GetComponent<CardPrefabController>().Card.CardName);
+            BuffFactory.BuffAttackCard(targetedCard,BuffName,ATK,PIER,TRACK,TurnCounter);
+        }
         Destroy(cardPrefab);
     }
 }

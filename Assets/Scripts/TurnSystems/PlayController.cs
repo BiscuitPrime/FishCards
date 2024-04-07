@@ -75,6 +75,28 @@ public class PlayController : MonoBehaviour
     #endregion
 
     /// <summary>
+    /// Function that will return the next attack card currently in play.
+    /// </summary>
+    /// <returns></returns>
+    public GameObject ObtainNextAttackCardInPlay()
+    {
+        var cardsTmp = _cardsInPlay.ToArray();
+        if(cardsTmp.Length < 1 ) { Debug.Log("[PLAY CONTROLLER] : No attack card found next"); return null; }
+        GameObject resultCard = cardsTmp[0];
+        int i = 0;
+        while (i < cardsTmp.Length)
+        {
+            if (cardsTmp[i]!=null && cardsTmp[i].GetComponent<CardPrefabController>().Card.GetType() == typeof(AttackCardController))
+            {
+                Debug.Log("[PLAY CONTROLLER] : Next attack card found : " + cardsTmp[i].GetComponent<CardPrefabController>().Card.CardName);
+                return cardsTmp[i];
+            }
+        }
+        Debug.Log("[PLAY CONTROLLER] : No attack card found next");
+        return null;
+    }
+
+    /// <summary>
     /// Function that will trigger the end of play, triggering all the cards' active effect in ORDER THEY WERE PUT DOWN IN THE PLAY
     /// </summary>
     public IEnumerator TriggerEndOfPlay()
