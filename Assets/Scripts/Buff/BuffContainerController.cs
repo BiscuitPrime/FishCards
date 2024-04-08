@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -12,22 +13,21 @@ using UnityEngine;
 /// </summary>
 public class BuffContainer : MonoBehaviour
 {
-    [SerializeField] private List<BuffObject> _buffs;
+    [Header("Buff list : ")]
+    [SerializeField] protected List<BuffObject> _buffs;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _buffs = new List<BuffObject>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         TurnEventsHandler.Instance.TurnEvent.AddListener(OnTurnEventReceived);
         TurnEventsHandler.Instance.EncounterEvent.AddListener(OnEncounterEventReceived);
     }
 
-   
-
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         TurnEventsHandler.Instance.TurnEvent?.RemoveListener(OnTurnEventReceived);
         TurnEventsHandler.Instance.EncounterEvent?.RemoveListener(OnEncounterEventReceived);
@@ -38,7 +38,7 @@ public class BuffContainer : MonoBehaviour
     /// Function called by external scripts (usually buff cards) that will add a buff to the targeted object.
     /// </summary>
     /// <param name="buff">Buff added to the associated gameObject</param>
-    public void AddBuff(BuffObject buff)
+    public virtual void AddBuff(BuffObject buff)
     {
         _buffs.Add(buff);
     }
@@ -47,7 +47,7 @@ public class BuffContainer : MonoBehaviour
     /// script that will return all the currently held buffs.
     /// </summary>
     /// <returns>List of the buffs</returns>
-    public List<BuffObject> ObtainListOfBuffs()
+    public virtual List<BuffObject> ObtainListOfBuffs()
     {
         return _buffs;
     }
@@ -55,7 +55,7 @@ public class BuffContainer : MonoBehaviour
     /// <summary>
     /// Function that will remove all buffs currently applied to the associated object.
     /// </summary>
-    public void RemoveAllBuffs()
+    public virtual void RemoveAllBuffs()
     {
         _buffs.Clear();
     }
@@ -67,7 +67,7 @@ public class BuffContainer : MonoBehaviour
     /// TURN END : will update the buffs turn counter.
     /// </summary>
     /// <param name="arg">TURN_EVENT_STATE</param>
-    private void OnTurnEventReceived(TURN_EVENT_STATE arg)
+    protected virtual void OnTurnEventReceived(TURN_EVENT_STATE arg)
     {
         if(arg == TURN_EVENT_STATE.TURN_END) //we update the buff's turn counter ONLY when the turn ends
         {
@@ -80,7 +80,7 @@ public class BuffContainer : MonoBehaviour
     /// When an encounter finishes or starts, all buffs are cleared
     /// </summary>
     /// <param name="arg0"></param>
-    private void OnEncounterEventReceived(EncounterEventArg arg0)
+    protected virtual void OnEncounterEventReceived(EncounterEventArg arg0)
     {
         RemoveAllBuffs();
     }
@@ -90,7 +90,7 @@ public class BuffContainer : MonoBehaviour
     /// <summary>
     /// Updates the turn counter of the contained buffs objects
     /// </summary>
-    private void UpdateBuffsTurnCounter()
+    protected virtual void UpdateBuffsTurnCounter()
     {
         foreach(var buff in _buffs)
         {
@@ -101,7 +101,7 @@ public class BuffContainer : MonoBehaviour
     /// <summary>
     /// Updates the current list of buff objects
     /// </summary>
-    private void UpdateBuffsList()
+    protected virtual void UpdateBuffsList()
     {
         List<BuffObject> tmp = new List<BuffObject>();
         foreach (var buff in _buffs)
@@ -119,7 +119,7 @@ public class BuffContainer : MonoBehaviour
     /// Function that will replace the buff list with another buff list
     /// </summary>
     /// <param name="buffs">List of buffs</param>
-    public void SetBuffsList(List<BuffObject> buffs)
+    public virtual void SetBuffsList(List<BuffObject> buffs)
     {
         _buffs.Clear();
         _buffs.AddRange(buffs);

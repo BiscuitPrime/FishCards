@@ -101,6 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1105488166300164428}
   - component: {fileID: 8016015632424410421}
+  - component: {fileID: 8710870024618319047}
   - component: {fileID: 1020356979717294160}
   - component: {fileID: 7826476078442071064}
   - component: {fileID: 5857939339412410291}
@@ -143,6 +144,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfxSpawnPoint: {fileID: 3481237109851756687}
+--- !u!114 &8710870024618319047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421228465006507085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c63069db3becb4082b7ae0892337bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buffs: []
+  _buffBubble: {fileID: 8770055112114966987, guid: 676b37228bf9cf144aa31d676834190e, type: 3}
 --- !u!114 &1020356979717294160
 MonoBehaviour:
   m_ObjectHideFlags: 0

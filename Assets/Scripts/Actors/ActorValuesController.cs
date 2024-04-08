@@ -198,6 +198,7 @@ public class ActorValuesController : MonoBehaviour
                     if (atk <= tmp.HP)
                     {
                         tmp.TakeDamage(atk,0);
+                        UpdateBuffValues(tmp, atk, 0);
                         //ENTIRE ATTACK HAS BEEN EATEN UP BY THE BUFF => atk is over
                         atk = 0;
                         break;
@@ -205,7 +206,8 @@ public class ActorValuesController : MonoBehaviour
                     else
                     {
                         atk-=tmp.HP;
-                        tmp.TakeDamage(tmp.HP,0);
+                        //tmp.TakeDamage(tmp.HP,0);
+                        UpdateBuffValues(tmp, tmp.HP, 0);
                         //The buff is completely reduced, and the atk goes on to either the next buff OR the player's HP
                     }
                 }
@@ -230,7 +232,8 @@ public class ActorValuesController : MonoBehaviour
                         if (atk <= tmp.DEF)
                         {
                             Debug.Log("[ACTOR VALUES CONTROLLER] : ATK entirely eaten up by a defensive buff");
-                            tmp.TakeDamage(0, atk);
+                            //tmp.TakeDamage(0, atk);
+                            UpdateBuffValues(tmp, 0, atk);
                             //ENTIRE ATTACK HAS BEEN EATEN UP BY THE BUFF => atk is over
                             atk = 0;
                             break;
@@ -240,7 +243,8 @@ public class ActorValuesController : MonoBehaviour
                             Debug.Log("[ACTOR VALUES CONTROLLER] : buff failed to stop entirely the attack");
                             atk -= tmp.DEF;
                             //The buff is completely reduced, and the atk goes on to either the next buff OR the player's HP
-                            tmp.TakeDamage(0, tmp.DEF);
+                            //tmp.TakeDamage(0, tmp.DEF);
+                            UpdateBuffValues(tmp, 0, tmp.DEF);
                         }
                     }
                 }
@@ -262,7 +266,8 @@ public class ActorValuesController : MonoBehaviour
                         if (tmp == null) { continue; }
                         if (remainingATK <= tmp.HP)
                         {
-                            tmp.TakeDamage(remainingATK, 0);
+                            //tmp.TakeDamage(remainingATK, 0);
+                            UpdateBuffValues(tmp, remainingATK, 0);
                             remainingATK = 0;
                             //ENTIRE ATTACK HAS BEEN EATEN UP BY THE BUFF => atk is over
                             break;
@@ -270,7 +275,8 @@ public class ActorValuesController : MonoBehaviour
                         else
                         {
                             remainingATK -= tmp.HP;
-                            tmp.TakeDamage(tmp.HP, 0);
+                            //tmp.TakeDamage(tmp.HP, 0);
+                            UpdateBuffValues(tmp,tmp.HP,0);
                             //The buff is completely reduced, and the atk goes on to either the next buff OR the player's HP
                         }
                     }
@@ -302,6 +308,19 @@ public class ActorValuesController : MonoBehaviour
         if (_hp <= 0)
         {
             Death();
+        }
+    }
+
+    /// <summary>
+    /// Function that will update the buff values, useful for the player to update their buff bubble
+    /// </summary>
+    private void UpdateBuffValues(ActorBuffObject buffObj, int hp, int def)
+    {
+        if(_buffContainer.GetType() == typeof(PlayerBuffContainerController)) 
+        {
+            buffObj.TakeDamage(hp, def);
+            var container = _buffContainer as PlayerBuffContainerController;
+            container.UpdateBubbleDisplay(buffObj);
         }
     }
 

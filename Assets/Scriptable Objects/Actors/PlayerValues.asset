@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayerValues
   m_EditorClassIdentifier: 
   <HP>k__BackingField: 1000
-  <DEF>k__BackingField: 1000
+  <DEF>k__BackingField: 10
   <AGI>k__BackingField: 1
