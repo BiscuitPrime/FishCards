@@ -10,6 +10,7 @@ using UnityEngine.UI;
 /// As such, the only data the game will store will be the CardController Scriptable objects, while the prefabs will be handled by this script.
 /// In effect, this script will only act as a glorified container.
 /// </summary>
+[RequireComponent(typeof(Animator))]
 public class CardPrefabController : MonoBehaviour
 {
     #region VARIABLES
@@ -20,6 +21,7 @@ public class CardPrefabController : MonoBehaviour
     [SerializeField] private Image _cardImage;
     [SerializeField] private TextMeshProUGUI _cardName;
     [SerializeField] private TextMeshProUGUI _cardDescription;
+    [SerializeField] private Animator _anim;
 
     private HandController _hand;
     private Collider2D _cardPrefabCollider;
@@ -27,6 +29,7 @@ public class CardPrefabController : MonoBehaviour
 
     private void Awake()
     {
+        _anim = GetComponent<Animator>();
         _cardPrefabCollider = GetComponent<Collider2D>();
     }
 
@@ -96,6 +99,7 @@ public class CardPrefabController : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Card "+Card.CardName +" has been selected : player wants to play it");
+        _anim.Play("Play");
         UIController.Instance.DisableCardReader();
         _hand.PlayCard(this.Card);
         DeactivateCardCollider();
