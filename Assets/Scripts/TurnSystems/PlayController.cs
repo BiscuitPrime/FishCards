@@ -47,7 +47,7 @@ public class PlayController : MonoBehaviour
 
     private void OnDestroy()
     {
-        
+        TurnEventsHandler.Instance.DeathEvent?.RemoveListener(OnDeathEventReceived);
     }
 
     /// <summary>
@@ -152,9 +152,11 @@ public class PlayController : MonoBehaviour
             while(_cardsInPlay.Count > 0)
             {
                 GameObject curCard = _cardsInPlay.Dequeue();
+                curCard.GetComponent<CardPrefabController>().AnimateActivation();
+                yield return new WaitForSeconds(0.70f);
                 curCard.GetComponent<CardPrefabController>().Card.ActivateCardEffect(curCard);
                 _activeDeckController.AddCardToBottomOfDeck(curCard.GetComponent<CardPrefabController>().Card);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.5f);
             }
             TurnEventsHandler.Instance.PlayEvent.Invoke(new PlayEventArg() { Holder = _player.transform.tag == "Player" ? HOLDER_TYPE.PLAYER : HOLDER_TYPE.OPPONENT, State = PLAY_EVENT_STATE.PLAY_END });
         }

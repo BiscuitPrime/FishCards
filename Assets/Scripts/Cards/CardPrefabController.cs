@@ -99,7 +99,7 @@ public class CardPrefabController : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Card "+Card.CardName +" has been selected : player wants to play it");
-        _anim.Play("Play");
+        AnimatePlay();
         UIController.Instance.DisableCardReader();
         _hand.PlayCard(this.Card);
         DeactivateCardCollider();
@@ -119,6 +119,17 @@ public class CardPrefabController : MonoBehaviour
     private void OnMouseExit()
     {
         UIController.Instance.DisableCardReader();   
+    }
+    #endregion
+
+    #region ANIMATIONS
+    public void AnimateActivation()
+    {
+        _anim.Play("Activation");
+    }
+    public void AnimatePlay()
+    {
+        _anim.Play("Play");
     }
     #endregion
 }
