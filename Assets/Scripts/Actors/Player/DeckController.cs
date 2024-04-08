@@ -101,6 +101,10 @@ public class DeckController : MonoBehaviour
         }
         for(int i = 0; i < number; i++)
         {
+            if (_deckCards.Count < 1)
+            {
+                break;
+            }
             cards[i] = _deckCards.Pop();
         }
         return cards;

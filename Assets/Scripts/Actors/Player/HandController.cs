@@ -202,6 +202,7 @@ public class HandController : MonoBehaviour
                 {
                     cardController.ActivateCardEffect(_handCardsDict[cardController]);
                     _handCardsDict.Remove(cardController);
+                    _deck.AddCardToBottomOfDeck(cardController);
                 }
                 else
                 {
