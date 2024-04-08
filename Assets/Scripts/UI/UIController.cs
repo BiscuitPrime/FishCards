@@ -66,6 +66,9 @@ public class UIController : MonoBehaviour
 
     [Header("Confirmation Window")]
     [SerializeField] private GameObject _confirmationWindow;
+
+    [Header("Informative Menu Elements")]
+    [SerializeField] private GameObject _informativeMenu;
     #endregion
 
     private AudioSource _audioSource;
@@ -87,6 +90,7 @@ public class UIController : MonoBehaviour
         _confirmationWindow.SetActive(false);
         _ingameUI.SetActive(false);
         _encounterSuccessMenu.SetActive(false);
+        _informativeMenu.SetActive(false);
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
             _mainMenuQuitButton.SetActive(false);
@@ -103,6 +107,7 @@ public class UIController : MonoBehaviour
         _pickACardMenu.SetActive(false);
         _ingameUI.SetActive(false);
         _encounterSuccessMenu.SetActive(false);
+        _informativeMenu.SetActive(false);
     }
     public void EnableEndMenu()
     {
@@ -114,6 +119,7 @@ public class UIController : MonoBehaviour
         _pickACardMenu.SetActive(false);
         _ingameUI.SetActive(false);
         _encounterSuccessMenu.SetActive(false);
+        _informativeMenu.SetActive(false);
         DisplayEndScore();
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
@@ -130,6 +136,7 @@ public class UIController : MonoBehaviour
         _pickACardMenu.SetActive(false);
         _ingameUI.SetActive(false);
         _encounterSuccessMenu.SetActive(false);
+        _informativeMenu.SetActive(false);
     }
     public void EnablePickACardMenu()
     {
@@ -141,6 +148,7 @@ public class UIController : MonoBehaviour
         _pickACardMenu.SetActive(true);
         _ingameUI.SetActive(false);
         _encounterSuccessMenu.SetActive(false);
+        _informativeMenu.SetActive(false);
     }
     public void EnableInGameUI()
     {
@@ -154,6 +162,7 @@ public class UIController : MonoBehaviour
         _encounterSuccessMenu.SetActive(false);
         _displayDeck.SetActive(false);
         _cardReader.SetActive(false);
+        _informativeMenu.SetActive(false);
     }
     public void EnableAchievementsMenu()
     {
@@ -165,6 +174,7 @@ public class UIController : MonoBehaviour
         _pickACardMenu.SetActive(false);
         _ingameUI.SetActive(false);
         _encounterSuccessMenu.SetActive(false);
+        _informativeMenu.SetActive(false);
     }
     public void EnableEncounterSuccessMenu()
     {
@@ -176,6 +186,19 @@ public class UIController : MonoBehaviour
         _pickACardMenu.SetActive(false);
         _ingameUI.SetActive(false);
         _encounterSuccessMenu.SetActive(true);
+        _informativeMenu.SetActive(false);
+    }
+    public void EnableInformativeMenu()
+    {
+        _mainMenu.SetActive(false);
+        _endMenu.SetActive(false);
+        _loadingMenu.SetActive(false);
+        _settingsMenu.SetActive(false);
+        _achievementsMenu.SetActive(false);
+        _pickACardMenu.SetActive(false);
+        _ingameUI.SetActive(false);
+        _encounterSuccessMenu.SetActive(false);
+        _informativeMenu.SetActive(true);
     }
     #endregion
 
@@ -247,6 +270,11 @@ public class UIController : MonoBehaviour
     {
         PlayAudioButtonClick();
         _confirmationWindow.SetActive(false);
+    }
+    public void OnInformativeMenuButtonClicked()
+    {
+        PlayAudioButtonClick();
+        EnableInformativeMenu();
     }
     #endregion
 
