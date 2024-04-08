@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06d6693cc3d8394498260035429f54a8, type: 3}
+  m_Script: {fileID: 11500000, guid: a8d323293d2ff6d4dbc70a2857be4828, type: 3}
   m_Name: GoFish
   m_EditorClassIdentifier: 
   <CardName>k__BackingField: Go Fish !
   <CardSprite>k__BackingField: {fileID: 0}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: b166ebabed39b074bb3bcdbf7ac92425, type: 3}
-  <CardDescription>k__BackingField: Let's go fish !
+  <CardDescription>k__BackingField: 'Go Fish !
+
+
+    Immediately ends the current
+    play, regardless of the number of cards in play.'
