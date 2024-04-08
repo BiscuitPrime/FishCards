@@ -253,18 +253,19 @@ public class GameManager : MonoBehaviour
         }
 
         List<CardController> possibleCards = new List<CardController>();
-        //possibleCards.Add(_availableCardsData.Cards[Random.Range(0, _availableCardsData.Cards.Count)]);
 
+        //First we create a list of all available cards EXCLUDING THE CARDS THE PLAYER ALREADY POSSESS :
         List<CardController> availableCards = new List<CardController>();
         foreach(var card in _availableCardsData.Cards)
         {
             if (!_playerCardsData.Cards.Contains(card))
             {
-                Debug.Log("=== REMOVING CARD " + card + " FROM SELECTION");
                 availableCards.Add(card);
             }
         }
 
+        //Then, we try to obtain num cards, each unique.
+        //If that's impossible, we take as many unique cards (amongst the cards player DOESN'T ALREADY HAVE) as we can
         for (int i = 0; i < num; i++)
         {
             var selectedCard = availableCards[Random.Range(0, availableCards.Count)];
