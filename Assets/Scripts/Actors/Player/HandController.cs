@@ -211,7 +211,8 @@ public class HandController : MonoBehaviour
                 }
                 if (_handCardsDict.Count == 0)
                 {
-                    StartCoroutine(PlayController.Instance.TriggerEndOfPlay());
+                    PlayController.Instance.RequestEndOfPlay();
+                    //StartCoroutine(PlayController.Instance.TriggerEndOfPlay());
                 }
                 UpdateCardsPosition();
                 return;

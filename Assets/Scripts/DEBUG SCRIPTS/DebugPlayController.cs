@@ -18,7 +18,8 @@ public class DebugPlayController : MonoBehaviour
         }
         if (TriggerEndOfPlay)
         {
-            StartCoroutine(PlayController.Instance.TriggerEndOfPlay());
+            PlayController.Instance.RequestEndOfPlay();
+            //StartCoroutine(PlayController.Instance.TriggerEndOfPlay());
             TriggerEndOfPlay = false;
         }
     }

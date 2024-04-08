@@ -325,7 +325,7 @@ public class ActorValuesController : MonoBehaviour
     }
 
     /// <summary>
-    /// Function that will start the Death process of the actor
+    /// Function that will start the Death process of the actor.
     /// </summary>
     protected virtual void Death()
     {

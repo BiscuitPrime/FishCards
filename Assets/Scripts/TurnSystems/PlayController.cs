@@ -1,4 +1,5 @@
 using Fish.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,10 +35,19 @@ public class PlayController : MonoBehaviour
 
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _opponent;
+
+    private Coroutine _activateCardsCoroutine;
     
     private void Start()
     {
         _cardsInPlay = new Queue<GameObject>();
+        TurnEventsHandler.Instance.DeathEvent.AddListener(OnDeathEventReceived);
+    }
+
+
+    private void OnDestroy()
+    {
+        
     }
 
     /// <summary>
@@ -47,6 +57,29 @@ public class PlayController : MonoBehaviour
     {
         _playIsTriggered = false;
     }
+
+    #region EVENT RECEIVER FUNCTIONS
+    /// <summary>
+    /// Function called when the death event (triggered by ActorValuesController when an actor dies) is received.
+    /// We stop the ongoing play coroutine (if not already done by then), remove all the cards from the play back into the hand AND NOTHING ELSE.
+    /// This will avoid the call to the next play event to be made and avoid any bugs. Also prevents remaining cards from being activated and triggering other effects which could result in bugs.
+    /// Safety people, safety : )
+    /// </summary>
+    /// <param name="arg"></param>
+    private void OnDeathEventReceived(HOLDER_TYPE arg)
+    {
+        if (_activateCardsCoroutine != null)
+        {
+            StopCoroutine(_activateCardsCoroutine);
+        }
+        while (_cardsInPlay.Count > 0)
+        {
+            GameObject curCard = _cardsInPlay.Dequeue();
+            _activeDeckController.AddCardToBottomOfDeck(curCard.GetComponent<CardPrefabController>().Card);
+            Destroy(curCard);
+        }
+    }
+    #endregion
 
     #region PLAYER AND OPPONENT RELATED FUNCTIONS
     /// <summary>
@@ -98,9 +131,18 @@ public class PlayController : MonoBehaviour
     }
 
     /// <summary>
+    /// Function called by external scripts that will launch the coroutine that will activate all the cards.
+    /// The coroutine is saved as to ensure that it can be stopped if need be.
+    /// </summary>
+    public void RequestEndOfPlay()
+    {
+        _activateCardsCoroutine = StartCoroutine(TriggerEndOfPlay());
+    }
+
+    /// <summary>
     /// Function that will trigger the end of play, triggering all the cards' active effect in ORDER THEY WERE PUT DOWN IN THE PLAY
     /// </summary>
-    public IEnumerator TriggerEndOfPlay()
+    private IEnumerator TriggerEndOfPlay()
     {
         if (_playIsTriggered) { yield return null; } //if the play has already been triggered, we avoid triggering it again immediately - this is necessary to avoid issues when a wild card that triggers the end of play is ALSO the last card played (that would lead to two calls to this function)
         else
@@ -116,6 +158,7 @@ public class PlayController : MonoBehaviour
             }
             TurnEventsHandler.Instance.PlayEvent.Invoke(new PlayEventArg() { Holder = _player.transform.tag == "Player" ? HOLDER_TYPE.PLAYER : HOLDER_TYPE.OPPONENT, State = PLAY_EVENT_STATE.PLAY_END });
         }
+        _activateCardsCoroutine = null;
     }
 
     /// <summary>
