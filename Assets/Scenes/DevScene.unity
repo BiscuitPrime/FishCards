@@ -551,7 +551,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buffTarget: {fileID: 2711559293622844516}
-  _buff: {fileID: 11400000, guid: dca1121257f000d41b749aea97a75f8b, type: 2}
+  _buffName: 
+  _hp: 100
+  _def: 100
+  _agi: 100
+  _turnCounter: 1
   CreateBuff: 0
 --- !u!1001 &2986160236545782527
 PrefabInstance:
