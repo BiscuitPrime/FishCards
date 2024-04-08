@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -26,8 +27,11 @@ public class GameManager : MonoBehaviour
     [Header("Player")]
     private GameObject _playerPrefab;
     private ActorController _playerController;
-    [SerializeField] private CardsListData _playerInitCardData;
-    [SerializeField] private CardsListData _playerAvailableCardData;
+    
+    [Header("Cards")]
+    [SerializeField,Tooltip("The starting cards of the player, remains const during runtime.")] private CardsListData _playerInitCardsData;
+    [SerializeField,Tooltip("All the cards available to the player during play.")] private CardsListData _availableCardsData;
+    [SerializeField, Tooltip("The effective player cards. This data will be modified during play.")] private CardsListData _playerCardsData;
 
     [Header("Opponent")]
     private GameObject _opponentPrefab;
@@ -48,8 +52,8 @@ public class GameManager : MonoBehaviour
 
     private void OnValidate()
     {
-        Assert.IsNotNull(_playerAvailableCardData);
-        Assert.IsNotNull(_playerInitCardData);
+        Assert.IsNotNull(_availableCardsData);
+        Assert.IsNotNull(_playerInitCardsData);
     }
 
     private void Start()
@@ -78,7 +82,15 @@ public class GameManager : MonoBehaviour
 
     public CardsListData GetPlayerInitCards()
     {
-        return _playerInitCardData;
+        return _playerInitCardsData;
+    }
+    public CardsListData GetPlayerCards()
+    {
+        return _playerCardsData;
+    }
+    public CardsListData GetAvailableCards()
+    {
+        return _availableCardsData;
     }
 
     /// <summary>
@@ -195,7 +207,7 @@ public class GameManager : MonoBehaviour
         _opponentPrefab.GetComponent<OpponentAIController>().SetOpponentData(selectedOpponent);
         // construct the decks :
         _opponentController.GetDeckController().ConstructDeck(selectedOpponent.InitCardDeck.Cards);
-        _playerController.GetDeckController().ConstructDeck(_playerInitCardData.Cards);
+        _playerController.GetDeckController().ConstructDeck(_playerCardsData.Cards);
         // THEN (and only THEN) :
         _curActivePlayer = _playerController;
         TurnEventsHandler.Instance.TurnEvent.Invoke(TURN_EVENT_STATE.TURN_START);
@@ -234,19 +246,43 @@ public class GameManager : MonoBehaviour
     /// <returns>Selected cards</returns>
     private CardController[] SelectPickCards(int num)
     {
-        List<CardController> cards = new List<CardController>();
-        cards.Add(_playerAvailableCardData.Cards[Random.Range(0, _playerAvailableCardData.Cards.Count)]);
-        for (int i = 1; i < num; i++)
+        if (_playerCardsData.Cards.Count == _availableCardsData.Cards.Count)
         {
-            var selectedCard = _playerAvailableCardData.Cards[Random.Range(0, _playerAvailableCardData.Cards.Count)];
-            while (cards.Contains(selectedCard))
-            {
-                selectedCard = _playerAvailableCardData.Cards[Random.Range(0, _playerAvailableCardData.Cards.Count)];
-            }
-            cards.Add(selectedCard);
-            Debug.Log("[GAME MANAGER] : PRIZE CARD SELECTED : " + cards[i].CardName);
+            Debug.Log("[GAME MANAGER] : Player possesses all the available cards => pick a card will not be displayed");
+            return null;
         }
-        return cards.ToArray();
+
+        List<CardController> possibleCards = new List<CardController>();
+        //possibleCards.Add(_availableCardsData.Cards[Random.Range(0, _availableCardsData.Cards.Count)]);
+        for (int i = 0; i < num; i++)
+        {
+            var selectedCard = _availableCardsData.Cards[Random.Range(0, _availableCardsData.Cards.Count)];
+            while (possibleCards.Contains(selectedCard) /*|| _playerCardsData.Cards.Contains(selectedCard)*/)
+            {
+                selectedCard = _availableCardsData.Cards[Random.Range(0, _availableCardsData.Cards.Count)];
+            }
+            possibleCards.Add(selectedCard);
+            Debug.Log("[GAME MANAGER] : PRIZE CARD SELECTED : " + possibleCards[i].CardName);
+        }
+        return possibleCards.ToArray();
+    }
+
+    /// <summary>
+    /// Function that will add a card to the player's cards
+    /// </summary>
+    /// <param name="card"></param>
+    public void AddCardToPlayerCards(CardController card)
+    {
+        _playerCardsData.Cards.Add(card);
+    }
+
+    /// <summary>
+    /// Function that will reset the player's cards to the player's init cards
+    /// </summary>
+    public void ResetPlayerCards()
+    {
+        _playerCardsData.Cards.Clear();
+        _playerCardsData.SetCards(_playerInitCardsData.Cards);
     }
     #endregion
 

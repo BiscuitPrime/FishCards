@@ -23,7 +23,7 @@ public class DisplayDeckController : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerInitCardList = GameManager.Instance.GetPlayerInitCards();
+        _playerInitCardList = GameManager.Instance.GetPlayerCards();
         _cardsList = new List<CardController>();
         foreach(CardController card in _playerInitCardList.Cards)
         {

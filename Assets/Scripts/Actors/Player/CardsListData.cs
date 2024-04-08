@@ -11,4 +11,5 @@ public class CardsListData : ScriptableObject
 {
     [field:Header("Cards")]
     [field:SerializeField] public List<CardController> Cards { get; private set; }
+    public void SetCards(List<CardController> cards) { Cards = cards; }
 }

@@ -45,7 +45,7 @@ public class DisplayCardController : MonoBehaviour
     public void OnCardClicked()
     {
         Debug.Log("[DISPLAY CARD CONTROLLER] : Player picked card : " + _card.CardName);
-        //Sends a signal or something
+        GameManager.Instance.AddCardToPlayerCards(_card);
         UIController.Instance.EnableInGameUI();
         TurnEventsHandler.Instance.EncounterEvent.Invoke(new EncounterEventArg() { State=ENCOUNTER_EVENT_STATE.ENCOUNTER_START});
     }

@@ -238,10 +238,19 @@ public class UIController : MonoBehaviour
     /// <param name="card"></param>
     public void AttributePrizeCards(CardController[] card)
     {
+        if (card == null)
+        {
+            EnableInGameUI();
+            TurnEventsHandler.Instance.EncounterEvent.Invoke(new EncounterEventArg() { State = ENCOUNTER_EVENT_STATE.ENCOUNTER_START });
+            return;
+        }
+
         //TODO : FOR NOW, we assume that the prize will ALWAYS be 3 randomly selected cards. In a future update (lol), maybe redo that part with more modularity in mind, similar to the spawn/load card assets done in HandController
         if (card.Length != 3)
         {
-            Debug.LogError("[UI CONTROLLER] : More or less than 3 cards were given to the pick a card menu. RED ALERT.");
+            Debug.Log("[UI CONTROLLER] : More or less than 3 cards were given to the pick a card menu. RED ALERT.");
+            EnableInGameUI();
+            TurnEventsHandler.Instance.EncounterEvent.Invoke(new EncounterEventArg() { State = ENCOUNTER_EVENT_STATE.ENCOUNTER_START });
             return;
         }
         Debug.Log("Attributing prize cards : " + card[0]+" & " + card[1]+" & " + card[2]);

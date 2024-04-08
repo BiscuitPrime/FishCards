@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04d61ce9d0966f945baad336bb3c351f, type: 3}
-  m_Name: PlayerAvailableCardsData
+  m_Name: PlayerCardsData
   m_EditorClassIdentifier: 
   <Cards>k__BackingField:
   - {fileID: 11400000, guid: 50899d31cea42b04d80365bbb9e65e8e, type: 2}
   - {fileID: 11400000, guid: a4d7c73b31a828b42bdfe660549f9553, type: 2}
   - {fileID: 11400000, guid: b667036a4453bd54f8bfeca57dbf192f, type: 2}
-  - {fileID: 11400000, guid: 34d50fe49f4532f489fb97616abfdfd9, type: 2}
   - {fileID: 11400000, guid: 43fc41e0eac60d54891a20bbc37a79d9, type: 2}
-  - {fileID: 11400000, guid: 408434e55cfc7b644a2d046f4bc139dc, type: 2}

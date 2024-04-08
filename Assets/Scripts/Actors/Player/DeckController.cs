@@ -52,6 +52,7 @@ public class DeckController : MonoBehaviour
     /// <param name="cards"></param>
     public void ConstructDeck(List<CardController> cards)
     {
+        _deckCards.Clear();
         foreach (CardController card in cards)
         {
             _deckCards.Push(card);
@@ -82,7 +83,6 @@ public class DeckController : MonoBehaviour
         {
             newDeck.Add(tmp[tmp.Length - i]);
         }
-        _deckCards.Clear();
         ConstructDeck(newDeck);
     }
 
