@@ -76,6 +76,11 @@ public class GameManager : MonoBehaviour
         TurnEventsHandler.Instance.DeathEvent?.RemoveListener(OnDeathEventReceived);
     }
 
+    public CardsListData GetPlayerInitCards()
+    {
+        return _playerInitCardData;
+    }
+
     /// <summary>
     /// Function that will start the game, and the turns logic, at the beginning of the game.
     /// It will start the initial turn, and like all turns, will assign the first play holder to be the player.
@@ -194,7 +199,7 @@ public class GameManager : MonoBehaviour
         // THEN (and only THEN) :
         _curActivePlayer = _playerController;
         TurnEventsHandler.Instance.TurnEvent.Invoke(TURN_EVENT_STATE.TURN_START);
-        UIController.Instance.EnableInGameUI();
+        //UIController.Instance.EnableInGameUI();
     }
 
     /// <summary>

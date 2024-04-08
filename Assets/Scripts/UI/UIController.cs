@@ -27,6 +27,7 @@ public class UIController : MonoBehaviour
     #region SERIALIZED PARAMETERS
     [Header("Game UI Elements")]
     [SerializeField] private GameObject _ingameUI;
+    [SerializeField] private GameObject _displayDeck;
 
     [Header("Main Menu Elements")]
     [SerializeField] private GameObject _mainMenu;
@@ -137,6 +138,7 @@ public class UIController : MonoBehaviour
         _achievementsMenu.SetActive(false);
         _pickACardMenu.SetActive(false);
         _ingameUI.SetActive(true);
+        _displayDeck.SetActive(false);
     }
     public void EnableAchievementsMenu()
     {
@@ -197,6 +199,23 @@ public class UIController : MonoBehaviour
     {
         PlayAudioButtonClick();
         Application.Quit();
+    }
+    #endregion
+
+    #region INGAME UI FUNCTIONS
+    /// <summary>
+    /// Function that will hide the display deck.
+    /// </summary>
+    public void HideDisplayDeck()
+    {
+        _displayDeck.SetActive(false);
+    }
+    /// <summary>
+    /// Function that will enable the display deck (for example, if player wants to check their deck during the game).
+    /// </summary>
+    public void EnableDisplayDeck()
+    {
+        _displayDeck.SetActive(true);
     }
     #endregion
 

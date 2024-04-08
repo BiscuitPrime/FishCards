@@ -19,6 +19,6 @@ public class DeckPrefabController : MonoBehaviour
     private void OnMouseDown()
     {
         _collider.enabled = false;
-        GameManager.Instance.StartGame();
+       // GameManager.Instance.StartGame();
     }
 }

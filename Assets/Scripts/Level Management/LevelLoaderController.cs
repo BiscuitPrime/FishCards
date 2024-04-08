@@ -38,6 +38,7 @@ public class LevelLoaderController : MonoBehaviour
             Debug.Log("Loading progress : " + loadingProgress);
             yield return null;
             UIController.Instance.EnableInGameUI();
+            UIController.Instance.EnableDisplayDeck();
         }
     }
 }
