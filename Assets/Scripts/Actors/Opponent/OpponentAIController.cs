@@ -11,7 +11,7 @@ using UnityEngine;
 public class OpponentAIController : MonoBehaviour
 {
     [Header("Opponent Prefab Elements")]
-
+    [SerializeField] private SpriteRenderer _sprite;
     [SerializeField] private OpponentData _data;
     private HandController _handController;
 
@@ -45,6 +45,7 @@ public class OpponentAIController : MonoBehaviour
     {
         GetComponent<DeckController>().ConstructDeck(_data.InitCardDeck.Cards);
         GetComponent<ActorValuesController>().SetData(_data.Values);
+        _sprite.sprite = _data.Sprite;
     }
     #endregion
 
