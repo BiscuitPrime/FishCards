@@ -233,7 +233,7 @@ public class UIController : MonoBehaviour
 
     #region PICK A CARD FUNCTIONS
     /// <summary>
-    /// Function that will grant the 
+    /// Function that will assign the selected prize cards to the correct display cards
     /// </summary>
     /// <param name="card"></param>
     public void AttributePrizeCards(CardController[] card)
@@ -246,17 +246,31 @@ public class UIController : MonoBehaviour
         }
 
         //TODO : FOR NOW, we assume that the prize will ALWAYS be 3 randomly selected cards. In a future update (lol), maybe redo that part with more modularity in mind, similar to the spawn/load card assets done in HandController
-        if (card.Length != 3)
+        if (card.Length < 1)
         {
-            Debug.Log("[UI CONTROLLER] : More or less than 3 cards were given to the pick a card menu. RED ALERT.");
+            Debug.Log("[UI CONTROLLER] : Less than 1 cards were given to the pick a card menu. RED ALERT.");
             EnableInGameUI();
             TurnEventsHandler.Instance.EncounterEvent.Invoke(new EncounterEventArg() { State = ENCOUNTER_EVENT_STATE.ENCOUNTER_START });
             return;
         }
-        Debug.Log("Attributing prize cards : " + card[0]+" & " + card[1]+" & " + card[2]);
+        Debug.Log("Attributing prize cards");
+        if(card.Length >= 3)
+        {
+            _displayCard3.AttributeCardData(card[2]);
+        }
+        else
+        {
+            _displayCard3.gameObject.SetActive(false);
+        }
+        if (card.Length >= 2)
+        {
+            _displayCard2.AttributeCardData(card[1]);
+        }
+        else
+        {
+            _displayCard2.gameObject.SetActive(false);
+        }
         _displayCard1.AttributeCardData(card[0]);
-        _displayCard2.AttributeCardData(card[1]);
-        _displayCard3.AttributeCardData(card[2]);
     }
     #endregion
 

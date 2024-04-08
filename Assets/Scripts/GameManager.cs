@@ -254,14 +254,30 @@ public class GameManager : MonoBehaviour
 
         List<CardController> possibleCards = new List<CardController>();
         //possibleCards.Add(_availableCardsData.Cards[Random.Range(0, _availableCardsData.Cards.Count)]);
+
+        List<CardController> availableCards = new List<CardController>();
+        foreach(var card in _availableCardsData.Cards)
+        {
+            if (!_playerCardsData.Cards.Contains(card))
+            {
+                Debug.Log("=== REMOVING CARD " + card + " FROM SELECTION");
+                availableCards.Add(card);
+            }
+        }
+
         for (int i = 0; i < num; i++)
         {
-            var selectedCard = _availableCardsData.Cards[Random.Range(0, _availableCardsData.Cards.Count)];
-            while (possibleCards.Contains(selectedCard) /*|| _playerCardsData.Cards.Contains(selectedCard)*/)
+            var selectedCard = availableCards[Random.Range(0, availableCards.Count)];
+            while (possibleCards.Contains(selectedCard))
             {
-                selectedCard = _availableCardsData.Cards[Random.Range(0, _availableCardsData.Cards.Count)];
+                selectedCard = availableCards[Random.Range(0, availableCards.Count)];
             }
             possibleCards.Add(selectedCard);
+            availableCards.Remove(selectedCard);
+            if(availableCards.Count < 1)
+            {
+                break;
+            }
             Debug.Log("[GAME MANAGER] : PRIZE CARD SELECTED : " + possibleCards[i].CardName);
         }
         return possibleCards.ToArray();
