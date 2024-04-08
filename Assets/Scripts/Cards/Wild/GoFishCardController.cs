@@ -10,6 +10,7 @@ public class GoFishCardController : WildCardController
 {
     public override void ActivateCardEffect(GameObject card)
     {
+        //base.ActivateCardEffect(card);
         PlayController.Instance.RequestEndOfPlay();
         Destroy(card);
     }

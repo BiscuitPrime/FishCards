@@ -33,6 +33,11 @@ public class CardPrefabController : MonoBehaviour
         _cardPrefabCollider = GetComponent<Collider2D>();
     }
 
+    private void OnDestroy()
+    {
+        UIController.Instance.DisableCardReader();    
+    }
+
     private void OnValidate()
     {
         Assert.IsNotNull(_cardName);
@@ -100,9 +105,9 @@ public class CardPrefabController : MonoBehaviour
     {
         Debug.Log("Card "+Card.CardName +" has been selected : player wants to play it");
         AnimatePlay();
+        DeactivateCardCollider();
         UIController.Instance.DisableCardReader();
         _hand.PlayCard(this.Card);
-        DeactivateCardCollider();
     }
 
     /// <summary>
