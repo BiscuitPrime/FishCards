@@ -96,8 +96,25 @@ public class CardPrefabController : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Card "+Card.CardName +" has been selected : player wants to play it");
+        UIController.Instance.DisableCardReader();
         _hand.PlayCard(this.Card);
         DeactivateCardCollider();
+    }
+
+    /// <summary>
+    /// When the player starts to hover on the card, we enable the card reader.
+    /// </summary>
+    private void OnMouseOver()
+    {
+        UIController.Instance.EnableCardReader(this.Card);
+    }
+
+    /// <summary>
+    /// When the player stops hovering on the card, we disable the card reader.
+    /// </summary>
+    private void OnMouseExit()
+    {
+        UIController.Instance.DisableCardReader();   
     }
     #endregion
 }

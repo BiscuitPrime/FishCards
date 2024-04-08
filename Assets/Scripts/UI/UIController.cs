@@ -28,6 +28,7 @@ public class UIController : MonoBehaviour
     [Header("Game UI Elements")]
     [SerializeField] private GameObject _ingameUI;
     [SerializeField] private GameObject _displayDeck;
+    [SerializeField] private GameObject _cardReader;
 
     [Header("Main Menu Elements")]
     [SerializeField] private GameObject _mainMenu;
@@ -139,6 +140,7 @@ public class UIController : MonoBehaviour
         _pickACardMenu.SetActive(false);
         _ingameUI.SetActive(true);
         _displayDeck.SetActive(false);
+        _cardReader.SetActive(false);
     }
     public void EnableAchievementsMenu()
     {
@@ -216,6 +218,16 @@ public class UIController : MonoBehaviour
     public void EnableDisplayDeck()
     {
         _displayDeck.SetActive(true);
+    }
+
+    public void EnableCardReader(CardController card)
+    {
+        _cardReader.SetActive(true);
+        _cardReader.GetComponent<DisplayCardController>().AttributeCardData(card);
+    }
+    public void DisableCardReader()
+    {
+        _cardReader.SetActive(false);
     }
     #endregion
 
