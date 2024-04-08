@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9bc5f657f5eeec4f83894bfaa8ef498, type: 3}
   m_Name: 2_En1Values
   m_EditorClassIdentifier: 
-  <HP>k__BackingField: 10
-  <DEF>k__BackingField: 10
-  <AGI>k__BackingField: 10
+  <HP>k__BackingField: 20
+  <DEF>k__BackingField: 20
+  <AGI>k__BackingField: 30

@@ -16,6 +16,6 @@ MonoBehaviour:
   <Sprite>k__BackingField: {fileID: 0}
   <OpponentSound>k__BackingField: {fileID: 0}
   <InitCardDeck>k__BackingField: {fileID: 11400000, guid: 5000dcb5361177245ab6d174c8259996, type: 2}
-  <HandSize>k__BackingField: 3
+  <HandSize>k__BackingField: 4
   <DifficultyRating>k__BackingField: 2
   <Values>k__BackingField: {fileID: 11400000, guid: 1c82cf30c969051438c0d03c6edbd8be, type: 2}

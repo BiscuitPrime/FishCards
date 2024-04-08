@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RageMyFishies
   m_EditorClassIdentifier: 
   <CardName>k__BackingField: Rage my Fishies !
-  <CardSprite>k__BackingField: {fileID: 0}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 71f62cd648258e94385039ba7b79770b, type: 3}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: a8e59840c31ed4841b006f6c8b1116ff, type: 3}
   <CardDescription>k__BackingField: 'What''s better for motivation than a speech
     ?
