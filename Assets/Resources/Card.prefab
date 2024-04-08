@@ -682,7 +682,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0.01
   m_fontSizeMax: 72
-  m_fontStyle: 2
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535

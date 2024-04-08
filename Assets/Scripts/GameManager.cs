@@ -253,7 +253,7 @@ public class GameManager : MonoBehaviour
     /// <returns>Selected cards</returns>
     private CardController[] SelectPickCards(int num)
     {
-        if (_playerCardsData.Cards.Count == _availableCardsData.Cards.Count)
+        if (_playerCardsData.Cards.Count >= _availableCardsData.Cards.Count)
         {
             Debug.Log("[GAME MANAGER] : Player possesses all the available cards => pick a card will not be displayed");
             return null;
