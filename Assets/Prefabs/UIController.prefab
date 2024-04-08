@@ -606,8 +606,8 @@ MonoBehaviour:
   _achievementsMenu: {fileID: 4939072139511867855}
   _pickACardMenu: {fileID: 3162644767902455068}
   _displayCard1: {fileID: 7616646494831861299}
-  _displayCard2: {fileID: 0}
-  _displayCard3: {fileID: 0}
+  _displayCard2: {fileID: 1581256762309458613}
+  _displayCard3: {fileID: 2517493640501012402}
   _endMenu: {fileID: 1050934183203504739}
   _endMenuQuitButton: {fileID: 1742903103367258077}
   _endMenuText: {fileID: 7994095030927820655}
@@ -4190,6 +4190,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 775610270402350562, guid: e90951446e1e56c489b8e12b3f155576, type: 3}
   m_PrefabInstance: {fileID: 12138468864537107}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2517493640501012402 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2505392271580960161, guid: e90951446e1e56c489b8e12b3f155576, type: 3}
+  m_PrefabInstance: {fileID: 12138468864537107}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4852c1f9665fc8b4ebdc686d5e593ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3978139013028785940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4287,6 +4298,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e90951446e1e56c489b8e12b3f155576, type: 3}
+--- !u!114 &1581256762309458613 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2505392271580960161, guid: e90951446e1e56c489b8e12b3f155576, type: 3}
+  m_PrefabInstance: {fileID: 3978139013028785940}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4852c1f9665fc8b4ebdc686d5e593ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4464955317839340278 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 775610270402350562, guid: e90951446e1e56c489b8e12b3f155576, type: 3}

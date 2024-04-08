@@ -67,7 +67,7 @@ public class OpponentAIController : MonoBehaviour
     {
         for(int i = 0; i < num; i++)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(1f);
             _handController.PlayRandomCard();
         }
     }
