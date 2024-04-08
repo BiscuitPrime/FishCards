@@ -230,7 +230,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void TriggerStartPlay()
     {
-        if (_curActivePlayer == null) { TriggerStartTurn(); return; }
+        if (_curActivePlayer == null) { TriggerStartTurn(); return; } //we temporize : if _curActive is null, then that means TriggerStartTurn was not yet called BUT both players were ready before it. As such, we wait a bit.
         PlayController.Instance.ResetPlay();
         PlayController.Instance.AssignPlayerAndOpponent(_curActivePlayer.gameObject,_curActivePlayer==_opponentController?_playerPrefab:_opponentPrefab);
         TurnEventsHandler.Instance.PlayEvent.Invoke(new PlayEventArg() { Holder = _curActivePlayer==_opponentController ? HOLDER_TYPE.OPPONENT:HOLDER_TYPE.PLAYER, State = PLAY_EVENT_STATE.PLAY_BEGIN});
