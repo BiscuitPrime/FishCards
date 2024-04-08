@@ -120,8 +120,7 @@ public class GameManager : MonoBehaviour
         {
             _encounterIsActive = false;
             _encounterCount++;
-            UIController.Instance.EnablePickACardMenu();
-            UIController.Instance.AttributePrizeCards(SelectPickCards(GameValues.PICK_A_CARD_OPTIONS));
+            UIController.Instance.EnableEncounterSuccessMenu();
         }
     }
 
@@ -238,6 +237,14 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region PICK A CARD FUNCTIONS
+    /// <summary>
+    /// Function called by UI elements (button) when the pick a card menu is to be displayed
+    /// </summary>
+    public void TriggerPickACard()
+    {
+        UIController.Instance.AttributePrizeCards(SelectPickCards(GameValues.PICK_A_CARD_OPTIONS));
+    }
+
     /// <summary>
     /// Function that will select an inputted number of cards amongst a list. The selected cards will be each unique from one another.
     /// As such, we can never request more cards than are currently present in the PlayerCardData element
