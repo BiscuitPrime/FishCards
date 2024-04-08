@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Script
+/// Script used by the Fish-O-Rama card that will draw 2 cards from the top of the deck immediately
 /// </summary>
 [CreateAssetMenu(fileName = "Fishorama", menuName = "Scriptable Objects/Cards/Wild Cards/Fish-O-rama")]
 public class FishoramaCardController : WildCardController

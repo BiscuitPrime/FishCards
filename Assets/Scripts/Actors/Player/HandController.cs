@@ -160,6 +160,17 @@ public class HandController : MonoBehaviour
         UpdateCardsPosition();
         //GameManager.Instance.UpdateReadiness(_holderType);
     }
+
+    public void AddNewCard(CardController card)
+    {
+        if (card == null) { return; }
+        Debug.Log("[HandController] : Adding card : "+card.CardName+" to hand.");
+        GameObject cardPrefab = Resources.Load("Card") as GameObject;
+        GameObject newCard = Instantiate(cardPrefab);
+        newCard.GetComponent<CardPrefabController>().SpawnNewCard(card, this);
+        _handCardsDict.Add(card, newCard);
+        UpdateCardsPosition();
+    }
     #endregion
 
     #region PLAYING CARDS FUNCTIONS
