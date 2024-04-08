@@ -10,12 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c34fa11bb45aadf4cb23a64b5f497dd3, type: 3}
-  m_Name: AttackCard2
+  m_Name: RageMyFishies
   m_EditorClassIdentifier: 
-  <CardName>k__BackingField: ATTACK 2
+  <CardName>k__BackingField: Rage my Fishies !
   <CardSprite>k__BackingField: {fileID: 0}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: a8e59840c31ed4841b006f6c8b1116ff, type: 3}
-  <CardDescription>k__BackingField: 
-  <ATK>k__BackingField: 2
-  <PIER>k__BackingField: 10
-  <TRACK>k__BackingField: 5
+  <CardDescription>k__BackingField: 'What''s better for motivation than a speech
+    ?
+
+
+    ATK : 1
+
+    PIER : 100
+
+    TRACK : 100'
+  <ATK>k__BackingField: 1
+  <PIER>k__BackingField: 100
+  <TRACK>k__BackingField: 100

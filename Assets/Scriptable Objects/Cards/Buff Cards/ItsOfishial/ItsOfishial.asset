@@ -10,14 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5ba540953b1fbe49bb57666a4dc9fad, type: 3}
-  m_Name: CardBuffCard1
+  m_Name: ItsOfishial
   m_EditorClassIdentifier: 
-  <CardName>k__BackingField: BUFF CARD 1
+  <CardName>k__BackingField: It's oFISHial !
   <CardSprite>k__BackingField: {fileID: 0}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: 5a3fd4122eebb0f40ae96fb0288cd4f7, type: 3}
-  <CardDescription>k__BackingField: Buff Next ATK card
-  <BuffName>k__BackingField: BuffATKcard
+  <CardDescription>k__BackingField: 'It really is ! Fish me if I''m wrong !
+
+
+    Next
+    ATK card :
+
+    ATK : +2
+
+    PIER : +1
+
+    TRACK : +10'
+  <BuffName>k__BackingField: ItsOfishialBuff
   <TurnCounter>k__BackingField: 1
-  <ATK>k__BackingField: 20
-  <PIER>k__BackingField: 20
-  <TRACK>k__BackingField: 20
+  <ATK>k__BackingField: 2
+  <PIER>k__BackingField: 1
+  <TRACK>k__BackingField: 10

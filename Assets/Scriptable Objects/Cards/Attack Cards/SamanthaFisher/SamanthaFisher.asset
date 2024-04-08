@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c34fa11bb45aadf4cb23a64b5f497dd3, type: 3}
+  m_Name: SamanthaFisher
+  m_EditorClassIdentifier: 
+  <CardName>k__BackingField: Samantha Fisher
+  <CardSprite>k__BackingField: {fileID: 0}
+  <CardSymbol>k__BackingField: {fileID: 0}
+  <CardDescription>k__BackingField: 'She is supposedly the best assassin of the seven
+    seas...
+
+
+    ATK : 2
+
+    PIER : 50
+
+    TRACK : 50'
+  <ATK>k__BackingField: 2
+  <PIER>k__BackingField: 50
+  <TRACK>k__BackingField: 50
