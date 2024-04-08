@@ -1,3 +1,4 @@
+using Fish.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,9 @@ public class PlayerBuffContainerController : BuffContainer
     [Header("Buff Display : ")]
     [SerializeField] private GameObject _buffBubble;
 
+    [Header("Position Elements")]
+    [SerializeField] private Transform _startPoint;
+
     private Dictionary<BuffObject, GameObject> _bubblesDict;
     #endregion
 
@@ -20,6 +24,18 @@ public class PlayerBuffContainerController : BuffContainer
         _bubblesDict = new Dictionary<BuffObject, GameObject>();
     }
 
+    #region EVENT RECEIVER FUNCTIONS
+    /// <summary>
+    /// When an encounter finishes or starts, all buffs are cleared
+    /// </summary>
+    /// <param name="arg0"></param>
+    protected override void OnEncounterEventReceived(EncounterEventArg arg0)
+    {
+        base.OnEncounterEventReceived(arg0);
+        ClearAllBubbles();
+    }
+    #endregion
+
     protected override void UpdateBuffsList()
     {
         base.UpdateBuffsList();
@@ -27,6 +43,7 @@ public class PlayerBuffContainerController : BuffContainer
         foreach (BuffObject buff in _buffs)
         {
             _bubblesDict.Add(buff, CreateNewBubble(buff as ActorBuffObject));
+            UpdateBuffBubblesPosition();
         }
     }
 
@@ -37,6 +54,7 @@ public class PlayerBuffContainerController : BuffContainer
         foreach (BuffObject tmp in _buffs)
         {
             _bubblesDict.Add(tmp, CreateNewBubble(tmp as ActorBuffObject));
+            UpdateBuffBubblesPosition();
         }
     }
 
@@ -80,6 +98,16 @@ public class PlayerBuffContainerController : BuffContainer
         foreach (var obj in objToDelete)
         {
             Destroy(obj);
+        }
+    }
+
+    private void UpdateBuffBubblesPosition()
+    {
+        int i = 0;
+        foreach (var bubble in _bubblesDict.Values)
+        {
+            bubble.transform.position = _startPoint.transform.position + new Vector3(0,(float)i+0.3f,0);
+            i++;
         }
     }
     #endregion
