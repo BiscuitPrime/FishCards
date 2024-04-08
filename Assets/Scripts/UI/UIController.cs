@@ -270,7 +270,10 @@ public class UIController : MonoBehaviour
     }
     public void DisableCardReader()
     {
-        _cardReader.SetActive(false);
+        if(_cardReader != null)
+        {
+            _cardReader.SetActive(false);
+        }
     }
     #endregion
 

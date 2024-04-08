@@ -54,3 +54,5 @@ MonoBehaviour:
     VFX: {fileID: 21300000, guid: 963cf9491d3fd19408d1f2486bff5ef3, type: 3}
   - Type: 3
     VFX: {fileID: 21300000, guid: c3dd85c119d03044da3d3eb692693a18, type: 3}
+  - Type: 4
+    VFX: {fileID: 21300000, guid: d0a526790e794234ab639fe0ff9e7af8, type: 3}

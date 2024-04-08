@@ -7,7 +7,8 @@ public enum VFX_TYPE
     DAMAGE_RED,
     DAMAGE_BLUE,
     MISS,
-    BUFF
+    BUFF,
+    WILD
 }
 
 [System.Serializable]

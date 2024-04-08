@@ -230,6 +230,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void TriggerStartPlay()
     {
+        if (_curActivePlayer == null) { TriggerStartTurn(); return; }
         PlayController.Instance.ResetPlay();
         PlayController.Instance.AssignPlayerAndOpponent(_curActivePlayer.gameObject,_curActivePlayer==_opponentController?_playerPrefab:_opponentPrefab);
         TurnEventsHandler.Instance.PlayEvent.Invoke(new PlayEventArg() { Holder = _curActivePlayer==_opponentController ? HOLDER_TYPE.OPPONENT:HOLDER_TYPE.PLAYER, State = PLAY_EVENT_STATE.PLAY_BEGIN});

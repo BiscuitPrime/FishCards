@@ -9,5 +9,6 @@ public class WildCardController : CardController
 {
     public override void ActivateCardEffect(GameObject card)
     {
+        TextVFXSpawner.Instance.RequestSpawnVFX(new Vector2(0,0), VFX_TYPE.WILD);
     }
 }
