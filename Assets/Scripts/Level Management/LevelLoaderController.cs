@@ -37,8 +37,11 @@ public class LevelLoaderController : MonoBehaviour
             float loadingProgress = Mathf.Clamp01(loadSceneAsyncOperation.progress / 0.9f);
             Debug.Log("Loading progress : " + loadingProgress);
             yield return null;
-            UIController.Instance.EnableInGameUI();
-            UIController.Instance.EnableDisplayDeck();
+            if(buildIndex != 0)
+            {
+                UIController.Instance.EnableInGameUI();
+                UIController.Instance.EnableDisplayDeck();
+            }
         }
     }
 }

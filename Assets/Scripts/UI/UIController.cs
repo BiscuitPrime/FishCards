@@ -84,9 +84,9 @@ public class UIController : MonoBehaviour
         _pickACardMenu.SetActive(false);
         _settingsMenu.SetActive(false);
         _achievementsMenu.SetActive(false);
-        _encounterSuccessMenu.SetActive(false);
         _confirmationWindow.SetActive(false);
         _ingameUI.SetActive(false);
+        _encounterSuccessMenu.SetActive(false);
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
             _mainMenuQuitButton.SetActive(false);

@@ -98,6 +98,9 @@ public class ActorValuesController : MonoBehaviour
     {
         _agi -= value;
     }
+    public int GetDEF() { return _def; }
+    public int GetHP() {  return _hp; }
+    public int GetAGI() { return _agi; }
     #endregion
 
     #region DAMAGE FUNCTIONS

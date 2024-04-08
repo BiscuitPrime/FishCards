@@ -65,22 +65,14 @@ public class EncounterEvent : UnityEvent<EncounterEventArg>
 public class TurnEventsHandler : MonoBehaviour
 {
     #region SINGLETON DESIGN PATTERN
-    private static TurnEventsHandler _instance;
-    public static TurnEventsHandler Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new TurnEventsHandler();
-            }
-            return _instance;
-        }
-    }
+    public static TurnEventsHandler Instance;
+
     private void Awake()
     {
-        _instance = this;
-        DontDestroyOnLoad(this);
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+
+        //DontDestroyOnLoad(this);
         TurnEvent = new TurnEvent();
         PlayEvent = new PlayEvent();
         DeathEvent = new DeathEvent();
