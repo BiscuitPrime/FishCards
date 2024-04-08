@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Script used by the PREFAB of the deck used by the player.
 /// Only serves to trigger the FIRST encounter upon being clicked on.
+/// TODO : NO LONGER SERVES ANY PURPOSES => SHOULD BE REMOVED
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class DeckPrefabController : MonoBehaviour
