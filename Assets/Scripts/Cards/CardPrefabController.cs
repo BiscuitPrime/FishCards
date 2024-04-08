@@ -11,6 +11,7 @@ using UnityEngine.UI;
 /// In effect, this script will only act as a glorified container.
 /// </summary>
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 public class CardPrefabController : MonoBehaviour
 {
     #region VARIABLES
@@ -25,12 +26,14 @@ public class CardPrefabController : MonoBehaviour
 
     private HandController _hand;
     private Collider2D _cardPrefabCollider;
+    private AudioSource _audioSource;
     #endregion
 
     private void Awake()
     {
         _anim = GetComponent<Animator>();
         _cardPrefabCollider = GetComponent<Collider2D>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnDestroy()
@@ -104,6 +107,7 @@ public class CardPrefabController : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Card "+Card.CardName +" has been selected : player wants to play it");
+        _audioSource.Play();
         AnimatePlay();
         DeactivateCardCollider();
         UIController.Instance.DisableCardReader();

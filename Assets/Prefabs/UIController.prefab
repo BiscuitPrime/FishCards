@@ -1301,7 +1301,7 @@ MonoBehaviour:
   _endMenuText: {fileID: 7994095030927820655}
   _loadingMenu: {fileID: 6665186850909855264}
   _startSceneBuildIndex: 1
-  _buttonClickAudioClip: {fileID: 0}
+  _buttonClickAudioClip: {fileID: 8300000, guid: 4636e09954efa164f8214ace8e3e9789, type: 3}
   _confirmationWindow: {fileID: 6679145180105794239}
 --- !u!82 &4154252264562228868
 AudioSource:

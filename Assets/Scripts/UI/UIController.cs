@@ -235,14 +235,17 @@ public class UIController : MonoBehaviour
     }
     public void OnResetProgressionButtonClicked()
     {
+        PlayAudioButtonClick();
         _confirmationWindow.SetActive(true);
     }
     public void OnResetProgressionValidationButtonClicked()
     {
+        PlayAudioButtonClick();
         _confirmationWindow.SetActive(false);
     }
     public void OnCancelResetProgressionButtonClicked()
     {
+        PlayAudioButtonClick();
         _confirmationWindow.SetActive(false);
     }
     #endregion
