@@ -30,6 +30,7 @@ public class ActorBuffCardController : BuffCardController
                 return;
             }
             BuffFactory.BuffActor(PlayController.Instance.GetOpponent(), BuffName, HP, DEF, AGI, TurnCounter);
+            TextVFXSpawner.Instance.RequestSpawnVFX(PlayController.Instance.GetOpponent().GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.BUFF);
         }
         else
         {
@@ -39,6 +40,7 @@ public class ActorBuffCardController : BuffCardController
                 return;
             }
             BuffFactory.BuffActor(PlayController.Instance.GetPlayer(), BuffName, HP, DEF, AGI, TurnCounter);
+            TextVFXSpawner.Instance.RequestSpawnVFX(PlayController.Instance.GetPlayer().GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.BUFF);
         }
         Destroy(cardPrefab);
     }

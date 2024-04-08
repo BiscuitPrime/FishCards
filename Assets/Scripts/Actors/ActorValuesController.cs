@@ -136,6 +136,7 @@ public class ActorValuesController : MonoBehaviour
             else
             {
                 Debug.Log("[ActorValuesController] : Attack failed to land");
+                TextVFXSpawner.Instance.RequestSpawnVFX(gameObject.GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.MISS);
             }
         }
         else if (track>=((agi/2)>=1? (agi / 2) : 1)) //20% to land
@@ -147,11 +148,13 @@ public class ActorValuesController : MonoBehaviour
             else
             {
                 Debug.Log("[ActorValuesController] : Attack failed to land");
+                TextVFXSpawner.Instance.RequestSpawnVFX(gameObject.GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.MISS);
             }
         }
         else
         {
             Debug.Log("[ActorValuesController] : Attack failed to land");
+            TextVFXSpawner.Instance.RequestSpawnVFX(gameObject.GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.MISS);
             return;
         }
     }
@@ -209,6 +212,7 @@ public class ActorValuesController : MonoBehaviour
             }
             //At this point, the atk has went through all the buffs, so IF any atk remains, it goes to the HP bar :
             _hp = _hp - atk;
+            TextVFXSpawner.Instance.RequestSpawnVFX(gameObject.GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.DAMAGE_RED);
         }
         else
         {
@@ -242,6 +246,7 @@ public class ActorValuesController : MonoBehaviour
                 }
                 //At this point, the atk has went through all the buffs' def, so IF any atk remains, it goes to the DEF bar :
                 _def = _def - atk;
+                TextVFXSpawner.Instance.RequestSpawnVFX(gameObject.GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.DAMAGE_BLUE);
             }
             else
             {
@@ -272,6 +277,7 @@ public class ActorValuesController : MonoBehaviour
                 }
                 _hp = _hp - remainingATK;
                 _def = 0;
+                TextVFXSpawner.Instance.RequestSpawnVFX(gameObject.GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.DAMAGE_RED);
             }
         }
 

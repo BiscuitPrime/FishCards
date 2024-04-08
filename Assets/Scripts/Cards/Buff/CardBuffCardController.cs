@@ -25,6 +25,7 @@ public class CardBuffCardController : BuffCardController
         {
             Debug.Log("[CardBuffCardController] : Buffing card : "+targetedCard.GetComponent<CardPrefabController>().Card.CardName);
             BuffFactory.BuffAttackCard(targetedCard,BuffName,ATK,PIER,TRACK,TurnCounter);
+            TextVFXSpawner.Instance.RequestSpawnVFX(targetedCard.transform.position, VFX_TYPE.BUFF);
         }
         Destroy(cardPrefab);
     }

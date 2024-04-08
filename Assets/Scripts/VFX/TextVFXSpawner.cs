@@ -71,7 +71,7 @@ public class TextVFXSpawner : MonoBehaviour
     public IEnumerator SpawnNewVFX(Vector2 spawnPos, VFX_TYPE type)
     {
         GameObject newVfx = Instantiate(_vfxPrefab);
-        _vfxPrefab.GetComponent<ParticleSystem>().textureSheetAnimation.SetSprite(0, _vfxDict[type]);
+        newVfx.GetComponent<ParticleSystem>().textureSheetAnimation.SetSprite(0, _vfxDict[type]);
         newVfx.transform.position = spawnPos;
         yield return new WaitForSeconds(2f);
         Destroy(newVfx);

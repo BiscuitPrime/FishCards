@@ -242,6 +242,37 @@ MonoBehaviour:
   _endPoint: {fileID: 5246931244036428283}
   p1: {fileID: 444203161633020655}
   p2: {fileID: 8392613745093024416}
+--- !u!1 &1914293840109991913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4296393548982009222}
+  m_Layer: 0
+  m_Name: VFXSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4296393548982009222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914293840109991913}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.17, y: -0.42, z: 0.041836727}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5933469941231521741}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2743882610551064834
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,6 +489,7 @@ Transform:
   m_Children:
   - {fileID: 1725061288277359672}
   - {fileID: 4459432700669162773}
+  - {fileID: 4296393548982009222}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6805543090872552824
@@ -472,6 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c76f8d707163904b982fd47966691ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _data: {fileID: 0}
 --- !u!114 &4482874986952094891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,6 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4081b522fea4b147b25448401fac129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _vfxSpawnPoint: {fileID: 4296393548982009222}
 --- !u!114 &1024079703033139403
 MonoBehaviour:
   m_ObjectHideFlags: 0

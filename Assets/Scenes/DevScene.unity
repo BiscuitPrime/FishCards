@@ -475,6 +475,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1869664899097431946, guid: cf2961d67ae94a541a48f59e1729ae5d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2631388756525166505, guid: cf2961d67ae94a541a48f59e1729ae5d, type: 3}
       propertyPath: _availableCards.Array.size
       value: 5
@@ -506,6 +510,10 @@ PrefabInstance:
     - target: {fileID: 3425087655950008783, guid: cf2961d67ae94a541a48f59e1729ae5d, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.71000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 3481237109851756687, guid: cf2961d67ae94a541a48f59e1729ae5d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.56
       objectReference: {fileID: 0}
     - target: {fileID: 8294988765570451928, guid: cf2961d67ae94a541a48f59e1729ae5d, type: 3}
       propertyPath: m_LocalPosition.x
