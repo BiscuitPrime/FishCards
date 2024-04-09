@@ -7,15 +7,10 @@ using UnityEngine.UI;
 /// <summary>
 /// Script used by cards that are part of pure UI displays, such as the pick a card menu, or card reader.
 /// </summary>
-public class DisplayCardController : MonoBehaviour
+public class DisplayCardController : CardElementController
 {
     #region VARIABLES
     private CardController _card;
-    [Header("Card Elements")]
-    [SerializeField] private Image _cardSymbol;
-    [SerializeField] private Image _cardImage;
-    [SerializeField] private TextMeshProUGUI _cardName;
-    [SerializeField] private TextMeshProUGUI _cardDescription;
     #endregion
 
     /// <summary>
@@ -25,19 +20,19 @@ public class DisplayCardController : MonoBehaviour
     public void AttributeCardData(CardController card)
     {
         _card = card;
-        DisplayCard();
+        DisplayCard(_card);
     }
 
-    /// <summary>
-    /// Displays the card's data on the card
-    /// </summary>
-    private void DisplayCard()
-    {
-        _cardName.text = _card.CardName != "" ? _card.CardName : _cardName.text;
-        _cardDescription.text = _card.CardDescription != "" ? _card.CardDescription : _cardDescription.text;
-        _cardImage.sprite = _card.CardSprite != null ? _card.CardSprite : _cardImage.sprite;
-        _cardSymbol.sprite = _card.CardName != null ? _card.CardSymbol : _cardSymbol.sprite;
-    }
+    ///// <summary>
+    ///// Displays the card's data on the card
+    ///// </summary>
+    //private void DisplayCard()
+    //{
+    //    _cardName.text = _card.CardName != "" ? _card.CardName : _cardName.text;
+    //    _cardDescription.text = _card.CardDescription != "" ? _card.CardDescription : _cardDescription.text;
+    //    _cardImage.sprite = _card.CardSprite != null ? _card.CardSprite : _cardImage.sprite;
+    //    _cardSymbol.sprite = _card.CardName != null ? _card.CardSymbol : _cardSymbol.sprite;
+    //}
 
     /// <summary>
     /// Function triggered by the card's button that will launch the start encounter event.

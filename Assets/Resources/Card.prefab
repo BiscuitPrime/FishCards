@@ -488,7 +488,7 @@ MonoBehaviour:
   _cardImage: {fileID: 4676829398761119986}
   _cardName: {fileID: 554547069783235367}
   _cardDescription: {fileID: 2642845423019146061}
-  _anim: {fileID: 0}
+  _anim: {fileID: 5364361026353282165}
 --- !u!95 &5364361026353282165
 Animator:
   serializedVersion: 5

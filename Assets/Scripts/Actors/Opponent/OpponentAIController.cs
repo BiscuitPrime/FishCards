@@ -45,6 +45,7 @@ public class OpponentAIController : MonoBehaviour
     {
         GetComponent<DeckController>().ConstructDeck(_data.InitCardDeck.Cards);
         GetComponent<ActorValuesController>().SetData(_data.Values);
+        GetComponent<HandController>().SetHandSize(_data.HandSize);
         _sprite.sprite = _data.Sprite;
     }
     #endregion

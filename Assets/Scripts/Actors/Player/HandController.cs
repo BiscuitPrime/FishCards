@@ -61,6 +61,7 @@ public class HandController : MonoBehaviour
     {
         return _holderType;
     }
+    public void SetHandSize(int handSize) { _baseNumberOfCardsInHand = handSize; }
 
     #region EVENT RECEIVER FUNCTIONS
     /// <summary>
@@ -193,8 +194,9 @@ public class HandController : MonoBehaviour
     /// </summary>
     public void PlayRandomCard()
     {
-        //Debug.Log("[HAND CONTROLLER] : Playing random card");
+        Debug.Log("[HAND CONTROLLER] : Playing random card");
         System.Random rand = new System.Random();
+        Debug.Log("[HAND CONTROLLER] : Attempting to play : "+ rand.Next(0, _handCardsDict.Count));
         RemoveCardFromHand(_handCardsDict.ElementAt(rand.Next(0, _handCardsDict.Count)).Key);
     }
     #endregion

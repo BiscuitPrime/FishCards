@@ -7,15 +7,9 @@ using UnityEngine.UI;
 /// <summary>
 /// Script used by the deck display at the start of the game, to show the Player all their current cards in their deck.
 /// </summary>
-public class DisplayDeckController : MonoBehaviour
+public class DisplayDeckController : CardElementController
 {
     #region VARIABLES
-    [Header("Display Card Elements")]
-    [SerializeField] private Image _cardSymbol;
-    [SerializeField] private Image _cardImage;
-    [SerializeField] private TextMeshProUGUI _cardName;
-    [SerializeField] private TextMeshProUGUI _cardDescription;
-
     private List<CardController> _cardsList;
     private CardsListData _playerInitCardList;
     private CardController _curDisplayedCard;
@@ -30,7 +24,7 @@ public class DisplayDeckController : MonoBehaviour
             _cardsList.Add(card);
         }
         _curDisplayedCard = _cardsList[0];
-        DisplayCard();
+        DisplayCard(_curDisplayedCard);
     }
 
     public void OnCardClicked()
@@ -46,19 +40,19 @@ public class DisplayDeckController : MonoBehaviour
         else
         {
             _curDisplayedCard = _cardsList[0];
-            DisplayCard();
+            DisplayCard(_curDisplayedCard);
         }
     }
 
-    /// <summary>
-    /// Function that will display the cards
-    /// TODO : Regroup it (and all other DisplayCard methods) in an interface
-    /// </summary>
-    private void DisplayCard()
-    {
-        _cardName.text = _curDisplayedCard.CardName != "" ? _curDisplayedCard.CardName : _cardName.text;
-        _cardDescription.text = _curDisplayedCard.CardDescription != "" ? _curDisplayedCard.CardDescription : _cardDescription.text;
-        _cardImage.sprite = _curDisplayedCard.CardSprite != null ? _curDisplayedCard.CardSprite : _cardImage.sprite;
-        _cardSymbol.sprite = _curDisplayedCard.CardName != null ? _curDisplayedCard.CardSymbol : _cardSymbol.sprite;
-    }
+    ///// <summary>
+    ///// Function that will display the cards
+    ///// TODO : Regroup it (and all other DisplayCard methods) in an interface
+    ///// </summary>
+    //private void DisplayCard()
+    //{
+    //    _cardName.text = _curDisplayedCard.CardName != "" ? _curDisplayedCard.CardName : _cardName.text;
+    //    _cardDescription.text = _curDisplayedCard.CardDescription != "" ? _curDisplayedCard.CardDescription : _cardDescription.text;
+    //    _cardImage.sprite = _curDisplayedCard.CardSprite != null ? _curDisplayedCard.CardSprite : _cardImage.sprite;
+    //    _cardSymbol.sprite = _curDisplayedCard.CardName != null ? _curDisplayedCard.CardSymbol : _cardSymbol.sprite;
+    //}
 }

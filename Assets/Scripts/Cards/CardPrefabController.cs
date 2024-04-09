@@ -12,16 +12,11 @@ using UnityEngine.UI;
 /// </summary>
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
-public class CardPrefabController : MonoBehaviour
+public class CardPrefabController : CardElementController
 {
     #region VARIABLES
     public CardController Card;
 
-    [Header("Card Prefab Elements")]
-    [SerializeField] private Image _cardSymbol;
-    [SerializeField] private Image _cardImage;
-    [SerializeField] private TextMeshProUGUI _cardName;
-    [SerializeField] private TextMeshProUGUI _cardDescription;
     [SerializeField] private Animator _anim;
 
     private HandController _hand;
@@ -41,13 +36,6 @@ public class CardPrefabController : MonoBehaviour
         UIController.Instance.DisableCardReader();    
     }
 
-    private void OnValidate()
-    {
-        Assert.IsNotNull(_cardName);
-        Assert.IsNotNull(_cardDescription);
-        Assert.IsNotNull(_cardSymbol);
-        Assert.IsNotNull(_cardImage);
-    }
 
     /// <summary>
     /// Function called when the card is spawned in the game.
@@ -56,7 +44,7 @@ public class CardPrefabController : MonoBehaviour
     {
         Card = card;
         _hand = hand;
-        DisplayCardData();
+        DisplayCard(Card);
     }
 
     /// <summary>
@@ -67,20 +55,8 @@ public class CardPrefabController : MonoBehaviour
     {
         if(Card != null)
         {
-            DisplayCardData();
+            DisplayCard(Card);
         }
-    }
-
-    /// <summary>
-    /// Function that will display card data
-    /// </summary>
-    private void DisplayCardData()
-    {
-        _cardName.text = Card.CardName != "" ? Card.CardName : _cardName.text;
-        _cardDescription.text = Card.CardDescription != "" ? Card.CardDescription : _cardDescription.text;
-        _cardImage.sprite = Card.CardSprite != null ? Card.CardSprite : _cardImage.sprite;
-        _cardSymbol.sprite = Card.CardName != null ? Card.CardSymbol : _cardSymbol.sprite;
-        _cardPrefabCollider.enabled = true;
     }
 
     #region COLLIDER FUNCTIONS
