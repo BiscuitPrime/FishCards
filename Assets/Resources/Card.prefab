@@ -228,6 +228,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2506197058114027793, guid: 730f45ff6dbfe3a4b8053909721df5ed, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3a8bf3e6d50537b45822847eb4dab6be, type: 3}
+    - target: {fileID: 5153957946714539804, guid: 730f45ff6dbfe3a4b8053909721df5ed, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.015544799
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153957946714539804, guid: 730f45ff6dbfe3a4b8053909721df5ed, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.015544799
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153957946714539804, guid: 730f45ff6dbfe3a4b8053909721df5ed, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.015544799
+      objectReference: {fileID: 0}
     - target: {fileID: 5808758160425747589, guid: 730f45ff6dbfe3a4b8053909721df5ed, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
