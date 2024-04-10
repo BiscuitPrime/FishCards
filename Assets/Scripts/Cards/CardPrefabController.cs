@@ -22,10 +22,13 @@ public class CardPrefabController : CardElementController
     private HandController _hand;
     private Collider2D _cardPrefabCollider;
     private AudioSource _audioSource;
+
+    private bool _hoveredOn;
     #endregion
 
     private void Awake()
     {
+        _hoveredOn = false;
         _anim = GetComponent<Animator>();
         _cardPrefabCollider = GetComponent<Collider2D>();
         _audioSource = GetComponent<AudioSource>();
@@ -96,6 +99,8 @@ public class CardPrefabController : CardElementController
     private void OnMouseOver()
     {
         UIController.Instance.EnableCardReader(this.Card);
+        AnimateHoverStart();
+        _hoveredOn = true;
     }
 
     /// <summary>
@@ -103,7 +108,9 @@ public class CardPrefabController : CardElementController
     /// </summary>
     private void OnMouseExit()
     {
-        UIController.Instance.DisableCardReader();   
+        UIController.Instance.DisableCardReader();
+        AnimateHoverEnd();
+        _hoveredOn = false;
     }
     #endregion
 
@@ -115,6 +122,17 @@ public class CardPrefabController : CardElementController
     public void AnimatePlay()
     {
         _anim.Play("Play");
+    }
+    public void AnimateHoverStart()
+    {
+        if (!_hoveredOn)
+        {
+            _anim.Play("HoveredOn");
+        }
+    }
+    public void AnimateHoverEnd()
+    {
+        _anim.Play("HoveredOff");
     }
     #endregion
 }
