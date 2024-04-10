@@ -97,6 +97,7 @@ MonoBehaviour:
   _cardImage: {fileID: 4676829398761119986}
   _cardName: {fileID: 554547069783235367}
   _cardDescription: {fileID: 2642845423019146061}
+  _cardBackBG: {fileID: 3966619590203837809}
   Card: {fileID: 0}
   _anim: {fileID: 5364361026353282165}
 --- !u!95 &5364361026353282165
@@ -354,6 +355,11 @@ MonoBehaviour:
 --- !u!224 &3655930830109451622 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5808758160425747589, guid: 730f45ff6dbfe3a4b8053909721df5ed, type: 3}
+  m_PrefabInstance: {fileID: 7070831172343210467}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3966619590203837809 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6137527770897591442, guid: 730f45ff6dbfe3a4b8053909721df5ed, type: 3}
   m_PrefabInstance: {fileID: 7070831172343210467}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4676829398761119986 stripped

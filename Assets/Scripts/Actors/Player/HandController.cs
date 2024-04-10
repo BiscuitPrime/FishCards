@@ -127,17 +127,18 @@ public class HandController : MonoBehaviour
     {
         int cardsToDraw = _baseNumberOfCardsInHand - _handCardsDict.Count;
         Debug.Log("[HandController] : Attempting to draw " + cardsToDraw + " cards due to HandCardNumbers : "+_baseNumberOfCardsInHand+" and Dict size : "+_handCardsDict.Count+" for : "+ _holderType.ToString());
-        CardController[] drawnCards = _deck.DrawCards(cardsToDraw);
-        //TODO : CHANGE THIS TO A POOL SYSTEM RATHER THAN AN INSTANTIATE
-        for(int i=0; i < drawnCards.Length; i++)
-        {
-            //Debug.Log("[HandController] : Adding card : " + drawnCards[i].name + " to "+_holderType.ToString()+" hand");
-            GameObject cardPrefab = Resources.Load("Card") as GameObject;
-            GameObject newCard = Instantiate(cardPrefab);
-            newCard.GetComponent<CardPrefabController>().SpawnNewCard(drawnCards[i], this);
-            _handCardsDict.Add(drawnCards[i], newCard);
-        }
-        UpdateCardsPosition();
+        DrawCardsProcedure(cardsToDraw);
+        //CardController[] drawnCards = _deck.DrawCards(cardsToDraw);
+        ////TODO : CHANGE THIS TO A POOL SYSTEM RATHER THAN AN INSTANTIATE
+        //for(int i=0; i < drawnCards.Length; i++)
+        //{
+        //    //Debug.Log("[HandController] : Adding card : " + drawnCards[i].name + " to "+_holderType.ToString()+" hand");
+        //    GameObject cardPrefab = Resources.Load("Card") as GameObject;
+        //    GameObject newCard = Instantiate(cardPrefab);
+        //    newCard.GetComponent<CardPrefabController>().SpawnNewCard(drawnCards[i], this);
+        //    _handCardsDict.Add(drawnCards[i], newCard);
+        //}
+        //UpdateCardsPosition();
         GameManager.Instance.UpdateReadiness(_holderType); //ONLY when the cards have been fully drawn do we update the readiness of the player
     }
 
@@ -148,20 +149,51 @@ public class HandController : MonoBehaviour
     public void DrawCards(int numberOfCards)
     {
         Debug.Log("[HandController] : Attempting to draw " + numberOfCards + " cards due to function requirements");
-        CardController[] drawnCards = _deck.DrawCards(numberOfCards);
+        DrawCardsProcedure(numberOfCards);
+        //CardController[] drawnCards = _deck.DrawCards(numberOfCards);
+        ////TODO : CHANGE THIS TO A POOL SYSTEM RATHER THAN AN INSTANTIATE
+        //for (int i = 0; i < drawnCards.Length; i++)
+        //{
+        //    //Debug.Log("Adding card : " + drawnCards[i].name + " to hand");
+        //    GameObject cardPrefab = Resources.Load("Card") as GameObject;
+        //    GameObject newCard = Instantiate(cardPrefab);
+        //    newCard.GetComponent<CardPrefabController>().SpawnNewCard(drawnCards[i], this);
+        //    _handCardsDict.Add(drawnCards[i], newCard);
+        //}
+        //UpdateCardsPosition();
+    }
+
+    /// <summary>
+    /// Internal function that will draw the cards per the DrawCards function's call 
+    /// </summary>
+    /// <param name="num">Number of cards to draw</param>
+    private void DrawCardsProcedure(int num)
+    {
+        CardController[] drawnCards = _deck.DrawCards(num);
         //TODO : CHANGE THIS TO A POOL SYSTEM RATHER THAN AN INSTANTIATE
         for (int i = 0; i < drawnCards.Length; i++)
         {
-            //Debug.Log("Adding card : " + drawnCards[i].name + " to hand");
+            //Debug.Log("[HandController] : Adding card : " + drawnCards[i].name + " to "+_holderType.ToString()+" hand");
             GameObject cardPrefab = Resources.Load("Card") as GameObject;
             GameObject newCard = Instantiate(cardPrefab);
             newCard.GetComponent<CardPrefabController>().SpawnNewCard(drawnCards[i], this);
             _handCardsDict.Add(drawnCards[i], newCard);
+            if(_holderType==HOLDER_TYPE.OPPONENT)
+            {
+                newCard.GetComponent<CardPrefabController>().ShowBackCard();
+            }
+            else
+            {
+                newCard.GetComponent<CardPrefabController>().ShowFrontCard();
+            }
         }
         UpdateCardsPosition();
-        //GameManager.Instance.UpdateReadiness(_holderType);
     }
 
+    /// <summary>
+    /// Function that will add a specific new card to the hand 
+    /// </summary>
+    /// <param name="card">Specific card to add to the hand</param>
     public void AddNewCard(CardController card)
     {
         if (card == null) { return; }
@@ -220,6 +252,7 @@ public class HandController : MonoBehaviour
                 else
                 {
                     GameObject removedCard = _handCardsDict[cardController];
+                    removedCard.GetComponent<CardPrefabController>().ShowFrontCard();
                     _handCardsDict.Remove(cardController);
                     PlayController.Instance.AddCardToPlay(removedCard, this);
                 }
