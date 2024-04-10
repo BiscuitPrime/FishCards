@@ -315,4 +315,26 @@ public class HandController : MonoBehaviour
             _handCardsDict[card].GetComponent<CardPrefabController>().ActivateCardCollider();
         }
     }
+
+    /// <summary>
+    /// Displays the front of all the cards in the Hand
+    /// </summary>
+    public void ShowFrontCards()
+    {
+        foreach (var card in _handCardsDict.Keys)
+        {
+            _handCardsDict[card].GetComponent<CardPrefabController>().ShowFrontCard();
+        }
+    }
+
+    /// <summary>
+    /// Displays the back of all the cards in the Hand
+    /// </summary>
+    public void ShowBackCards()
+    {
+        foreach (var card in _handCardsDict.Keys)
+        {
+            _handCardsDict[card].GetComponent<CardPrefabController>().ShowFrontCard();
+        }
+    }
 }
