@@ -33,7 +33,7 @@ public class DisplayDeckController : CardElementController
         if(_cardsList.Count < 1)
         {
             _curDisplayedCard = null;
-            UIController.Instance.HideDisplayDeck();
+            UIController.Instance.DisableDisplayDeck();
             GameManager.Instance.StartGame();
             return;
         }

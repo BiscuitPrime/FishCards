@@ -29,6 +29,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject _ingameUI;
     [SerializeField] private GameObject _displayDeck;
     [SerializeField] private GameObject _cardReader;
+    [SerializeField] private GameObject _returnToMainMenuScreen;
 
     [Header("Main Menu Elements")]
     [SerializeField] private GameObject _mainMenu;
@@ -69,6 +70,7 @@ public class UIController : MonoBehaviour
 
     [Header("Informative Menu Elements")]
     [SerializeField] private GameObject _informativeMenu;
+
     #endregion
 
     private AudioSource _audioSource;
@@ -162,6 +164,7 @@ public class UIController : MonoBehaviour
         _encounterSuccessMenu.SetActive(false);
         _displayDeck.SetActive(false);
         _cardReader.SetActive(false);
+        _returnToMainMenuScreen.SetActive(false);
         _informativeMenu.SetActive(false);
     }
     public void EnableAchievementsMenu()
@@ -276,13 +279,17 @@ public class UIController : MonoBehaviour
         PlayAudioButtonClick();
         EnableInformativeMenu();
     }
+    public void OnHideReturnToMainMenuScreenClicked()
+    {
+        DisableReturnToMainScreenMenu();
+    }
     #endregion
 
     #region INGAME UI FUNCTIONS
     /// <summary>
     /// Function that will hide the display deck.
     /// </summary>
-    public void HideDisplayDeck()
+    public void DisableDisplayDeck()
     {
         _displayDeck.SetActive(false);
     }
@@ -304,6 +311,28 @@ public class UIController : MonoBehaviour
         if(_cardReader != null)
         {
             _cardReader.SetActive(false);
+        }
+    }
+    public void EnableReturnToMainScreenMenu()
+    {
+        _returnToMainMenuScreen.SetActive(true);
+    }
+    public void DisableReturnToMainScreenMenu()
+    {
+        _returnToMainMenuScreen.SetActive(false);
+    }
+    /// <summary>
+    /// Function that will request the call to the Return to main menu screen, and we will display it or not depending on its cur state
+    /// </summary>
+    public void RequestReturnToMainMenuScreen()
+    {
+        if (_returnToMainMenuScreen.activeSelf)
+        {
+            DisableReturnToMainScreenMenu();
+        }
+        else
+        {
+            EnableReturnToMainScreenMenu();
         }
     }
     #endregion
