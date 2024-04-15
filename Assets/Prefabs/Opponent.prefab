@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.8597, y: 2.8597, z: 2.8597}
+  m_LocalScale: {x: 3.7696564, y: 3.7696564, z: 3.7696564}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5933469941231521741}
@@ -1278,6 +1278,7 @@ GameObject:
   - component: {fileID: 1060702865751661607}
   - component: {fileID: 2673646124999338680}
   - component: {fileID: 5739640466175140870}
+  - component: {fileID: 5400200744429557977}
   m_Layer: 0
   m_Name: Opponent
   m_TagString: Opponent
@@ -1396,6 +1397,27 @@ MonoBehaviour:
   _defText: {fileID: 3888691660931445399}
   _agiBubble: {fileID: 7225377040645540447}
   _agiText: {fileID: 5025928871517158460}
+--- !u!95 &5400200744429557977
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4821394495632015413}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8dbaa43d80a89e34fbbbe39c6534044a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6628893057355252336
 GameObject:
   m_ObjectHideFlags: 0

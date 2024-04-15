@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1_En2Data
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Enemy 2
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 922a401af0e5b894c8032e16fb7b8449, type: 3}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 455d80e1cd2293e479dc14eda1684fce, type: 3}
   <OpponentSound>k__BackingField: {fileID: 0}
   <InitCardDeck>k__BackingField: {fileID: 11400000, guid: a0933a9b8ad5ce7438fc74ce53577245, type: 2}
   <HandSize>k__BackingField: 3

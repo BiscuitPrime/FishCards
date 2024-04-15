@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62e0f7a4eeb74464f9b47df30a95c532, type: 3}
-  m_Name: 1_En3Data
+  m_Name: 2_En2Data
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Enemy 3
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 0d8e55b53c2a71d4dbdeec50cbd6b2fc, type: 3}
+  <Name>k__BackingField: Enemy 1
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 954e43a52005c6447898378014cbae78, type: 3}
   <OpponentSound>k__BackingField: {fileID: 0}
-  <InitCardDeck>k__BackingField: {fileID: 11400000, guid: 9b4ffa63cae261842a151f47be31781d, type: 2}
-  <HandSize>k__BackingField: 3
-  <DifficultyRating>k__BackingField: 1
-  <Values>k__BackingField: {fileID: 11400000, guid: 606388e7ef10d7947af734b3a5e109e5, type: 2}
+  <InitCardDeck>k__BackingField: {fileID: 11400000, guid: 084785e4d1ad76149843f358a403c19b, type: 2}
+  <HandSize>k__BackingField: 4
+  <DifficultyRating>k__BackingField: 2
+  <Values>k__BackingField: {fileID: 11400000, guid: 94db387806600674db667a3daacf12c6, type: 2}
