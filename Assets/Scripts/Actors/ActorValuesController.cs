@@ -9,6 +9,7 @@ using UnityEngine.Assertions;
 /// DEF : defense of the actor    : defensive layer around the player that will interact with the PIER value of attack cards, REGENS between rounds
 /// AGI : agility of the actor    : indicates whether an attack lands or not by interacting with the TRACK value of attack cards
 /// </summary>
+[RequireComponent(typeof(AudioSource))]
 public class ActorValuesController : MonoBehaviour
 {
     [Header("Values")]
@@ -16,8 +17,10 @@ public class ActorValuesController : MonoBehaviour
     [SerializeField] protected int _hp;
     [SerializeField] protected int _def;
     [SerializeField] protected int _agi;
+    [SerializeField] protected AudioClip _hpDmgTakenSound, _defDmgTakenSound, _missSound;
 
     private BuffContainer _buffContainer;
+    private AudioSource _audioSource;
 
     protected void OnValidate()
     {
@@ -26,6 +29,7 @@ public class ActorValuesController : MonoBehaviour
 
     protected void Awake()
     {
+        _audioSource = GetComponent<AudioSource>();
         if (_valuesInitData != null)
         {
             AssignData();
@@ -53,6 +57,9 @@ public class ActorValuesController : MonoBehaviour
         _hp = _valuesInitData.HP;
         _def = _valuesInitData.DEF;
         _agi = _valuesInitData.AGI;
+        _hpDmgTakenSound = _valuesInitData.HPDmgTakenSound;
+        _defDmgTakenSound = _valuesInitData.DEFDmgTakenSound;
+        _missSound = _valuesInitData.MissSound;
     }
     #endregion
 
@@ -132,31 +139,34 @@ public class ActorValuesController : MonoBehaviour
         }
         else if (track>=agi) //70% chance to land
         {
-            if (Random.Range(1, 100) >= 30)
+            if (Random.Range(1, 100) >= GameValues.PERCENTAGE_TRACK_OVER_AGI)
             {
                 AttackLandingCalculations(atk, pier);
             }
             else
             {
                 Debug.Log("[ActorValuesController] : Attack failed to land");
+                PlayAudioClip(_missSound);
                 TextVFXSpawner.Instance.RequestSpawnVFX(gameObject.GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.MISS);
             }
         }
         else if (track>=((agi/2)>=1? (agi / 2) : 1)) //20% to land
         {
-            if (Random.Range(1, 100) >= 80)
+            if (Random.Range(1, 100) >= GameValues.PERCENTAGE_TRACK_OVER_HALF_AGI)
             {
                 AttackLandingCalculations(atk, pier);
             }
             else
             {
                 Debug.Log("[ActorValuesController] : Attack failed to land");
+                PlayAudioClip(_missSound);
                 TextVFXSpawner.Instance.RequestSpawnVFX(gameObject.GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.MISS);
             }
         }
         else
         {
             Debug.Log("[ActorValuesController] : Attack failed to land");
+            PlayAudioClip(_missSound);
             TextVFXSpawner.Instance.RequestSpawnVFX(gameObject.GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.MISS);
             return;
         }
@@ -217,6 +227,7 @@ public class ActorValuesController : MonoBehaviour
             }
             //At this point, the atk has went through all the buffs, so IF any atk remains, it goes to the HP bar :
             _hp = _hp - atk;
+            PlayAudioClip(_hpDmgTakenSound);
             TextVFXSpawner.Instance.RequestSpawnVFX(gameObject.GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.DAMAGE_RED);
         }
         else
@@ -253,6 +264,7 @@ public class ActorValuesController : MonoBehaviour
                 }
                 //At this point, the atk has went through all the buffs' def, so IF any atk remains, it goes to the DEF bar :
                 _def = _def - atk;
+                PlayAudioClip(_defDmgTakenSound);
                 TextVFXSpawner.Instance.RequestSpawnVFX(gameObject.GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.DAMAGE_BLUE);
             }
             else
@@ -286,6 +298,7 @@ public class ActorValuesController : MonoBehaviour
                 }
                 _hp = _hp - remainingATK;
                 _def = 0;
+                PlayAudioClip(_hpDmgTakenSound);
                 TextVFXSpawner.Instance.RequestSpawnVFX(gameObject.GetComponent<ActorController>().GetVFXSpawnPoint().transform.position, VFX_TYPE.DAMAGE_RED);
             }
         }
@@ -341,6 +354,18 @@ public class ActorValuesController : MonoBehaviour
         {
             TurnEventsHandler.Instance.DeathEvent.Invoke(HOLDER_TYPE.OPPONENT);
         }
+    }
+    #endregion
+
+    #region AUDIO
+    /// <summary>
+    /// Function that will trigger the dmg-taking audios
+    /// </summary>
+    /// <param name="clip">Audioclip to play</param>
+    private void PlayAudioClip(AudioClip clip)
+    {
+        _audioSource.clip = clip;
+        _audioSource.Play();
     }
     #endregion
 }
