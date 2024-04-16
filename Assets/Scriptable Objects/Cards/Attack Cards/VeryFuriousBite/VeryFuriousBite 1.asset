@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VeryFuriousBite 1
   m_EditorClassIdentifier: 
   <CardName>k__BackingField: Very Furious Bite
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: 71f62cd648258e94385039ba7b79770b, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 62d79c227c786794bbb13f68d2c1e433, type: 3}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: a8e59840c31ed4841b006f6c8b1116ff, type: 3}
   <CardDescription>k__BackingField: 'Okay, now this is getting out of hands...
 

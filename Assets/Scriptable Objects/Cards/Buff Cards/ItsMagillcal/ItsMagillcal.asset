@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ItsMagillcal
   m_EditorClassIdentifier: 
   <CardName>k__BackingField: It's Magillcal !
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: b7f8e8fbcfe8d2443adbbe2419a625fd, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 8d6d24af46632a049924bd4b2390627e, type: 3}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: 5a3fd4122eebb0f40ae96fb0288cd4f7, type: 3}
   <CardDescription>k__BackingField: 'Gills are more useful than jeans underwater...
 

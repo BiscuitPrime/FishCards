@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BubblingRage
   m_EditorClassIdentifier: 
   <CardName>k__BackingField: Bubbling Rage
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: b7f8e8fbcfe8d2443adbbe2419a625fd, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 39d6d07736f1cae46a5b57852dcdac62, type: 3}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: 5a3fd4122eebb0f40ae96fb0288cd4f7, type: 3}
   <CardDescription>k__BackingField: 'My rage can no longer be contained by mere bubbles
     !
@@ -26,8 +26,8 @@ MonoBehaviour:
     AGI : -100'
   <BuffName>k__BackingField: BubblingRageBuff
   <TurnCounter>k__BackingField: 1
+  <Sound>k__BackingField: {fileID: 8300000, guid: 65fdd22246bb3c142a1ac63334117a39, type: 3}
   <HP>k__BackingField: 100
   <DEF>k__BackingField: 0
   <AGI>k__BackingField: -100
   <Type>k__BackingField: 0
-  <Sound>k__BackingField: {fileID: 8300000, guid: 65fdd22246bb3c142a1ac63334117a39, type: 3}

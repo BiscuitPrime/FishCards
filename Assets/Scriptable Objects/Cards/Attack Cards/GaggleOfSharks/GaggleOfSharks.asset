@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GaggleOfSharks
   m_EditorClassIdentifier: 
   <CardName>k__BackingField: Gaggle of Sharks
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: 71f62cd648258e94385039ba7b79770b, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: d87dfe1001bff404698735dbcd705ca5, type: 3}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: a8e59840c31ed4841b006f6c8b1116ff, type: 3}
   <CardDescription>k__BackingField: 'That''s a lot of sharks ! Better skiddadle !
 

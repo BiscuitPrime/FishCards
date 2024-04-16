@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FishNShips 2
   m_EditorClassIdentifier: 
   <CardName>k__BackingField: Fish'N Ships
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: b7f8e8fbcfe8d2443adbbe2419a625fd, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: e9ed9955992a62e44b0971ab13735969, type: 3}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: 5a3fd4122eebb0f40ae96fb0288cd4f7, type: 3}
   <CardDescription>k__BackingField: 'A long and loving story with absolutely nothing
     wrong.

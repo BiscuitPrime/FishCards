@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fishorama
   m_EditorClassIdentifier: 
   <CardName>k__BackingField: Fish-O-Rama
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: 7bdcd9573be5fca43862dc77bdc7b7c8, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 3a6d4c1e27bafdb46a4d7b52272da38a, type: 3}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: b166ebabed39b074bb3bcdbf7ac92425, type: 3}
   <CardDescription>k__BackingField: 'Go around and round and round !
 

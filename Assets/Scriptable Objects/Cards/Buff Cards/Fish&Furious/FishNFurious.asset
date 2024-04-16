@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FishNFurious
   m_EditorClassIdentifier: 
   <CardName>k__BackingField: Fish & Furious
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: b7f8e8fbcfe8d2443adbbe2419a625fd, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: cb09e1e3e4c17b848881d5c8a864c85f, type: 3}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: 5a3fd4122eebb0f40ae96fb0288cd4f7, type: 3}
   <CardDescription>k__BackingField: 'Running out of joke here, not gonna lie...
 
@@ -26,8 +26,8 @@ MonoBehaviour:
     AGI : +50'
   <BuffName>k__BackingField: Fish&FuriousBuff
   <TurnCounter>k__BackingField: 2
+  <Sound>k__BackingField: {fileID: 8300000, guid: 65fdd22246bb3c142a1ac63334117a39, type: 3}
   <HP>k__BackingField: 0
   <DEF>k__BackingField: -20
   <AGI>k__BackingField: 50
   <Type>k__BackingField: 0
-  <Sound>k__BackingField: {fileID: 8300000, guid: 65fdd22246bb3c142a1ac63334117a39, type: 3}
