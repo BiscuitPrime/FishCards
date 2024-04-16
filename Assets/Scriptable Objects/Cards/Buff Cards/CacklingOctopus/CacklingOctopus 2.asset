@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f9acb53de00ce458381d69ea7ca14f, type: 3}
+  m_Name: CacklingOctopus 2
+  m_EditorClassIdentifier: 
+  <CardName>k__BackingField: Cackling Octopus
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 5c04881888926444786a199646d37d51, type: 3}
+  <CardSymbol>k__BackingField: {fileID: 0}
+  <CardDescription>k__BackingField: And he's having a good time too !
+  <BuffName>k__BackingField: CacklingOctopusBuff
+  <TurnCounter>k__BackingField: 1
+  <Sound>k__BackingField: {fileID: 8300000, guid: 65fdd22246bb3c142a1ac63334117a39, type: 3}
+  <HP>k__BackingField: 2
+  <DEF>k__BackingField: 50
+  <AGI>k__BackingField: 0
+  <Type>k__BackingField: 0
