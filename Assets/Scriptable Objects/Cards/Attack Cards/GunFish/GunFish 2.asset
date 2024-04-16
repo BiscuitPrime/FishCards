@@ -15,7 +15,15 @@ MonoBehaviour:
   <CardName>k__BackingField: Gunfish
   <CardSprite>k__BackingField: {fileID: 21300000, guid: d036f1ca7c454bf44bc6383ad9da486e, type: 3}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: a8e59840c31ed4841b006f6c8b1116ff, type: 3}
-  <CardDescription>k__BackingField: It's a fish ! With a gun !!
+  <CardDescription>k__BackingField: 'It''s a fish ! With a gun !!
+
+
+    ATK : 2
+
+    PIER
+    : 50
+
+    TRACK : 50'
   <ATK>k__BackingField: 2
   <PIER>k__BackingField: 50
   <TRACK>k__BackingField: 50

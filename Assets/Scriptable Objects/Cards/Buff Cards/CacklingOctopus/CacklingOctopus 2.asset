@@ -14,8 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CardName>k__BackingField: Cackling Octopus
   <CardSprite>k__BackingField: {fileID: 21300000, guid: 5c04881888926444786a199646d37d51, type: 3}
-  <CardSymbol>k__BackingField: {fileID: 0}
-  <CardDescription>k__BackingField: And he's having a good time too !
+  <CardSymbol>k__BackingField: {fileID: 21300000, guid: 5a3fd4122eebb0f40ae96fb0288cd4f7, type: 3}
+  <CardDescription>k__BackingField: 'And he''s having a good time too !
+
+
+    For
+    1 turn :
+
+    HP : +2
+
+    DEF : +50'
   <BuffName>k__BackingField: CacklingOctopusBuff
   <TurnCounter>k__BackingField: 1
   <Sound>k__BackingField: {fileID: 8300000, guid: 65fdd22246bb3c142a1ac63334117a39, type: 3}

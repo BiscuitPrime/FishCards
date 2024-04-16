@@ -15,7 +15,15 @@ MonoBehaviour:
   <CardName>k__BackingField: To the fishies !
   <CardSprite>k__BackingField: {fileID: 21300000, guid: 9b2ab285cb367234dbcf0342ea5c2442, type: 3}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: a8e59840c31ed4841b006f6c8b1116ff, type: 3}
-  <CardDescription>k__BackingField: Usually a very bad conversation starter.
+  <CardDescription>k__BackingField: 'Usually a very bad conversation starter.
+
+
+    ATK
+    : 15
+
+    PIER : 20
+
+    TRACK : 20'
   <ATK>k__BackingField: 15
   <PIER>k__BackingField: 20
   <TRACK>k__BackingField: 20

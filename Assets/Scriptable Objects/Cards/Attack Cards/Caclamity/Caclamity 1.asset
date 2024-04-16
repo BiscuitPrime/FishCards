@@ -15,7 +15,15 @@ MonoBehaviour:
   <CardName>k__BackingField: Caclamity
   <CardSprite>k__BackingField: {fileID: 21300000, guid: d2e2f588d0bce004b9592d90ad9e769a, type: 3}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: a8e59840c31ed4841b006f6c8b1116ff, type: 3}
-  <CardDescription>k__BackingField: Oh, the fishanity ! It's a real caclamity !
+  <CardDescription>k__BackingField: 'Oh, the fishanity ! It''s a real caclamity !
+
+
+    ATK
+    : 4
+
+    PIER : 8
+
+    TRACK : 50'
   <ATK>k__BackingField: 4
   <PIER>k__BackingField: 8
   <TRACK>k__BackingField: 50

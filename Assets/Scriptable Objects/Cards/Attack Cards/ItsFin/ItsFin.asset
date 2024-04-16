@@ -15,7 +15,15 @@ MonoBehaviour:
   <CardName>k__BackingField: It's fin...
   <CardSprite>k__BackingField: {fileID: 21300000, guid: eda2785e87a71874c8076b302d01cd46, type: 3}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: a8e59840c31ed4841b006f6c8b1116ff, type: 3}
-  <CardDescription>k__BackingField: No really, it is...
+  <CardDescription>k__BackingField: 'No really, it is...
+
+
+    ATK : 3
+
+    PIER
+    : 10
+
+    TRACK : 40'
   <ATK>k__BackingField: 3
   <PIER>k__BackingField: 10
   <TRACK>k__BackingField: 40

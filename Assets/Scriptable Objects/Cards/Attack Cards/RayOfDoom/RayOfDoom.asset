@@ -15,7 +15,15 @@ MonoBehaviour:
   <CardName>k__BackingField: Ray of Doom
   <CardSprite>k__BackingField: {fileID: 21300000, guid: d1f29ab0ec5a17a419120f4d81a4e7fc, type: 3}
   <CardSymbol>k__BackingField: {fileID: 21300000, guid: a8e59840c31ed4841b006f6c8b1116ff, type: 3}
-  <CardDescription>k__BackingField: Split and destroy until it is done...
+  <CardDescription>k__BackingField: 'Split and destroy until it is done...
+
+
+    ATK
+    : 4
+
+    PIER : 15
+
+    TRACK : 40'
   <ATK>k__BackingField: 4
   <PIER>k__BackingField: 15
   <TRACK>k__BackingField: 40
