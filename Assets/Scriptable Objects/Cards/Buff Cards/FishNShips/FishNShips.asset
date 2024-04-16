@@ -24,6 +24,7 @@ MonoBehaviour:
     ATK : +4'
   <BuffName>k__BackingField: FishNShipsBuff
   <TurnCounter>k__BackingField: 1
+  <Sound>k__BackingField: {fileID: 8300000, guid: 65fdd22246bb3c142a1ac63334117a39, type: 3}
   <ATK>k__BackingField: 4
   <PIER>k__BackingField: 0
   <TRACK>k__BackingField: 0

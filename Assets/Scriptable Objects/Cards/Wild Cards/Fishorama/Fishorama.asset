@@ -19,3 +19,4 @@ MonoBehaviour:
 
     Immediately
     draws 2 cards from the deck and add them to the player''s hand.'
+  <Sound>k__BackingField: {fileID: 8300000, guid: faa8585e48c8a8a469fdbc74d2da4233, type: 3}

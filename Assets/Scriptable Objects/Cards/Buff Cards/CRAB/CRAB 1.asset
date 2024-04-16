@@ -30,3 +30,4 @@ MonoBehaviour:
   <DEF>k__BackingField: 0
   <AGI>k__BackingField: -20
   <Type>k__BackingField: 0
+  <Sound>k__BackingField: {fileID: 8300000, guid: 65fdd22246bb3c142a1ac63334117a39, type: 3}

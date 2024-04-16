@@ -7,8 +7,12 @@ using UnityEngine;
 /// </summary>
 public class WildCardController : CardController
 {
+    [field: Header("Wild Values")]
+    [field: SerializeField] public AudioClip Sound { get; private set; }
+
     public override void ActivateCardEffect(GameObject card)
     {
+        CardAudioManager.Instance.PlayAudioClip(Sound);
         TextVFXSpawner.Instance.RequestSpawnVFX(new Vector2(0,0), VFX_TYPE.WILD);
     }
 }

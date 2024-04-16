@@ -20,3 +20,4 @@ MonoBehaviour:
 
     Takes the top
     card from the opponent''s deck and adds it to the hand.'
+  <Sound>k__BackingField: {fileID: 8300000, guid: faa8585e48c8a8a469fdbc74d2da4233, type: 3}
