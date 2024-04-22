@@ -246,7 +246,6 @@ public class UIController : MonoBehaviour
         _audioSource.clip = _buttonClickAudioClip;
         _audioSource.Play();
     }
-
     public void OnReloadGameButtonClicked()
     {
         PlayAudioButtonClick();
@@ -302,6 +301,8 @@ public class UIController : MonoBehaviour
     public void OnResetProgressionValidationButtonClicked()
     {
         PlayAudioButtonClick();
+        PlayerPrefsHandler.ChangeIntPlayerPrefs(GameValues.NUMBER_OF_CARDS_PLAYED_PLAYERPREF, 0);
+        PlayerPrefsHandler.ChangeIntPlayerPrefs(GameValues.ENCOUNTER_COUNT_PLAYERPREF, 0);
         _confirmationWindow.SetActive(false);
     }
     public void OnCancelResetProgressionButtonClicked()

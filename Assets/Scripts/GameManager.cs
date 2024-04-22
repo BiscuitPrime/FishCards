@@ -70,6 +70,11 @@ public class GameManager : MonoBehaviour
         TurnEventsHandler.Instance.TurnEvent.AddListener(OnTurnEventReceived);
         TurnEventsHandler.Instance.EncounterEvent.AddListener(OnEncounterEventReceived);
         TurnEventsHandler.Instance.DeathEvent.AddListener(OnDeathEventReceived);
+
+        if (PlayerPrefsHandler.ObtainIntPlayerPref(GameValues.ENCOUNTER_COUNT_PLAYERPREF) == -1)
+        {
+            PlayerPrefsHandler.ChangeIntPlayerPrefs(GameValues.ENCOUNTER_COUNT_PLAYERPREF, 0);
+        }
     }
 
     private void OnDestroy()
@@ -119,7 +124,16 @@ public class GameManager : MonoBehaviour
         else
         {
             _encounterIsActive = false;
-            _encounterCount++;
+            //_encounterCount++;
+            if (PlayerPrefsHandler.ObtainIntPlayerPref(GameValues.ENCOUNTER_COUNT_PLAYERPREF) != -1)
+            {
+                PlayerPrefsHandler.ChangeIntPlayerPrefs(GameValues.ENCOUNTER_COUNT_PLAYERPREF, PlayerPrefsHandler.ObtainIntPlayerPref(GameValues.ENCOUNTER_COUNT_PLAYERPREF)+1);
+            }
+            else
+            {
+                PlayerPrefsHandler.ChangeIntPlayerPrefs(GameValues.ENCOUNTER_COUNT_PLAYERPREF,1);
+            }
+            _encounterCount = PlayerPrefsHandler.ObtainIntPlayerPref(GameValues.ENCOUNTER_COUNT_PLAYERPREF);
             UIController.Instance.EnableEncounterSuccessMenu();
         }
     }
@@ -200,7 +214,7 @@ public class GameManager : MonoBehaviour
     {
         //HERE we do :
         // select the opponent based on rating
-        OpponentData selectedOpponent = _opponentSelectorController.ObtainOpponentData(_encounterCount+1);
+        OpponentData selectedOpponent = _opponentSelectorController.ObtainOpponentData(PlayerPrefsHandler.ObtainIntPlayerPref(GameValues.ENCOUNTER_COUNT_PLAYERPREF)+1);
         Debug.Log("[GAME MANAGER] : Selected opponent : "+selectedOpponent.Name);
         //assign the opponent to the opponent prefab :
         _opponentPrefab.GetComponent<OpponentAIController>().SetOpponentData(selectedOpponent);
@@ -230,7 +244,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void TriggerStartPlay()
     {
-        if (_curActivePlayer == null) { TriggerStartTurn(); return; } //we temporize : if _curActive is null, then that means TriggerStartTurn was not yet called BUT both players were ready before it. As such, we wait a bit.
+        //if (_curActivePlayer == null) { TriggerStartPlay(); return; } //we temporize : if _curActive is null, then that means TriggerStartTurn was not yet called BUT both players were ready before it. As such, we wait a bit.
         PlayController.Instance.ResetPlay();
         PlayController.Instance.AssignPlayerAndOpponent(_curActivePlayer.gameObject,_curActivePlayer==_opponentController?_playerPrefab:_opponentPrefab);
         TurnEventsHandler.Instance.PlayEvent.Invoke(new PlayEventArg() { Holder = _curActivePlayer==_opponentController ? HOLDER_TYPE.OPPONENT:HOLDER_TYPE.PLAYER, State = PLAY_EVENT_STATE.PLAY_BEGIN});

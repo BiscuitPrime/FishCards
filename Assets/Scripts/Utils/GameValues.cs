@@ -13,4 +13,6 @@ public static class GameValues
     public static readonly int PERCENTAGE_TRACK_OVER_AGI = 30;
     public static readonly int PERCENTAGE_TRACK_OVER_HALF_AGI = 80;
 
+    public static readonly string ENCOUNTER_COUNT_PLAYERPREF = "EncounterCount";
+    public static readonly string NUMBER_OF_CARDS_PLAYED_PLAYERPREF = "NumberOfCardsPlayed";
 }
