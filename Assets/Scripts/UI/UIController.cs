@@ -27,6 +27,7 @@ public class UIController : MonoBehaviour
     #region SERIALIZED PARAMETERS
     [Header("Game UI Elements")]
     [SerializeField] private GameObject _ingameUI;
+    [SerializeField] private GameObject _escButton;
     [SerializeField] private GameObject _displayDeck;
     [SerializeField] private GameObject _cardReader;
     [SerializeField] private GameObject _returnToMainMenuScreen;
@@ -291,6 +292,7 @@ public class UIController : MonoBehaviour
     /// </summary>
     public void DisableDisplayDeck()
     {
+        _escButton.SetActive(true);
         _displayDeck.SetActive(false);
     }
     /// <summary>
@@ -298,6 +300,7 @@ public class UIController : MonoBehaviour
     /// </summary>
     public void EnableDisplayDeck()
     {
+        _escButton.SetActive(false);
         _displayDeck.SetActive(true);
     }
 
