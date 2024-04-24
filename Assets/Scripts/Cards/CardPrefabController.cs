@@ -91,6 +91,7 @@ public class CardPrefabController : CardElementController
         DeactivateCardCollider();
         UIController.Instance.DisableCardReader();
         _hand.PlayCard(this.Card);
+        PlayerPrefsHandler.ChangeIntPlayerPrefs(GameValues.NUMBER_OF_CARDS_PLAYED_PLAYERPREF, PlayerPrefsHandler.ObtainIntPlayerPref(GameValues.NUMBER_OF_CARDS_PLAYED_PLAYERPREF) + 1);
     }
 
     /// <summary>

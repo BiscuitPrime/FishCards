@@ -437,7 +437,9 @@ public class UIController : MonoBehaviour
     #region END MENU FUNCTIONS
     private void DisplayEndScore()
     {
-        //_endMenuText.text = "You successfully flirted with : "+GameManager.Instance.GetScore().ToString()+" tanks !";
+        _endMenuText.text = "Your statistics : "+'\n'+
+            "   Encounter : "+PlayerPrefsHandler.ObtainIntPlayerPref(GameValues.ENCOUNTER_COUNT_PLAYERPREF) + '\n' +
+            "   Number of cards played : "+PlayerPrefsHandler.ObtainIntPlayerPref(GameValues.NUMBER_OF_CARDS_PLAYED_PLAYERPREF)+'\n';
     }
     #endregion
 }

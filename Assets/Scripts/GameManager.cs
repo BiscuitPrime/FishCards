@@ -72,10 +72,8 @@ public class GameManager : MonoBehaviour
         TurnEventsHandler.Instance.EncounterEvent.AddListener(OnEncounterEventReceived);
         TurnEventsHandler.Instance.DeathEvent.AddListener(OnDeathEventReceived);
 
-        if (PlayerPrefsHandler.ObtainIntPlayerPref(GameValues.ENCOUNTER_COUNT_PLAYERPREF) == -1)
-        {
-            PlayerPrefsHandler.ChangeIntPlayerPrefs(GameValues.ENCOUNTER_COUNT_PLAYERPREF, 0);
-        }
+        PlayerPrefsHandler.ChangeIntPlayerPrefs(GameValues.ENCOUNTER_COUNT_PLAYERPREF, 0);
+        PlayerPrefsHandler.ChangeIntPlayerPrefs(GameValues.NUMBER_OF_CARDS_PLAYED_PLAYERPREF, 0);
     }
 
     private void OnDestroy()

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <HP>k__BackingField: 30
   <DEF>k__BackingField: 30
-  <AGI>k__BackingField: 50
+  <AGI>k__BackingField: 30
   <HPDmgTakenSound>k__BackingField: {fileID: 8300000, guid: f986316495640ab49a7dab1977cdc549, type: 3}
   <DEFDmgTakenSound>k__BackingField: {fileID: 8300000, guid: 994fdcae67e11c54695bfac3d22361fc, type: 3}
   <MissSound>k__BackingField: {fileID: 8300000, guid: 5398a3294b64979489e2f1f7c96632d7, type: 3}
