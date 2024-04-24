@@ -11499,7 +11499,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'At the beginning of every turn, you will draw 5 cards from your deck.
+  m_text: 'At the beginning of every turn, you will draw 4 cards from your deck.
 
 
 
@@ -11510,7 +11510,7 @@ MonoBehaviour:
 
 
     Once you selected
-    5 cards, the play will begin, triggering the successive activations of cards.
+    4 cards, the play will begin, triggering the successive activations of cards.
 
 
 

@@ -16,6 +16,11 @@ public class ActorValuesDisplayController : MonoBehaviour
 
     private ActorValuesController _controller;
 
+    private void Awake()
+    {
+        _controller = GetComponent<ActorValuesController>();
+    }
+
     private void OnValidate()
     {
         Assert.IsNotNull(_hpBubble);
@@ -24,8 +29,6 @@ public class ActorValuesDisplayController : MonoBehaviour
         Assert.IsNotNull(_defText);
         Assert.IsNotNull(_agiBubble);
         Assert.IsNotNull(_agiText);
-
-        _controller = GetComponent<ActorValuesController>();
     }
 
     private void Update()
