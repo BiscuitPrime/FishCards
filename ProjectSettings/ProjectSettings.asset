@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: BiscuitPrime
   productName: Project Nemo
-  defaultCursor: {fileID: 0}
+  defaultCursor: {fileID: 2800000, guid: fd25b547a5aa7ed48804f1c3c7e2a915, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_ShowUnitySplashScreen: 1

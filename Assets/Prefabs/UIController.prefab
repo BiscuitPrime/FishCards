@@ -427,13 +427,14 @@ GameObject:
   - component: {fileID: 5807597519923848618}
   - component: {fileID: 6630693831627369431}
   - component: {fileID: 2725072705422928725}
+  - component: {fileID: 1662051150800439143}
   m_Layer: 5
-  m_Name: Title
+  m_Name: FlavourText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5807597519923848618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -441,17 +442,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450333896415070662}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.27676293, w: 0.9609382}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.45551, y: 0.45551, z: 0.45551}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7664396556753575442}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 32.134}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -67}
-  m_SizeDelta: {x: 500, y: 50}
+  m_AnchoredPosition: {x: 239, y: -203}
+  m_SizeDelta: {x: 546.36, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6630693831627369431
 CanvasRenderer:
@@ -481,7 +482,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Project Nemo
+  m_text: Even more fish !
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b930dece24fadca409f602772093711e, type: 2}
   m_sharedMaterial: {fileID: 5983063828643888429, guid: b930dece24fadca409f602772093711e, type: 2}
@@ -508,8 +509,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -550,6 +551,27 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!95 &1662051150800439143
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450333896415070662}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e636809e05898264687b053ed2e73b54, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &480151493215050417
 GameObject:
   m_ObjectHideFlags: 0
