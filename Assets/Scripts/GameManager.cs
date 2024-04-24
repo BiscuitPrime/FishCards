@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour
     {
         //HERE we do :
         // select the opponent based on rating
-        OpponentData selectedOpponent = _opponentSelectorController.ObtainOpponentData(PlayerPrefsHandler.ObtainIntPlayerPref(GameValues.ENCOUNTER_COUNT_PLAYERPREF)+1);
+        OpponentData selectedOpponent = _opponentSelectorController.ObtainOpponentData(_encounterCount+1);
         Debug.Log("[GAME MANAGER] : Selected opponent : "+selectedOpponent.Name);
         //assign the opponent to the opponent prefab :
         _opponentPrefab.GetComponent<OpponentAIController>().SetOpponentData(selectedOpponent);
