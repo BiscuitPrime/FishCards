@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Play Variables")]
     [SerializeField] private ActorController _curActivePlayer;
+    private ActorController _prevActivePlayer;
 
     [Header("Game Elements")]
     [SerializeField] private int _encounterCount=0;
@@ -166,6 +167,7 @@ public class GameManager : MonoBehaviour
     /// <param name="arg"></param>
     public void OnPlayEventReceived(PlayEventArg arg)
     {
+        _prevActivePlayer = _curActivePlayer;
         if (!_encounterIsActive) { return; } //if the encounter has already concluded, we do not go any further.
         Debug.Log("[GAME MANAGER] : Play Event received with values : Holder : "+arg.Holder.ToString()+" and State : "+arg.State.ToString());
         if (arg.State==PLAY_EVENT_STATE.PLAY_END)
@@ -244,7 +246,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void TriggerStartPlay()
     {
-        //if (_curActivePlayer == null) { TriggerStartPlay(); return; } //we temporize : if _curActive is null, then that means TriggerStartTurn was not yet called BUT both players were ready before it. As such, we wait a bit.
+        if (_curActivePlayer == null) { _curActivePlayer = _prevActivePlayer == _opponentController ? _playerController : _opponentController; }
         PlayController.Instance.ResetPlay();
         PlayController.Instance.AssignPlayerAndOpponent(_curActivePlayer.gameObject,_curActivePlayer==_opponentController?_playerPrefab:_opponentPrefab);
         TurnEventsHandler.Instance.PlayEvent.Invoke(new PlayEventArg() { Holder = _curActivePlayer==_opponentController ? HOLDER_TYPE.OPPONENT:HOLDER_TYPE.PLAYER, State = PLAY_EVENT_STATE.PLAY_BEGIN});
